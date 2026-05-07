@@ -1,0 +1,61 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to S3
+        run: |
+          # Deploy day 1
+          aws s3 sync day1/ s3://${{ secrets.S3_BUCKET }}/day1/ \
+            --delete \
+            --cache-control "public, max-age=3600"
+
+          # Deploy day 2
+          if [ -d day2 ]; then
+            aws s3 sync day2/ s3://${{ secrets.S3_BUCKET }}/day2/ \
+              --delete \
+              --cache-control "public, max-age=3600"
+          fi
+
+          # Deploy day 3
+          if [ -d day3 ]; then
+            aws s3 sync day3/ s3://${{ secrets.S3_BUCKET }}/day3/ \
+              --delete \
+              --cache-control "public, max-age=3600"
+          fi
+
+          # Deploy day 4
+          if [ -d day4 ]; then
+            aws s3 sync day4/ s3://${{ secrets.S3_BUCKET }}/day4/ \
+              --delete \
+              --cache-control "public, max-age=3600"
+          fi
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} \
+            --paths "/*"
+
+      - name: Deployment complete
+        run: |
+          echo "✅ Deployment complete!"
+          echo "Site: https://aif.atla.in/day1/"
