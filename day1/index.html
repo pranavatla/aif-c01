@@ -5,67 +5,102 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AWS AIF-C01 — Day 1 Complete Study Guide</title>
 <style>
-:root{--bg:#0f1117;--bg2:#161b27;--bg3:#1e2535;--border:#2a3347;--text:#e2e8f0;--muted:#8892a4;--accent:#6366f1;--accent2:#8b5cf6;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--cyan:#06b6d4;--orange:#f97316;--pink:#ec4899;--r:12px;--font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--mono:'JetBrains Mono','Fira Code',monospace}
+:root{--bg:#f6f3ec;--bg2:#ffffff;--bg3:#f1ece3;--border:#ded6c8;--text:#1f2937;--muted:#5f6b7a;--accent:#1f6feb;--accent2:#7c3aed;--green:#15803d;--yellow:#b45309;--red:#b42318;--cyan:#0f766e;--orange:#c2410c;--pink:#be185d;--r:16px;--font:'Aptos','Segoe UI',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;--mono:'SFMono-Regular','Menlo','Consolas',monospace}
+html[data-theme="dark"]{--bg:#0f1117;--bg2:#161b27;--bg3:#1e2535;--border:#2a3347;--text:#e2e8f0;--muted:#9aa7bb;--accent:#7c8cff;--accent2:#a78bfa;--green:#4ade80;--yellow:#fbbf24;--red:#f87171;--cyan:#2dd4bf;--orange:#fb923c;--pink:#f472b6}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.75;min-height:100vh}
+body{background:
+radial-gradient(circle at top left, rgba(31,111,235,.10), transparent 30%),
+radial-gradient(circle at top right, rgba(124,58,237,.08), transparent 28%),
+linear-gradient(180deg,#fbfaf7 0%,var(--bg) 35%,#f4efe6 100%);
+color:var(--text);font-family:var(--font);font-size:16px;line-height:1.8;min-height:100vh}
+html[data-theme="dark"] body{background:
+radial-gradient(circle at top left, rgba(124,140,255,.12), transparent 28%),
+radial-gradient(circle at top right, rgba(45,212,191,.08), transparent 26%),
+linear-gradient(180deg,#0b1020 0%,var(--bg) 55%,#0b1020 100%)}
 #pbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--cyan));width:0%;z-index:9999;transition:width .1s}
-header{position:sticky;top:0;z-index:100;background:rgba(15,17,23,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;gap:14px;height:54px}
-.logo{font-weight:800;font-size:13px;letter-spacing:.04em;background:linear-gradient(135deg,var(--accent),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap}
+header{position:sticky;top:0;z-index:100;background:rgba(251,250,247,.82);backdrop-filter:blur(16px);border-bottom:1px solid rgba(222,214,200,.9);padding:0 20px;display:flex;align-items:center;gap:14px;height:60px;box-shadow:0 8px 24px rgba(31,41,55,.04)}
+html[data-theme="dark"] header{background:rgba(15,17,23,.9);border-bottom:1px solid rgba(42,51,71,.9);box-shadow:0 8px 24px rgba(0,0,0,.22)}
+.logo{font-weight:800;font-size:13px;letter-spacing:.06em;color:var(--accent);white-space:nowrap;text-transform:uppercase}
 .navlinks{display:flex;gap:5px;flex:1;overflow-x:auto;scrollbar-width:none}
 .navlinks::-webkit-scrollbar{display:none}
-.np{font-size:11.5px;padding:4px 10px;border-radius:20px;background:var(--bg3);color:var(--muted);cursor:pointer;white-space:nowrap;border:1px solid transparent;transition:all .2s;text-decoration:none}
-.np:hover{color:var(--text);border-color:var(--border)}
-.np.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.theme-toggle{border:1px solid var(--border);background:var(--bg2);color:var(--text);border-radius:999px;padding:7px 12px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;white-space:nowrap;box-shadow:0 1px 0 rgba(31,41,55,.03)}
+.theme-toggle:hover{border-color:#c6bca9;transform:translateY(-1px)}
+.focus-toggle{border:1px solid var(--border);background:var(--bg2);color:var(--text);border-radius:999px;padding:7px 12px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;white-space:nowrap;box-shadow:0 1px 0 rgba(31,41,55,.03)}
+.focus-toggle:hover{border-color:#c6bca9;transform:translateY(-1px)}
+.np{font-size:11.5px;padding:6px 11px;border-radius:999px;background:#fff;color:var(--muted);cursor:pointer;white-space:nowrap;border:1px solid var(--border);transition:all .2s;text-decoration:none;box-shadow:0 1px 0 rgba(31,41,55,.03)}
+.np:hover{color:var(--text);border-color:#c6bca9;transform:translateY(-1px)}
+.np.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:transparent;box-shadow:0 8px 20px rgba(31,111,235,.20)}
 .wrap{max-width:900px;margin:0 auto;padding:48px 22px 120px}
-.hero{text-align:center;padding:56px 0 44px;border-bottom:1px solid var(--border);margin-bottom:56px}
-.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,.14);border:1px solid rgba(99,102,241,.32);color:#a5b4fc;font-size:11px;font-weight:700;letter-spacing:.1em;padding:5px 14px;border-radius:20px;margin-bottom:18px;text-transform:uppercase}
-.hero h1{font-size:clamp(26px,5vw,46px);font-weight:800;line-height:1.15;letter-spacing:-.02em;background:linear-gradient(135deg,#e2e8f0 0%,#94a3b8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:14px}
-.hero-sub{color:var(--muted);font-size:17px;max-width:560px;margin:0 auto 28px}
-.stats{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
-.stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px 22px;text-align:center;min-width:110px}
-.stat-n{font-size:26px;font-weight:700;color:var(--accent)}
-.stat-l{font-size:11px;color:var(--muted);margin-top:2px}
+.focus-mode .wrap{max-width:780px}
+.hero{text-align:center;padding:54px 28px 44px;border:1px solid rgba(222,214,200,.9);border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(255,255,255,.72));box-shadow:0 16px 48px rgba(31,41,55,.06);margin:24px 0 56px}
+html[data-theme="dark"] .hero{background:linear-gradient(180deg,rgba(22,27,39,.92),rgba(22,27,39,.78));border-color:rgba(42,51,71,.95);box-shadow:0 16px 48px rgba(0,0,0,.28)}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(31,111,235,.10);border:1px solid rgba(31,111,235,.22);color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.12em;padding:6px 14px;border-radius:999px;margin-bottom:18px;text-transform:uppercase}
+.hero h1{font-size:clamp(28px,5vw,48px);font-weight:800;line-height:1.08;letter-spacing:-.035em;color:var(--text);margin-bottom:14px;max-width:14ch;margin-left:auto;margin-right:auto}
+.hero-sub{color:var(--muted);font-size:17px;max-width:640px;margin:0 auto 18px}
+.hero-note{display:inline-flex;align-items:center;gap:8px;background:rgba(21,128,61,.08);border:1px solid rgba(21,128,61,.18);color:#166534;font-size:12px;font-weight:700;border-radius:999px;padding:7px 14px;margin-top:4px}
+html[data-theme="dark"] .hero-note{background:rgba(21,128,61,.14);border-color:rgba(74,222,128,.22);color:#86efac}
+.resume{display:flex;justify-content:center;margin-top:16px}
+.resume a{display:inline-flex;align-items:center;gap:8px;color:var(--text);text-decoration:none;background:#fff;border:1px solid var(--border);border-radius:999px;padding:9px 14px;font-size:12px;font-weight:700;box-shadow:0 4px 14px rgba(31,41,55,.04)}
+.resume a:hover{border-color:var(--accent);transform:translateY(-1px)}
+html[data-theme="dark"] .resume a{background:rgba(15,17,23,.72);box-shadow:0 4px 14px rgba(0,0,0,.18)}
 .sec{margin-bottom:72px}
-.ph{display:flex;align-items:center;gap:12px;margin-bottom:26px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.pn{background:var(--accent);color:#fff;font-size:11px;font-weight:700;letter-spacing:.05em;padding:3px 10px;border-radius:6px;text-transform:uppercase;white-space:nowrap}
+.sec{padding:4px 0}
+.ph{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.sec:hover .ph{border-bottom-color:#c8d4ea}
+.pn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:11px;font-weight:800;letter-spacing:.08em;padding:4px 11px;border-radius:999px;text-transform:uppercase;white-space:nowrap;box-shadow:0 8px 20px rgba(31,111,235,.14)}
 .pt{font-size:clamp(18px,3vw,24px);font-weight:700;letter-spacing:-.01em}
-h3{font-size:17px;font-weight:600;margin:32px 0 14px;color:#cbd5e1}
-h4{font-size:15px;font-weight:600;margin:22px 0 10px;color:#94a3b8}
-p{color:#b0bbcc;margin-bottom:14px}
+h3{font-size:17px;font-weight:700;margin:32px 0 14px;color:#243041}
+h4{font-size:15px;font-weight:700;margin:22px 0 10px;color:#4b5563}
+p{color:#475569;margin-bottom:14px}
+html[data-theme="dark"] p, html[data-theme="dark"] li{color:#cbd5e1}
 strong{color:var(--text);font-weight:600}
-em{color:#94a3b8}
+em{color:#64748b}
 ul,ol{padding-left:22px;margin-bottom:14px}
-li{color:#b0bbcc;margin-bottom:6px;line-height:1.7}
+li{color:#475569;margin-bottom:6px;line-height:1.7}
 li strong{color:var(--text)}
-code{font-family:var(--mono);font-size:12.5px;background:var(--bg3);padding:2px 6px;border-radius:4px;color:var(--cyan)}
+code{font-family:var(--mono);font-size:12.5px;background:#eef2ff;padding:2px 6px;border-radius:5px;color:#155e75}
+html[data-theme="dark"] code{background:#20283a;color:#93c5fd}
 hr{border:none;border-top:1px solid var(--border);margin:48px 0}
-.call{border-left:3px solid;border-radius:0 8px 8px 0;padding:14px 18px;margin:18px 0;font-size:14.5px;line-height:1.7}
-.call.warn{border-color:var(--yellow);background:rgba(245,158,11,.08);color:#fcd34d}
-.call.tip{border-color:var(--cyan);background:rgba(6,182,212,.08);color:#67e8f9}
-.call.key{border-color:var(--green);background:rgba(34,197,94,.08);color:#86efac}
-.call.exam{border-color:var(--red);background:rgba(239,68,68,.08);color:#fca5a5}
-.call.purple{border-color:var(--accent2);background:rgba(139,92,246,.08);color:#c4b5fd}
+.call{border-left:3px solid;border-radius:0 12px 12px 0;padding:14px 18px;margin:18px 0;font-size:14.5px;line-height:1.7;background:#fff;box-shadow:0 4px 14px rgba(31,41,55,.04)}
+html[data-theme="dark"] .call{background:rgba(15,17,23,.72);box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.call.warn{border-color:var(--yellow);background:rgba(180,83,9,.06);color:#7c2d12}
+.call.tip{border-color:var(--cyan);background:rgba(15,118,110,.06);color:#0f766e}
+.call.key{border-color:var(--green);background:rgba(21,128,61,.06);color:#166534}
+.call.exam{border-color:var(--red);background:rgba(180,35,24,.06);color:#991b1b}
+.call.purple{border-color:var(--accent2);background:rgba(124,58,237,.06);color:#6d28d9}
 .tw{overflow-x:auto;margin:16px 0;border-radius:var(--r)}
-table{width:100%;border-collapse:collapse;font-size:14px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
-th{background:var(--bg3);color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:10px 16px;text-align:left;border-bottom:1px solid var(--border)}
-td{padding:10px 16px;border-bottom:1px solid rgba(42,51,71,.5);vertical-align:top}
+table{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:0 4px 14px rgba(31,41,55,.04)}
+html[data-theme="dark"] table{background:rgba(15,17,23,.72);box-shadow:0 4px 14px rgba(0,0,0,.18)}
+table.compact{font-size:13px}
+table.compact th, table.compact td{padding:9px 12px}
+table.compact th:first-child, table.compact td:first-child{width:42%}
+table.compact th:nth-child(2), table.compact td:nth-child(2){width:58%}
+table.wide-first th:first-child, table.wide-first td:first-child{width:54%}
+table.wide-first th:nth-child(2), table.wide-first td:nth-child(2){width:46%}
+th{background:#f4efe6;color:#6b7280;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:11px 16px;text-align:left;border-bottom:1px solid var(--border)}
+html[data-theme="dark"] th{background:#1e2535;color:#9aa7bb}
+td{padding:11px 16px;border-bottom:1px solid rgba(222,214,200,.7);vertical-align:top}
+html[data-theme="dark"] td{border-bottom:1px solid rgba(42,51,71,.7)}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(255,255,255,.015)}
-.code{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin:16px 0;font-family:var(--mono);font-size:13px;color:#94a3b8;overflow-x:auto;line-height:1.9;white-space:pre}
+tr:hover td{background:rgba(31,111,235,.03)}
+.code{background:#0f172a;border:1px solid #0f172a;border-radius:14px;padding:18px 20px;margin:16px 0;font-family:var(--mono);font-size:13px;color:#cbd5e1;overflow-x:auto;line-height:1.9;white-space:pre;box-shadow:0 12px 30px rgba(15,23,42,.12)}
+html[data-theme="dark"] .code{background:#0f172a;border:1px solid #0f172a;color:#cbd5e1;box-shadow:0 12px 30px rgba(15,23,42,.12)}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:18px 0}
 .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0}
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:20px;transition:border-color .2s,transform .15s}
-.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:20px;transition:border-color .2s,transform .15s;box-shadow:0 4px 14px rgba(31,41,55,.04)}
+.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 12px 24px rgba(31,111,235,.10)}
 .card-top{height:3px;margin:-20px -20px 16px;border-radius:var(--r) var(--r) 0 0}
 .card-icon{font-size:28px;margin-bottom:10px}
 .card-title{font-weight:700;font-size:15px;margin-bottom:8px;color:var(--text)}
 .card-body{font-size:13.5px;color:var(--muted);line-height:1.7}
-.tag{display:inline-block;font-size:11px;background:rgba(99,102,241,.13);border:1px solid rgba(99,102,241,.28);color:#a5b4fc;padding:3px 8px;border-radius:4px;margin:3px 2px}
-.quiz-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin:22px 0}
-.quiz-lbl{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--yellow);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px}
-.qi{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:border-color .2s}
-.qi:hover{border-color:var(--accent)}
+.tag{display:inline-block;font-size:11px;background:rgba(31,111,235,.10);border:1px solid rgba(31,111,235,.18);color:var(--accent);padding:3px 8px;border-radius:999px;margin:3px 2px;font-weight:600}
+.quiz-wrap{background:#fff;border:1px solid var(--border);border-radius:20px;padding:20px;margin:22px 0;box-shadow:0 4px 14px rgba(31,41,55,.04)}
+html[data-theme="dark"] .quiz-wrap{background:rgba(15,17,23,.72);box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.quiz-lbl{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--yellow);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.qi{background:#faf7f2;border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:border-color .2s,transform .15s}
+html[data-theme="dark"] .qi{background:#1a2130}
+.qi:hover{border-color:var(--accent);transform:translateY(-1px)}
 .qi:last-child{margin-bottom:0}
 .qi-q{font-size:14px;color:var(--text);font-style:italic}
 .qi-hint{font-size:11px;color:var(--muted);margin-top:4px}
@@ -81,15 +116,23 @@ tr:hover td{background:rgba(255,255,255,.015)}
 .ptitle{font-weight:700;font-size:15px;margin-bottom:6px;color:var(--text)}
 .pdesc{font-size:13.5px;color:var(--muted)}
 .mcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:18px 0}
-.mcard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:18px}
+.mcard{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:18px;box-shadow:0 4px 14px rgba(31,41,55,.04)}
+html[data-theme="dark"] .mcard{background:rgba(15,17,23,.72);box-shadow:0 4px 14px rgba(0,0,0,.18)}
 .mcard-name{font-weight:700;font-size:15px;margin-bottom:7px;color:var(--cyan)}
 .mcard-formula{font-family:var(--mono);font-size:12px;background:var(--bg3);border:1px solid var(--border);padding:7px 10px;border-radius:6px;color:var(--orange);margin-bottom:9px;overflow-x:auto;white-space:nowrap}
 .mcard-use{font-size:13px;color:var(--muted);line-height:1.65}
 .cm{display:grid;grid-template-columns:auto 1fr 1fr;gap:4px;margin:22px auto;max-width:500px;font-size:13px}
-.cmh{background:var(--bg3);color:var(--muted);padding:9px;text-align:center;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.05em}
-.cml{background:var(--bg3);color:var(--muted);padding:9px;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.05em;text-align:center;writing-mode:horizontal-tb}
-.cmv{background:var(--bg2);border:1px solid var(--border);padding:8px;border-radius:6px;text-align:center;color:var(--text)}
-#scrollBtn{position:fixed;bottom:28px;right:28px;width:44px;height:44px;background:var(--accent);border:none;border-radius:50%;cursor:pointer;color:#fff;font-size:20px;display:none;align-items:center;justify-content:center;z-index:99;transition:all .2s}
+.cmh{background:#f4efe6;color:var(--muted);padding:9px;text-align:center;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.05em}
+.cml{background:#f4efe6;color:var(--muted);padding:9px;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.05em;text-align:center;writing-mode:horizontal-tb}
+.cmv{background:#fff;border:1px solid var(--border);padding:8px;border-radius:6px;text-align:center;color:var(--text)}
+html[data-theme="dark"] .cmh, html[data-theme="dark"] .cml{background:#1e2535;color:#9aa7bb}
+html[data-theme="dark"] .cmv{background:#161b27;color:#e2e8f0}
+.focus-mode header{box-shadow:none}
+.focus-mode .navlinks,.focus-mode .theme-toggle,.focus-mode .focus-toggle{display:none}
+.focus-mode .hero{margin-top:10px}
+.focus-mode .sec{margin-bottom:56px}
+.focus-mode .call,.focus-mode .quiz-wrap,.focus-mode .card,.focus-mode .mcard{box-shadow:none}
+#scrollBtn{position:fixed;bottom:28px;right:28px;width:48px;height:48px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:50%;cursor:pointer;color:#fff;font-size:20px;display:none;align-items:center;justify-content:center;z-index:99;transition:all .2s;box-shadow:0 12px 30px rgba(31,111,235,.22)}
 #scrollBtn:hover{transform:scale(1.1);background:var(--accent2)}
 @media(max-width:768px){.wrap{padding:28px 16px 80px}.stat{min-width:90px}.hero h1{font-size:22px}}
 </style>
@@ -99,17 +142,16 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <header>
 <div class="logo">AWS AIF-C01 Day 1</div>
 <div class="navlinks" id="nav"></div>
+<button class="theme-toggle" id="themeToggle" type="button">Dark mode</button>
+<button class="focus-toggle" id="focusToggle" type="button">Focus mode</button>
 </header>
 <div class="wrap">
 <div class="hero">
 <div class="badge">🎯 ML Fundamentals + AWS Services</div>
 <h1>AWS AIF-C01 — Day 1 Complete Study Guide</h1>
-<p class="hero-sub">Master the mental models that unlock the exam. 22 topics covering ML types, pipeline stages, neural networks, SageMaker, and service selection.</p>
-<div class="stats">
-<div class="stat"><div class="stat-n">22</div><div class="stat-l">Topics</div></div>
-<div class="stat"><div class="stat-n">40+</div><div class="stat-l">Services</div></div>
-<div class="stat"><div class="stat-n">50</div><div class="stat-l">Cheat Sheet</div></div>
-</div>
+<p class="hero-sub">A clear, practical walkthrough of the ML ideas and AWS services that show up again and again on AIF-C01. Built for quick review, not for reading like a wall of notes.</p>
+<div class="hero-note">Best used from start to finish, then Topic 19 for service mapping and Topic 21 for final revision.</div>
+<div class="resume"><a href="#t1">Resume at Topic 1</a></div>
 </div>
 
 <!-- Topic 1 -->
@@ -321,7 +363,7 @@ How will it be USED?           → Real-time / Batch / Async inference</div>
 
 <h3>Stage 6 — Deployment</h3>
 <p>Put the model into production so users / apps can use it.</p>
-<div class="tw"><table><tr><th>Type</th><th>When to use</th></tr><tr><td><strong>Real-time inference</strong></td><td>Need an answer in <1 second (chatbot, fraud check)</td></tr><tr><td><strong>Batch inference</strong></td><td>Score millions of records overnight (no rush)</td></tr><tr><td><strong>Async inference</strong></td><td>Large input, takes minutes to process (video analysis)</td></tr><tr><td><strong>Edge deployment</strong></td><td>Model runs on the device itself (phone, IoT sensor)</td></tr></table></div>
+<div class="tw"><table><tr><th>Type</th><th>When to use</th></tr><tr><td><strong>Real-time inference</strong></td><td>Need an answer in &lt;1 second (chatbot, fraud check)</td></tr><tr><td><strong>Batch inference</strong></td><td>Score millions of records overnight (no rush)</td></tr><tr><td><strong>Async inference</strong></td><td>Large input, takes minutes to process (video analysis)</td></tr><tr><td><strong>Edge deployment</strong></td><td>Model runs on the device itself (phone, IoT sensor)</td></tr></table></div>
 
 <h3>Stage 7 — Monitoring</h3>
 <p>After deployment, watch for problems:</p>
@@ -402,7 +444,7 @@ How will it be USED?           → Real-time / Batch / Async inference</div>
 <div class="tw"><table><tr><th>Factor</th><th>Inference</th></tr><tr><td>Compute</td><td>Lower (but scales with traffic)</td></tr><tr><td>Time</td><td>Should be fast</td></tr><tr><td>Cost</td><td>Depends on volume</td></tr><tr><td>Data</td><td>One input at a time (or a batch)</td></tr><tr><td>Output</td><td>A prediction</td></tr><tr><td>Frequency</td><td>Continuous / on-demand</td></tr></table></div>
 
 <h3>7.3 Inference Modes (Critical for AWS exam)</h3>
-<div class="tw"><table><tr><th>Need</th><th>AWS option</th></tr><tr><td>Immediate (<1s) response</td><td><strong>Real-time inference</strong> (SageMaker Real-time Endpoint)</td></tr><tr><td>Score a huge dataset offline</td><td><strong>Batch Transform</strong></td></tr><tr><td>Large payloads / long processing, async OK</td><td><strong>Async Inference</strong></td></tr><tr><td>Sporadic, unpredictable traffic</td><td><strong>Serverless inference</strong></td></tr></table></div>
+<div class="tw"><table><tr><th>Need</th><th>AWS option</th></tr><tr><td>Immediate (&lt;1s) response</td><td><strong>Real-time inference</strong> (SageMaker Real-time Endpoint)</td></tr><tr><td>Score a huge dataset offline</td><td><strong>Batch Transform</strong></td></tr><tr><td>Large payloads / long processing, async OK</td><td><strong>Async Inference</strong></td></tr><tr><td>Sporadic, unpredictable traffic</td><td><strong>Serverless inference</strong></td></tr></table></div>
 <p>This mapping is on the exam in many forms. Memorize it.</p>
 </div>
 
@@ -544,7 +586,7 @@ How will it be USED?           → Real-time / Batch / Async inference</div>
 <ul>
 <li><strong>1.0</strong> = perfect classifier</li>
 <li><strong>0.5</strong> = random guessing</li>
-<li><strong><0.5</strong> = worse than random (and you should flip predictions)</li>
+<li><strong>&lt;0.5</strong> = worse than random (and you should flip predictions)</li>
 </ul>
 <p><strong>Use when:</strong></p>
 <ul>
@@ -773,12 +815,12 @@ Repeat thousands of times.</div>
 <!-- Topic 16 -->
 <div class="sec" id="t16">
 <div class="ph"><div class="pn">Topic 16</div><div class="pt">SageMaker Deployment Types (memorize the table)</div></div>
-<div class="tw"><table><tr><th>Deployment</th><th>When</th><th>Examples</th></tr><tr><td><strong>Real-time Endpoint</strong></td><td>Need an answer in <1 sec</td><td>Fraud check at payment, chatbot, product recs on a website</td></tr><tr><td><strong>Batch Transform</strong></td><td>Score huge dataset offline, no rush</td><td>Score all customers overnight, monthly churn batch</td></tr><tr><td><strong>Async Inference</strong></td><td>Large payload OR long processing, async OK</td><td>Video analysis, large document processing, 1GB inputs</td></tr><tr><td><strong>Serverless Inference</strong></td><td>Sporadic / unpredictable traffic, want to skip server management</td><td>Internal tool used a few times a day</td></tr></table></div>
+<div class="tw"><table><tr><th>Deployment</th><th>When</th><th>Examples</th></tr><tr><td><strong>Real-time Endpoint</strong></td><td>Need an answer in &lt;1 sec</td><td>Fraud check at payment, chatbot, product recs on a website</td></tr><tr><td><strong>Batch Transform</strong></td><td>Score huge dataset offline, no rush</td><td>Score all customers overnight, monthly churn batch</td></tr><tr><td><strong>Async Inference</strong></td><td>Large payload OR long processing, async OK</td><td>Video analysis, large document processing, 1GB inputs</td></tr><tr><td><strong>Serverless Inference</strong></td><td>Sporadic / unpredictable traffic, want to skip server management</td><td>Internal tool used a few times a day</td></tr></table></div>
 <p><strong>Exam pattern:</strong></p>
 <div class="call tip">
 <em>"Process millions of records every night, no real-time requirement."</em> → Batch Transform.<br>
 <em>"Large image (500MB), processing takes 5 minutes."</em> → Async Inference.<br>
-<em>"Detect fraud during checkout in <100ms."</em> → Real-time Endpoint.
+<em>"Detect fraud during checkout in &lt;100ms."</em> → Real-time Endpoint.
 </div>
 </div>
 
@@ -874,7 +916,7 @@ Repeat thousands of times.</div>
 <h3>18.4 Amazon Fraud Detector — fraud detection</h3>
 <ul>
 <li>Online payment fraud, fake account detection, risk scoring</li>
-<li>⚠️ <strong>As of November 7, 2025, no longer accepting new customers.</strong> Existing customers continue to use it. Know the <em>concept</em> and what it does — exam may still mention it. New fraud-detection use cases are typically built on <strong>SageMaker</strong> instead.</li>
+<li>⚠️ <strong>Check current AWS product status before relying on it in production.</strong> Existing customers may still use it, and the exam may still mention the concept. New fraud-detection use cases are often built on <strong>SageMaker</strong> instead.</li>
 <li><strong>🔑 Clue:</strong> <em>fraud detection</em></li>
 </ul>
 
@@ -955,7 +997,7 @@ Repeat thousands of times.</div>
 <!-- Topic 21 -->
 <div class="sec" id="t21">
 <div class="ph"><div class="pn">Topic 21</div><div class="pt">One-Line Memory Sheet (final revision)</div></div>
-<div class="tw"><table><tr><th>Concept</th><th>Remember this</th></tr><tr><td>Supervised</td><td>Labeled data</td></tr><tr><td>Unsupervised</td><td>No labels, find patterns</td></tr><tr><td>Reinforcement</td><td>Agent learns by reward</td></tr><tr><td>Semi-supervised</td><td>Few labels + many unlabeled</td></tr><tr><td>Classification</td><td>Predict category</td></tr><tr><td>Regression</td><td>Predict number</td></tr><tr><td>Clustering</td><td>Group similar things</td></tr><tr><td>Anomaly detection</td><td>Find unusual behavior</td></tr><tr><td>Recommendation</td><td>Suggest relevant items</td></tr><tr><td>Overfitting</td><td>Memorized training data, fails on new</td></tr><tr><td>Underfitting</td><td>Too simple to learn</td></tr><tr><td>Bias</td><td>Too simple assumptions (underfit)</td></tr><tr><td>Variance</td><td>Too sensitive to training data (overfit)</td></tr><tr><td>Precision</td><td>Avoid false positives</td></tr><tr><td>Recall</td><td>Avoid false negatives</td></tr><tr><td>F1</td><td>Balance precision and recall</td></tr><tr><td>AUC-ROC</td><td>Class separation ability</td></tr><tr><td>CNN</td><td>Images</td></tr><tr><td>RNN</td><td>Sequences</td></tr><tr><td>Transformer</td><td>Language / GenAI / LLMs</td></tr><tr><td>Parameter</td><td>Model learns</td></tr><tr><td>Hyperparameter</td><td>You tune</td></tr><tr><td>Training</td><td>Model learns</td></tr><tr><td>Inference</td><td>Model predicts</td></tr><tr><td>Real-time inference</td><td><1 second response</td></tr><tr><td>Batch Transform</td><td>Offline, large dataset</td></tr><tr><td>Async Inference</td><td>Large payload, long processing</td></tr><tr><td>Ground Truth</td><td>Label data</td></tr><tr><td>Autopilot</td><td>AutoML</td></tr><tr><td>Clarify</td><td>Bias / explainability</td></tr><tr><td>Model Monitor</td><td>Drift monitoring</td></tr><tr><td>Feature Store</td><td>Reuse features across teams</td></tr><tr><td>JumpStart</td><td>Pretrained models, foundation models</td></tr><tr><td>Pipelines</td><td>ML workflow automation</td></tr><tr><td>Bedrock</td><td>Foundation models as a service</td></tr><tr><td>Rekognition</td><td>Image / video</td></tr><tr><td>Textract</td><td>Document / OCR</td></tr><tr><td>Comprehend</td><td>NLP analysis</td></tr><tr><td>Transcribe</td><td>Speech → Text</td></tr><tr><td>Polly</td><td>Text → Speech</td></tr><tr><td>Translate</td><td>Language translation</td></tr><tr><td>Lex</td><td>Chatbots</td></tr><tr><td>Forecast</td><td>Time-series forecasting</td></tr><tr><td>Personalize</td><td>Recommendations</td></tr><tr><td>Kendra</td><td>Enterprise search</td></tr><tr><td>Lookout for Metrics</td><td>Anomalies in KPIs</td></tr></table></div>
+<div class="tw"><table><tr><th>Concept</th><th>Remember this</th></tr><tr><td>Supervised</td><td>Labeled data</td></tr><tr><td>Unsupervised</td><td>No labels, find patterns</td></tr><tr><td>Reinforcement</td><td>Agent learns by reward</td></tr><tr><td>Semi-supervised</td><td>Few labels + many unlabeled</td></tr><tr><td>Classification</td><td>Predict category</td></tr><tr><td>Regression</td><td>Predict number</td></tr><tr><td>Clustering</td><td>Group similar things</td></tr><tr><td>Anomaly detection</td><td>Find unusual behavior</td></tr><tr><td>Recommendation</td><td>Suggest relevant items</td></tr><tr><td>Overfitting</td><td>Memorized training data, fails on new</td></tr><tr><td>Underfitting</td><td>Too simple to learn</td></tr><tr><td>Bias</td><td>Too simple assumptions (underfit)</td></tr><tr><td>Variance</td><td>Too sensitive to training data (overfit)</td></tr><tr><td>Precision</td><td>Avoid false positives</td></tr><tr><td>Recall</td><td>Avoid false negatives</td></tr><tr><td>F1</td><td>Balance precision and recall</td></tr><tr><td>AUC-ROC</td><td>Class separation ability</td></tr><tr><td>CNN</td><td>Images</td></tr><tr><td>RNN</td><td>Sequences</td></tr><tr><td>Transformer</td><td>Language / GenAI / LLMs</td></tr><tr><td>Parameter</td><td>Model learns</td></tr><tr><td>Hyperparameter</td><td>You tune</td></tr><tr><td>Training</td><td>Model learns</td></tr><tr><td>Inference</td><td>Model predicts</td></tr><tr><td>Real-time inference</td><td>&lt;1 second response</td></tr><tr><td>Batch Transform</td><td>Offline, large dataset</td></tr><tr><td>Async Inference</td><td>Large payload, long processing</td></tr><tr><td>Ground Truth</td><td>Label data</td></tr><tr><td>Autopilot</td><td>AutoML</td></tr><tr><td>Clarify</td><td>Bias / explainability</td></tr><tr><td>Model Monitor</td><td>Drift monitoring</td></tr><tr><td>Feature Store</td><td>Reuse features across teams</td></tr><tr><td>JumpStart</td><td>Pretrained models, foundation models</td></tr><tr><td>Pipelines</td><td>ML workflow automation</td></tr><tr><td>Bedrock</td><td>Foundation models as a service</td></tr><tr><td>Rekognition</td><td>Image / video</td></tr><tr><td>Textract</td><td>Document / OCR</td></tr><tr><td>Comprehend</td><td>NLP analysis</td></tr><tr><td>Transcribe</td><td>Speech → Text</td></tr><tr><td>Polly</td><td>Text → Speech</td></tr><tr><td>Translate</td><td>Language translation</td></tr><tr><td>Lex</td><td>Chatbots</td></tr><tr><td>Forecast</td><td>Time-series forecasting</td></tr><tr><td>Personalize</td><td>Recommendations</td></tr><tr><td>Kendra</td><td>Enterprise search</td></tr><tr><td>Lookout for Metrics</td><td>Anomalies in KPIs</td></tr></table></div>
 </div>
 
 <!-- Topic 22 -->
@@ -1017,6 +1059,17 @@ const sections = document.querySelectorAll('.sec');
 const navlinks = document.getElementById('nav');
 const pbar = document.getElementById('pbar');
 const scrollBtn = document.getElementById('scrollBtn');
+const themeToggle = document.getElementById('themeToggle');
+const focusToggle = document.getElementById('focusToggle');
+const storedTheme = localStorage.getItem('day1-theme');
+const storedFocus = localStorage.getItem('day1-focus');
+const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
+document.documentElement.dataset.theme = initialTheme;
+themeToggle.textContent = initialTheme === 'dark' ? 'Light mode' : 'Dark mode';
+const initialFocus = storedFocus === 'on';
+document.body.classList.toggle('focus-mode', initialFocus);
+focusToggle.textContent = initialFocus ? 'Exit focus' : 'Focus mode';
 
 sections.forEach(sec => {
   const id = sec.id;
@@ -1041,7 +1094,7 @@ function updateNav(){
   });
   document.querySelectorAll('.np').forEach(np => {
     np.classList.remove('active');
-    if(np.href.includes(active)) np.classList.add('active');
+    if(np.getAttribute('href') === '#' + active) np.classList.add('active');
   });
 }
 
@@ -1059,6 +1112,20 @@ window.addEventListener('scroll', () => {
 
 document.querySelectorAll('.qi').forEach(q => {
   q.addEventListener('click', () => q.classList.toggle('open'));
+});
+
+themeToggle.addEventListener('click', () => {
+  const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = nextTheme;
+  localStorage.setItem('day1-theme', nextTheme);
+  themeToggle.textContent = nextTheme === 'dark' ? 'Light mode' : 'Dark mode';
+});
+
+focusToggle.addEventListener('click', () => {
+  const nextFocus = !document.body.classList.contains('focus-mode');
+  document.body.classList.toggle('focus-mode', nextFocus);
+  localStorage.setItem('day1-focus', nextFocus ? 'on' : 'off');
+  focusToggle.textContent = nextFocus ? 'Exit focus' : 'Focus mode';
 });
 
 updateNav();
