@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWS AIF-C01 — Day 1 Complete Study Guide</title>
+<style>
+:root{--bg:#0f1117;--bg2:#161b27;--bg3:#1e2535;--border:#2a3347;--text:#e2e8f0;--muted:#8892a4;--accent:#6366f1;--accent2:#8b5cf6;--green:#22c55e;--yellow:#f59e0b;--red:#ef4444;--cyan:#06b6d4;--orange:#f97316;--pink:#ec4899;--r:12px;--font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--mono:'JetBrains Mono','Fira Code',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.75;min-height:100vh}
+#pbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--cyan));width:0%;z-index:9999;transition:width .1s}
+header{position:sticky;top:0;z-index:100;background:rgba(15,17,23,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;gap:14px;height:54px}
+.logo{font-weight:800;font-size:13px;letter-spacing:.04em;background:linear-gradient(135deg,var(--accent),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap}
+.navlinks{display:flex;gap:5px;flex:1;overflow-x:auto;scrollbar-width:none}
+.navlinks::-webkit-scrollbar{display:none}
+.np{font-size:11.5px;padding:4px 10px;border-radius:20px;background:var(--bg3);color:var(--muted);cursor:pointer;white-space:nowrap;border:1px solid transparent;transition:all .2s;text-decoration:none}
+.np:hover{color:var(--text);border-color:var(--border)}
+.np.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.wrap{max-width:900px;margin:0 auto;padding:48px 22px 120px}
+/* Hero */
+.hero{text-align:center;padding:56px 0 44px;border-bottom:1px solid var(--border);margin-bottom:56px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,.14);border:1px solid rgba(99,102,241,.32);color:#a5b4fc;font-size:11px;font-weight:700;letter-spacing:.1em;padding:5px 14px;border-radius:20px;margin-bottom:18px;text-transform:uppercase}
+.hero h1{font-size:clamp(26px,5vw,46px);font-weight:800;line-height:1.15;letter-spacing:-.02em;background:linear-gradient(135deg,#e2e8f0 0%,#94a3b8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:14px}
+.hero-sub{color:var(--muted);font-size:17px;max-width:560px;margin:0 auto 28px}
+.stats{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px 22px;text-align:center;min-width:110px}
+.stat-n{font-size:26px;font-weight:700;color:var(--accent)}
+.stat-l{font-size:11px;color:var(--muted);margin-top:2px}
+/* Section */
+.sec{margin-bottom:72px}
+.ph{display:flex;align-items:center;gap:12px;margin-bottom:26px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.pn{background:var(--accent);color:#fff;font-size:11px;font-weight:700;letter-spacing:.05em;padding:3px 10px;border-radius:6px;text-transform:uppercase;white-space:nowrap}
+.pt{font-size:clamp(18px,3vw,24px);font-weight:700;letter-spacing:-.01em}
+h3{font-size:17px;font-weight:600;margin:32px 0 14px;color:#cbd5e1}
+h4{font-size:15px;font-weight:600;margin:22px 0 10px;color:#94a3b8}
+p{color:#b0bbcc;margin-bottom:14px}
+strong{color:var(--text);font-weight:600}
+em{color:#94a3b8}
+ul,ol{padding-left:22px;margin-bottom:14px}
+li{color:#b0bbcc;margin-bottom:6px;line-height:1.7}
+li strong{color:var(--text)}
+code{font-family:var(--mono);font-size:12.5px;background:var(--bg3);padding:2px 6px;border-radius:4px;color:var(--cyan)}
+hr{border:none;border-top:1px solid var(--border);margin:48px 0}
+/* Callouts */
+.call{border-left:3px solid;border-radius:0 8px 8px 0;padding:14px 18px;margin:18px 0;font-size:14.5px;line-height:1.7}
+.call.warn{border-color:var(--yellow);background:rgba(245,158,11,.08);color:#fcd34d}
+.call.tip{border-color:var(--cyan);background:rgba(6,182,212,.08);color:#67e8f9}
+.call.key{border-color:var(--green);background:rgba(34,197,94,.08);color:#86efac}
+.call.exam{border-color:var(--red);background:rgba(239,68,68,.08);color:#fca5a5}
+.call.purple{border-color:var(--accent2);background:rgba(139,92,246,.08);color:#c4b5fd}
+/* Tables */
+.tw{overflow-x:auto;margin:16px 0;border-radius:var(--r)}
+table{width:100%;border-collapse:collapse;font-size:14px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+th{background:var(--bg3);color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:10px 16px;text-align:left;border-bottom:1px solid var(--border)}
+td{padding:10px 16px;border-bottom:1px solid rgba(42,51,71,.5);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.015)}
+/* Code blocks */
+.code{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin:16px 0;font-family:var(--mono);font-size:13px;color:#94a3b8;overflow-x:auto;line-height:1.9;white-space:pre}
+/* Cards */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:18px 0}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:20px;transition:border-color .2s,transform .15s}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card-top{height:3px;margin:-20px -20px 16px;border-radius:var(--r) var(--r) 0 0}
+.card-icon{font-size:28px;margin-bottom:10px}
+.card-title{font-weight:700;font-size:15px;margin-bottom:8px;color:var(--text)}
+.card-body{font-size:13.5px;color:var(--muted);line-height:1.7}
+.tag{display:inline-block;font-size:11px;background:rgba(99,102,241,.13);border:1px solid rgba(99,102,241,.28);color:#a5b4fc;padding:3px 8px;border-radius:4px;margin:3px 2px}
+/* Quiz */
+.quiz-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin:22px 0}
+.quiz-lbl{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--yellow);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.qi{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:border-color .2s}
+.qi:hover{border-color:var(--accent)}
+.qi:last-child{margin-bottom:0}
+.qi-q{font-size:14px;color:var(--text);font-style:italic}
+.qi-hint{font-size:11px;color:var(--muted);margin-top:4px}
+.qi-a{font-size:13.5px;color:var(--green);margin-top:10px;display:none;padding-top:10px;border-top:1px solid var(--border)}
+.qi.open .qi-a{display:block}
+/* Pipeline */
+.pipe{display:flex;flex-direction:column}
+.pstage{display:flex;gap:0;align-items:stretch}
+.pnum{width:44px;display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.pcircle{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;flex-shrink:0;z-index:1}
+.pline{width:2px;flex:1;background:var(--border);margin:0 auto;min-height:20px}
+.pstage:last-child .pline{display:none}
+.pcont{flex:1;padding:0 0 28px 16px}
+.ptitle{font-weight:700;font-size:15px;margin-bottom:6px;color:var(--text)}
+.pdesc{font-size:13.5px;color:var(--muted)}
+/* Metric cards */
+.mcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:18px 0}
+.mcard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:18px}
+.mcard-name{font-weight:700;font-size:15px;margin-bottom:7px;color:var(--cyan)}
+.mcard-formula{font-family:var(--mono);font-size:12px;background:var(--bg3);border:1px solid var(--border);padding:7px 10px;border-radius:6px;color:var(--orange);margin-bottom:9px;overflow-x:auto;white-space:nowrap}
+.mcard-use{font-size:13px;color:var(--muted);line-height:1.65}
+/* Confusion matrix */
+.cm{display:grid;grid-template-columns:auto 1fr 1fr;gap:4px;margin:22px auto;max-width:500px;font-size:13px}
+.cmh{background:var(--bg3);color:var(--muted);padding:9px;text-align:center;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.05em}
+.cml{background:var(--bg3);color:var(--muted);padding:9px;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.05em;text-align:center;writing-mode:horizontal-tb}
+.tp,.tn{background:rgba(34,197,94,.14);border:1px solid rgba(34,197,94,.28);color:var(--green);padding:16px 8px;text-align:center;border-radius:8px;font-weight:600;font-size:13px}
+.fp,.fn{background:rgba(239,68,68,.11);border:1px solid rgba(239,68,68,.28);color:var(--red);padding:16px 8px;text-align:center;border-radius:8px;font-weight:600;font-size:13px}
+/* Trap cards */
+.traps{display:flex;flex-direction:column;gap:14px;margin:20px 0}
+.tc{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:0 var(--r) var(--r) 0;padding:16px 20px}
+.tn2{font-size:11px;font-weight:700;color:var(--red);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.tt{font-weight:700;font-size:15px;margin-bottom:6px}
+.tb{font-size:13.5px;color:var(--muted)}
+/* Cheat sheet */
+.cheat{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin:16px 0}
+.ci{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:13px}
+.ck{color:var(--muted)}
+.cv{color:var(--text);font-weight:600;text-align:right}
+/* Study plan */
+.ssteps{display:flex;flex-direction:column;gap:14px;margin:20px 0}
+.sstep{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;display:flex;align-items:flex-start;gap:14px}
+.snum{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;flex-shrink:0}
+.stitle{font-weight:600;font-size:14px;margin-bottom:4px}
+.stime{display:inline-block;font-size:11px;background:rgba(245,158,11,.14);border:1px solid rgba(245,158,11,.28);color:var(--yellow);padding:2px 8px;border-radius:20px;margin-left:8px}
+.sdesc{font-size:13px;color:var(--muted);margin-top:4px}
+/* Self-test */
+.titem{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:10px;cursor:pointer;transition:border-color .2s}
+.titem:hover{border-color:var(--accent)}
+.tq{font-size:14px;color:var(--text);display:flex;gap:10px}
+.tqn{color:var(--accent);font-weight:700;font-size:14px;min-width:26px}
+.ta{display:none;font-size:13.5px;color:var(--green);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);padding-left:36px}
+.titem.open .ta{display:block}
+.thint{font-size:11px;color:var(--muted);margin-top:4px;padding-left:36px}
+/* Concept box */
+.cbox{background:linear-gradient(135deg,rgba(99,102,241,.1),rgba(139,92,246,.1));border:1px solid rgba(99,102,241,.25);border-radius:var(--r);padding:22px;margin:18px 0}
+.cbox-label{font-size:11px;font-weight:700;letter-spacing:.1em;color:#a5b4fc;text-transform:uppercase;margin-bottom:10px}
+/* Ladder */
+.ladder{display:flex;flex-direction:column;gap:0;margin:16px 0}
+.lrow{display:flex;align-items:center;gap:12px;font-size:14px}
+.lq{background:rgba(99,102,241,.16);border:1px solid rgba(99,102,241,.3);color:#c7d2fe;padding:10px 16px;border-radius:8px;font-weight:600;flex:1;max-width:320px}
+.la{color:var(--cyan);font-size:13px;flex:1}
+.larrow{color:var(--muted);font-size:20px;padding:4px 0;text-align:center;width:24px}
+/* Service cards */
+.scards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:20px 0}
+.sc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px;transition:border-color .2s,transform .15s}
+.sc:hover{border-color:var(--accent);transform:translateY(-2px)}
+.sc-name{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.sc-desc{font-size:13px;color:var(--muted);line-height:1.65}
+.sc-clue{margin-top:8px;font-size:11px;color:var(--green);font-style:italic}
+/* Back to top */
+#btt{position:fixed;bottom:72px;right:24px;width:42px;height:42px;border-radius:50%;background:var(--accent);color:#fff;border:none;font-size:17px;cursor:pointer;opacity:0;transition:opacity .3s;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(99,102,241,.35)}
+#btt.show{opacity:1}
+/* Timer */
+#tbar{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);padding:8px 20px;display:flex;align-items:center;gap:14px;font-size:13px;z-index:50}
+#tdis{font-family:var(--mono);color:var(--accent);font-weight:600;font-size:15px;min-width:58px}
+.tbtn{padding:4px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--muted);cursor:pointer;font-size:12px;transition:all .2s}
+.tbtn:hover{color:var(--text);border-color:var(--accent)}
+#tnote{color:var(--muted);font-size:12px;margin-left:auto}
+@media(max-width:640px){.grid2,.grid3,.mcards,.scards{grid-template-columns:1fr}.lq{max-width:none}.la{display:none}}
+</style>
+</head>
+<body>
+<div id="pbar"></div>
+<header>
+  <div class="logo">☁️ AIF-C01 · Day 1</div>
+  <nav class="navlinks">
+    <a class="np" href="#p1">Big Picture</a>
+    <a class="np" href="#p2">ML Types</a>
+    <a class="np" href="#p3">Problem Types</a>
+    <a class="np" href="#p4">ML Pipeline</a>
+    <a class="np" href="#p5">Overfitting</a>
+    <a class="np" href="#p6">Bias/Variance</a>
+    <a class="np" href="#p7">Metrics</a>
+    <a class="np" href="#p8">Neural Nets</a>
+    <a class="np" href="#p9">DL Types</a>
+    <a class="np" href="#p10">Training Data</a>
+    <a class="np" href="#p11">Hyper vs Params</a>
+    <a class="np" href="#p12">Inference</a>
+    <a class="np" href="#p13">MLOps</a>
+    <a class="np" href="#p14">SageMaker</a>
+    <a class="np" href="#p17">AI Services</a>
+    <a class="np" href="#p19">Which Service?</a>
+    <a class="np" href="#p20">Traps</a>
+    <a class="np" href="#p21">Cheat Sheet</a>
+    <a class="np" href="#p22">Study Plan</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">🎯 AWS AI Practitioner · AIF-C01</div>
+  <h1>Day 1 — Complete Study Guide</h1>
+  <p class="hero-sub">Everything you need to pass the exam, taught from scratch. This is your only study source for Day 1.</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">22</div><div class="stat-l">Parts</div></div>
+    <div class="stat"><div class="stat-n">4</div><div class="stat-l">ML Types</div></div>
+    <div class="stat"><div class="stat-n">25+</div><div class="stat-l">AWS Services</div></div>
+    <div class="stat"><div class="stat-n">10</div><div class="stat-l">Exam Traps</div></div>
+    <div class="stat"><div class="stat-n">10</div><div class="stat-l">Self-Test Q&A</div></div>
+  </div>
+</div>
+
+<!-- PART 1 -->
+<section class="sec" id="p1">
+  <div class="ph"><span class="pn">Part 1</span><h2 class="pt">The Big Picture — Read This First</h2></div>
+
+  <p>Before you memorize a single AWS service name, plant this mental model in your head. It is the skeleton on which everything else hangs.</p>
+  <p>Every single AWS AIF-C01 exam question — without exception — is testing one or more of these four layers:</p>
+
+  <div class="cbox">
+    <div class="cbox-label">🧠 The 4-Layer Decision Ladder</div>
+    <div class="ladder">
+      <div class="lrow"><div class="lq">Real-world problem</div><div class="la"></div></div>
+      <div class="larrow" style="padding-left:16px">↓</div>
+      <div class="lrow"><div class="lq">What <strong>KIND of ML</strong> is this?</div><div class="la">→ Supervised / Unsupervised / Reinforcement / Semi-supervised</div></div>
+      <div class="larrow" style="padding-left:16px">↓</div>
+      <div class="lrow"><div class="lq">What <strong>OUTPUT</strong> do I need?</div><div class="la">→ Classification / Regression / Clustering / Anomaly / Recommendation</div></div>
+      <div class="larrow" style="padding-left:16px">↓</div>
+      <div class="lrow"><div class="lq">What <strong>AWS SERVICE</strong> fits?</div><div class="la">→ SageMaker (custom) OR Pre-built AI service (Rekognition, Comprehend…)</div></div>
+      <div class="larrow" style="padding-left:16px">↓</div>
+      <div class="lrow"><div class="lq">How will it be <strong>USED?</strong></div><div class="la">→ Real-time / Batch / Async inference</div></div>
+    </div>
+  </div>
+
+  <p>When you read an exam question, pause and ask: <em>"Which layer is this testing?"</em> Then walk down the ladder. That is the whole game.</p>
+</section><hr>
+
+<!-- PART 2 -->
+<section class="sec" id="p2">
+  <div class="ph"><span class="pn">Part 2</span><h2 class="pt">Types of Machine Learning</h2></div>
+
+  <p>The "type" of ML answers one question: <strong>What kind of data did the model learn from?</strong> There are four types. Learn the intuition for each, not just the label.</p>
+
+  <h3>2.1 Supervised Learning</h3>
+  <p><strong>The intuition:</strong> Imagine teaching a child what a cat is by showing them 1,000 photos <em>labeled</em> "cat" and 1,000 photos <em>labeled</em> "not cat." The labels are the supervision. The child (model) learns to map photo → label.</p>
+  <p><strong>How it works mechanically:</strong></p>
+  <ul>
+    <li>Input data has a known correct answer called a <strong>label</strong></li>
+    <li>The model learns the mapping <code>input → output</code></li>
+    <li>After training, give it a new unseen input and it predicts the output</li>
+  </ul>
+  <p><strong>Two flavors of supervised learning:</strong></p>
+  <div class="tw"><table>
+    <thead><tr><th>Flavor</th><th>Output type</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Classification</strong></td><td>A category (discrete)</td><td>Spam or not spam</td></tr>
+      <tr><td><strong>Regression</strong></td><td>A number (continuous)</td><td>Predicted house price: $427,500</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Real-world examples:</strong></p>
+  <ul>
+    <li><strong>Loan approval:</strong> features (age, salary, credit score) → label (approved / rejected)</li>
+    <li><strong>Tumor diagnosis:</strong> image → label (malignant / benign)</li>
+    <li><strong>Demand forecast:</strong> historical sales → label (next week's sales number)</li>
+  </ul>
+  <div class="call key">🔑 <strong>Exam clue words:</strong> "labeled data", "historical data with known outcomes", "predict category", "predict value", "training examples include the answer"</div>
+
+  <h3>2.2 Unsupervised Learning</h3>
+  <p><strong>The intuition:</strong> Same child, but now you dump a pile of photos in front of them <em>with no labels</em> and say: "Sort these into groups however you want." The child might separate by color, by animal type, by background. They find structure that was already hidden in the data — without anyone telling them what's correct.</p>
+  <p><strong>How it works mechanically:</strong></p>
+  <ul>
+    <li>Input data has <strong>no labels</strong> at all</li>
+    <li>The model finds hidden structure: clusters, patterns, outliers</li>
+    <li>There's no "right answer" to compare against — the model discovers structure on its own</li>
+  </ul>
+  <p><strong>Real-world examples:</strong></p>
+  <ul>
+    <li><strong>Customer segmentation:</strong> group 10 million customers into "buying personas" you never defined upfront</li>
+    <li><strong>Topic discovery:</strong> find recurring themes in a million news articles</li>
+    <li><strong>Anomaly detection:</strong> find the 0.01% of credit card transactions that "look weird" compared to everything else</li>
+  </ul>
+  <div class="call key">🔑 <strong>Exam clue words:</strong> "unlabeled data", "discover patterns", "group similar items", "segment customers", "no predefined categories"</div>
+
+  <h3>2.3 Reinforcement Learning (RL)</h3>
+  <p><strong>The intuition:</strong> Think of training a dog. The dog tries something → you give a treat (reward) or say "no" (penalty). Over many trials, the dog learns which actions lead to treats. There is no labeled dataset — there is a goal and feedback after each action.</p>
+  <p><strong>How it works mechanically:</strong></p>
+  <ul>
+    <li>An <strong>agent</strong> takes <strong>actions</strong> in an <strong>environment</strong></li>
+    <li>Each action returns a <strong>reward</strong> (positive) or penalty (negative)</li>
+    <li>The agent's goal: learn a <strong>policy</strong> (a strategy) that maximizes total reward over time</li>
+    <li>Learning happens entirely via <strong>trial and error</strong> — no human-labeled data needed</li>
+  </ul>
+  <p><strong>Real-world examples:</strong></p>
+  <ul>
+    <li><strong>Game-playing AI:</strong> AlphaGo, chess engines — reward = winning the game</li>
+    <li><strong>Robotics:</strong> a robot learning to walk — reward = staying upright and moving forward</li>
+    <li><strong>Autonomous driving simulation</strong></li>
+    <li><strong>Dynamic pricing:</strong> raise/lower price → observe sales → adjust strategy</li>
+    <li><strong>Ad bidding strategies</strong></li>
+  </ul>
+  <div class="call key">🔑 <strong>Exam clue words:</strong> "agent", "environment", "reward", "policy", "trial and error", "learn through interaction"</div>
+
+  <h3>2.4 Semi-supervised Learning</h3>
+  <p><strong>The intuition:</strong> You have 1,000 medical X-rays carefully labeled by a radiologist (very expensive and slow!) and 100,000 unlabeled X-rays sitting in a database. Throwing away 100,000 examples is wasteful. Semi-supervised learning uses both the labeled and unlabeled data together.</p>
+  <p><strong>How it works mechanically:</strong></p>
+  <ul>
+    <li>Small amount of <strong>labeled data</strong> + large amount of <strong>unlabeled data</strong></li>
+    <li>Model uses the unlabeled data to learn general structure, and the labeled data to anchor meaning</li>
+    <li>Best of both worlds when human labeling is expensive or slow</li>
+  </ul>
+  <p><strong>Real-world examples:</strong></p>
+  <ul>
+    <li><strong>Medical imaging:</strong> labeling requires a specialist doctor (expensive)</li>
+    <li><strong>Speech recognition:</strong> transcription is slow and costly</li>
+    <li><strong>Web page classification:</strong> millions of pages exist, but very few are labeled</li>
+  </ul>
+  <div class="call key">🔑 <strong>Exam clue words:</strong> "limited labeled data", "large unlabeled dataset", "reduce labeling cost", "labeling is expensive"</div>
+
+  <div class="quiz-wrap">
+    <div class="quiz-lbl">⚡ Quick Check — Click each to reveal the answer</div>
+    <div class="qi" onclick="this.classList.toggle('open')">
+      <div class="qi-q">"A bank has 5 years of transactions, each marked as fraud or legitimate. They want to build a fraud detector."</div>
+      <div class="qi-hint">Click to reveal →</div>
+      <div class="qi-a">✅ <strong>Supervised.</strong> Each transaction has a label (fraud / legitimate). The model learns the mapping: transaction features → label.</div>
+    </div>
+    <div class="qi" onclick="this.classList.toggle('open')">
+      <div class="qi-q">"A retailer wants to discover natural groups of customers based on shopping behavior. They have no predefined groups."</div>
+      <div class="qi-hint">Click to reveal →</div>
+      <div class="qi-a">✅ <strong>Unsupervised.</strong> No labels. The model finds natural clusters on its own.</div>
+    </div>
+    <div class="qi" onclick="this.classList.toggle('open')">
+      <div class="qi-q">"A robot vacuum learns the optimal cleaning path by trying different routes and being rewarded for coverage."</div>
+      <div class="qi-hint">Click to reveal →</div>
+      <div class="qi-a">✅ <strong>Reinforcement Learning.</strong> Agent (vacuum) + actions (routes) + environment (room) + reward (coverage score).</div>
+    </div>
+  </div>
+</section><hr>
+
+<!-- PART 3 -->
+<section class="sec" id="p3">
+  <div class="ph"><span class="pn">Part 3</span><h2 class="pt">ML Problem Types</h2></div>
+
+  <p>The "problem type" answers a different question: <strong>What shape is the output?</strong></p>
+  <p>This is separate from the ML type. A supervised problem can be classification <em>or</em> regression — those are different problem types. Think of ML type as <em>how the model learned</em>, and problem type as <em>what it produces</em>.</p>
+
+  <h3>3.1 Classification — predict a category</h3>
+  <p>The output is <strong>discrete</strong> — a finite set of choices. You're asking the model to put each input into a bucket.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Input</th><th>Output</th></tr></thead>
+    <tbody>
+      <tr><td>Email text</td><td>Spam / Not spam</td></tr>
+      <tr><td>Bank transaction</td><td>Fraud / Legitimate</td></tr>
+      <tr><td>X-ray image</td><td>Disease / No disease / Inconclusive</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><strong>Binary classification:</strong> exactly 2 classes (spam vs not spam, fraud vs legitimate)</li>
+    <li><strong>Multi-class classification:</strong> 3 or more classes (cat / dog / bird)</li>
+    <li><strong>Multi-label classification:</strong> multiple labels per input (an image can be "beach" AND "sunset" AND "people" simultaneously)</li>
+  </ul>
+  <div class="call key">🔑 <strong>Exam clue words:</strong> "which class?", "category", "yes/no", "type of object", "label", "predict whether"</div>
+
+  <h3>3.2 Regression — predict a number</h3>
+  <p>The output is <strong>continuous</strong> — a number anywhere on a scale. There's no fixed set of buckets.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Input</th><th>Output</th></tr></thead>
+    <tbody>
+      <tr><td>House details (sq ft, location, age)</td><td>Price: $427,500</td></tr>
+      <tr><td>Last 30 days of sales</td><td>Revenue forecast: $1.2M</td></tr>
+      <tr><td>Weather sensor data</td><td>Energy demand: 450 MWh</td></tr>
+    </tbody>
+  </table></div>
+  <div class="call tip">💡 <strong>Key distinction:</strong> "Will this customer churn?" = <em>Classification</em> (yes/no). "How many days until they churn?" = <em>Regression</em> (a number).</div>
+  <div class="call key">🔑 <strong>Exam clue words:</strong> "predict price", "forecast demand", "estimate value", "numeric output", "how much", "how many"</div>
+
+  <h3>3.3 Clustering — group similar things (unsupervised)</h3>
+  <p>No labels exist. The model creates its own groups based on similarity. You don't tell it how many groups or what they mean — it figures that out.</p>
+  <ul>
+    <li><strong>Customer segmentation:</strong> find 5 natural buyer personas from 10M customers</li>
+    <li><strong>Document grouping:</strong> organize 1M articles into themes</li>
+    <li><strong>Genome analysis:</strong> group similar gene expression profiles</li>
+  </ul>
+  <div class="call key">🔑 <strong>Exam clue words:</strong> "group similar", "segment", "no labels", "natural groupings", "discover clusters"</div>
+
+  <h3>3.4 Anomaly Detection — find the weird stuff</h3>
+  <p>Find rare events that don't match the normal pattern. The challenge is that you usually have <em>very few</em> anomaly examples — so pure supervised learning struggles here. Often treated as unsupervised: "learn what normal looks like, then flag anything that doesn't fit."</p>
+  <ul>
+    <li><strong>Unusual login:</strong> different country, unusual time, new device</li>
+    <li><strong>Fraudulent transaction:</strong> purchase pattern doesn't match user history</li>
+    <li><strong>Machine failure:</strong> vibration sensor showing abnormal readings</li>
+    <li><strong>Network intrusion:</strong> traffic pattern looks unlike historical baseline</li>
+  </ul>
+  <div class="call key">🔑 <strong>Exam clue words:</strong> "unusual", "outlier", "abnormal", "rare event", "deviation from normal", "strange spike"</div>
+
+  <h3>3.5 Recommendation — suggest relevant items</h3>
+  <p>Predict what a user will like based on their past behavior and the behavior of similar users. This is called <strong>collaborative filtering</strong> — "people like you also liked X."</p>
+  <ul>
+    <li>Netflix: "Because you watched X, you might like Y"</li>
+    <li>Amazon: "Customers who bought this also bought…"</li>
+    <li>Spotify Discover Weekly</li>
+    <li>News article recommendations</li>
+  </ul>
+  <div class="call key">🔑 <strong>Exam clue words:</strong> "personalized", "users who bought X also bought Y", "next best item", "recommend", "suggest"</div>
+
+  <h3>Putting it all together</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Problem</th><th>ML Type</th><th>Problem Type</th></tr></thead>
+    <tbody>
+      <tr><td>Spam filter</td><td>Supervised</td><td>Classification</td></tr>
+      <tr><td>Predict tomorrow's stock price</td><td>Supervised</td><td>Regression</td></tr>
+      <tr><td>Group products by similarity</td><td>Unsupervised</td><td>Clustering</td></tr>
+      <tr><td>Find rare network attacks</td><td>Unsupervised (usually)</td><td>Anomaly Detection</td></tr>
+      <tr><td>"You may also like…"</td><td>Specialized</td><td>Recommendation</td></tr>
+    </tbody>
+  </table></div>
+</section><hr>
+
+<!-- PLACEHOLDER PARTS 4-22 will be appended -->
+<!-- PART 4 -->
+<section class="sec" id="p4">
+  <div class="ph"><span class="pn">Part 4</span><h2 class="pt">The ML Pipeline — 7 Stages</h2></div>
+  <p>This is the lifecycle of every ML system — from raw data to a working, monitored product. <strong>Memorize the order.</strong> The exam tests whether you can identify which stage a described problem belongs to.</p>
+  <div class="code">1. Data Collection
+       ↓
+2. Preprocessing (cleaning)
+       ↓
+3. Feature Engineering
+       ↓
+4. Training
+       ↓
+5. Evaluation
+       ↓
+6. Deployment
+       ↓
+7. Monitoring
+       ↓
+   (back to 4 when retraining needed)</div>
+
+  <div class="pipe">
+    <div class="pstage">
+      <div class="pnum"><div class="pcircle">1</div><div class="pline"></div></div>
+      <div class="pcont">
+        <div class="ptitle">Stage 1 — Data Collection</div>
+        <div class="pdesc">Gather raw data from wherever it lives: databases, application logs, images, audio recordings, IoT sensors, clickstream data, or public datasets. The quality and quantity of data here determines the ceiling of model performance.
+        <br><br>
+        <span style="color:var(--yellow)">⚠️ <strong>Garbage in, garbage out.</strong></span> ML is not magic. If your data is biased, incomplete, or wrong, your model will be too. This is not fixable by clever algorithms later. The exam loves this — if a question says "model is biased," the answer is almost always <strong>fix the data</strong>, not tune the model.</div>
+      </div>
+    </div>
+    <div class="pstage">
+      <div class="pnum"><div class="pcircle">2</div><div class="pline"></div></div>
+      <div class="pcont">
+        <div class="ptitle">Stage 2 — Preprocessing (Cleaning)</div>
+        <div class="pdesc">Raw data is messy. You clean it so the model can actually use it. This is often the most time-consuming step in practice.
+        <br><br>
+        <div class="tw"><table>
+          <thead><tr><th>Task</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Remove duplicates</strong></td><td>The same row twice misleads training — the model thinks it's more important than it is</td></tr>
+            <tr><td><strong>Handle missing values</strong></td><td>Either fill with a substitute (imputation: mean, median, mode) or drop the row/column</td></tr>
+            <tr><td><strong>Normalize / standardize</strong></td><td>Scale numeric values so they're on comparable ranges. E.g., height in cm (170) vs salary in $ (70,000) — wildly different scales break many algorithms</td></tr>
+            <tr><td><strong>Convert formats</strong></td><td>Image → tensor, text → tokens, dates → timestamps</td></tr>
+            <tr><td><strong>Remove noise</strong></td><td>Drop irrelevant or corrupted rows</td></tr>
+            <tr><td><strong>Encode categories</strong></td><td>"Country = India" can't be fed directly to most models → convert to one-hot encoding or embeddings</td></tr>
+          </tbody>
+        </table></div></div>
+      </div>
+    </div>
+    <div class="pstage">
+      <div class="pnum"><div class="pcircle">3</div><div class="pline"></div></div>
+      <div class="pcont">
+        <div class="ptitle">Stage 3 — Feature Engineering</div>
+        <div class="pdesc">Transform raw fields into useful <strong>features</strong> — the inputs that actually help the model learn the pattern you care about. A model can't always extract every useful pattern from raw data on its own. Smart features make patterns obvious.
+        <br><br>
+        <strong>Examples:</strong>
+        <ul style="margin-top:8px">
+          <li>Raw: <code>date_of_birth = 1995-03-12</code> → Feature: <code>age = 30</code></li>
+          <li>Raw: <code>transaction_timestamp</code> → Features: <code>hour_of_day</code>, <code>day_of_week</code>, <code>is_weekend</code></li>
+          <li>Raw: <code>address</code> → Features: <code>city</code>, <code>pincode</code>, <code>is_metro</code></li>
+          <li>Raw text → TF-IDF vectors or word embeddings</li>
+        </ul>
+        </div>
+      </div>
+    </div>
+    <div class="pstage">
+      <div class="pnum"><div class="pcircle">4</div><div class="pline"></div></div>
+      <div class="pcont">
+        <div class="ptitle">Stage 4 — Training</div>
+        <div class="pdesc">The model <strong>learns</strong> by adjusting its internal numbers (parameters) to minimize the difference between its predictions and the correct answers.
+        <br><br>
+        <div class="tw"><table>
+          <thead><tr><th>Component</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Algorithm</strong></td><td>The learning method — e.g., XGBoost, neural network, k-means</td></tr>
+            <tr><td><strong>Training data</strong></td><td>The examples used to teach (with labels, for supervised)</td></tr>
+            <tr><td><strong>Parameters</strong></td><td>Internal numbers the model learns — weights, biases</td></tr>
+            <tr><td><strong>Loss function</strong></td><td>Measures how wrong the predictions are (the "score" to minimize)</td></tr>
+            <tr><td><strong>Optimizer</strong></td><td>The mechanism that adjusts parameters to reduce loss — e.g., gradient descent</td></tr>
+            <tr><td><strong>Hyperparameters</strong></td><td>Settings <em>you</em> choose before training: learning rate, batch size, number of layers</td></tr>
+          </tbody>
+        </table></div></div>
+      </div>
+    </div>
+    <div class="pstage">
+      <div class="pnum"><div class="pcircle">5</div><div class="pline"></div></div>
+      <div class="pcont">
+        <div class="ptitle">Stage 5 — Evaluation</div>
+        <div class="pdesc">Test the trained model on data it has <strong>never seen before</strong>. This is how you know if it actually learned a general pattern or just memorized the training examples. The specific metrics you use depend on the problem type — we cover all of these in Part 7.</div>
+      </div>
+    </div>
+    <div class="pstage">
+      <div class="pnum"><div class="pcircle">6</div><div class="pline"></div></div>
+      <div class="pcont">
+        <div class="ptitle">Stage 6 — Deployment</div>
+        <div class="pdesc">Put the model into production so users and applications can actually use it. The right deployment mode depends on how fast you need an answer and how big the inputs are.
+        <br><br>
+        <div class="tw"><table>
+          <thead><tr><th>Deployment Type</th><th>When to use</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Real-time inference</strong></td><td>Need an answer in under 1 second</td><td>Fraud check during checkout</td></tr>
+            <tr><td><strong>Batch inference</strong></td><td>Score millions of records, no urgency</td><td>Monthly churn scoring overnight</td></tr>
+            <tr><td><strong>Async inference</strong></td><td>Large input, processing takes minutes</td><td>Video analysis, large documents</td></tr>
+            <tr><td><strong>Edge deployment</strong></td><td>Model runs on the device itself</td><td>Phone camera, IoT sensor</td></tr>
+          </tbody>
+        </table></div></div>
+      </div>
+    </div>
+    <div class="pstage">
+      <div class="pnum"><div class="pcircle">7</div><div class="pline"></div></div>
+      <div class="pcont">
+        <div class="ptitle">Stage 7 — Monitoring</div>
+        <div class="pdesc">After deployment, watch for problems. The world changes, and your model — trained on old data — may stop performing well.
+        <br><br>
+        <div class="tw"><table>
+          <thead><tr><th>Issue</th><th>What it means</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Data drift</strong></td><td>Input data has changed — e.g., a new product line the model was never trained on</td></tr>
+            <tr><td><strong>Model drift / concept drift</strong></td><td>The relationship between input and output has changed — e.g., COVID changed shopping patterns overnight</td></tr>
+            <tr><td><strong>Bias</strong></td><td>Model is treating groups unfairly — e.g., approving loans for one demographic more than another</td></tr>
+            <tr><td><strong>Latency</strong></td><td>Predictions are getting slower over time</td></tr>
+            <tr><td><strong>Cost</strong></td><td>The endpoint is too expensive to run</td></tr>
+            <tr><td><strong>Errors</strong></td><td>Failed inference requests are increasing</td></tr>
+          </tbody>
+        </table></div>
+        When monitoring detects problems, you <strong>retrain</strong> the model with fresh data. That loop back to Stage 4 is the full MLOps cycle.</div>
+      </div>
+    </div>
+  </div>
+</section><hr>
+
+<!-- PART 5 -->
+<section class="sec" id="p5">
+  <div class="ph"><span class="pn">Part 5</span><h2 class="pt">Overfitting vs Underfitting</h2></div>
+  <p>This is the <strong>#1 ML concept</strong> on the exam. It will appear in multiple questions, sometimes disguised. Master the intuitions, the signs, and especially the fixes.</p>
+
+  <h3>5.1 Overfitting</h3>
+  <p><strong>The intuition:</strong> A student who memorizes the answer key rather than understanding the subject. They ace every practice test (training data) but fail the real exam (new data) because they never actually learned the underlying concepts.</p>
+  <p><strong>What the model does:</strong> It learns the <em>noise</em> in the training data — the random quirks specific to those examples — instead of the general pattern. It fits the training data so perfectly that it can't generalize to anything new.</p>
+  <p><strong>How to spot it:</strong></p>
+  <ul>
+    <li>Training accuracy: <strong style="color:var(--green)">99%</strong></li>
+    <li>Validation/Test accuracy: <strong style="color:var(--red)">65%</strong></li>
+    <li><strong>The gap is large</strong> — this is the defining sign of overfitting</li>
+  </ul>
+  <p><strong>Common causes:</strong></p>
+  <ul>
+    <li>Model is too complex (too many parameters for the amount of data you have)</li>
+    <li>Not enough training data</li>
+    <li>Trained for too many epochs (iterations)</li>
+    <li>Too many features, some of which are just noise</li>
+  </ul>
+  <p><strong>Fixes — memorize all of these, the exam picks from them:</strong></p>
+  <div class="tw"><table>
+    <thead><tr><th>Fix</th><th>How it helps</th></tr></thead>
+    <tbody>
+      <tr><td><strong>More training data</strong></td><td>Much harder to memorize a larger, more diverse dataset</td></tr>
+      <tr><td><strong>Regularization (L1, L2)</strong></td><td>Adds a penalty to the loss function for overly complex models, forcing simpler solutions</td></tr>
+      <tr><td><strong>Reduce model complexity</strong></td><td>Smaller network, fewer layers, fewer features — less capacity to memorize</td></tr>
+      <tr><td><strong>Dropout</strong> (neural nets)</td><td>Randomly "turns off" neurons during training so the model can't rely too much on any single path</td></tr>
+      <tr><td><strong>Early stopping</strong></td><td>Stop training when validation accuracy stops improving — don't let the model keep memorizing</td></tr>
+      <tr><td><strong>Cross-validation</strong></td><td>Better estimate of true performance; helps detect overfitting earlier</td></tr>
+      <tr><td><strong>Data augmentation</strong></td><td>Create variations of existing data so the model sees more diversity — harder to overfit</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>5.2 Underfitting</h3>
+  <p><strong>The intuition:</strong> A student who studied only the chapter titles. They perform badly on practice tests <em>and</em> badly on the real exam, because they never learned enough to begin with.</p>
+  <p><strong>What the model does:</strong> The model is too simple to capture the real pattern in the data. It makes large, systematic errors on both training and test data.</p>
+  <p><strong>How to spot it:</strong></p>
+  <ul>
+    <li>Training accuracy: <strong style="color:var(--red)">60%</strong></li>
+    <li>Validation/Test accuracy: <strong style="color:var(--red)">58%</strong></li>
+    <li><strong>Both are low</strong> — the gap doesn't matter, the absolute numbers are just bad</li>
+  </ul>
+  <p><strong>Common causes:</strong></p>
+  <ul>
+    <li>Model is too simple for the complexity of the data</li>
+    <li>Not enough or poorly chosen features</li>
+    <li>Training stopped too early</li>
+    <li>Wrong algorithm for the problem</li>
+  </ul>
+  <p><strong>Fixes:</strong></p>
+  <ul>
+    <li>Use a more complex model (more layers, more parameters)</li>
+    <li>Add more or better features (feature engineering)</li>
+    <li>Train longer (more epochs)</li>
+    <li>Reduce regularization — if regularization is too aggressive it can cause underfitting</li>
+  </ul>
+
+  <div class="call exam">🚨 <strong>Exam trap:</strong> A very common wrong answer is "add regularization" when the scenario describes underfitting. Regularization is the fix for <em>overfitting</em>. For underfitting, you <strong>reduce</strong> regularization and <strong>increase complexity</strong>.</div>
+
+  <div class="quiz-wrap">
+    <div class="quiz-lbl">⚡ Quick Check</div>
+    <div class="qi" onclick="this.classList.toggle('open')">
+      <div class="qi-q">"Training accuracy is 98%, validation accuracy is 70%. What's wrong and how do you fix it?"</div>
+      <div class="qi-hint">Click to reveal →</div>
+      <div class="qi-a">✅ <strong>Overfitting.</strong> Large gap between train and validation. Fix: get more data, add regularization, use dropout, reduce model complexity, apply early stopping.</div>
+    </div>
+    <div class="qi" onclick="this.classList.toggle('open')">
+      <div class="qi-q">"Both training accuracy and validation accuracy are 55%. What's the problem?"</div>
+      <div class="qi-hint">Click to reveal →</div>
+      <div class="qi-a">✅ <strong>Underfitting.</strong> Both are low — model is too simple. Fix: increase model complexity, add more features, train longer, reduce regularization.</div>
+    </div>
+  </div>
+</section><hr>
+<!-- PART 6 -->
+<section class="sec" id="p6">
+  <div class="ph"><span class="pn">Part 6</span><h2 class="pt">Bias vs Variance Tradeoff</h2></div>
+  <p>This is a deeper lens on overfitting and underfitting. Once you understand it, the two concepts click together permanently.</p>
+  <h3>6.1 Bias — error from oversimplified assumptions</h3>
+  <p>The model is too rigid. It makes strong assumptions about the shape of the data that are simply wrong, so no matter how much data you give it, it can't improve beyond a ceiling.</p>
+  <p><strong>Example:</strong> Imagine the true relationship between house size and price is a curve. You try to fit a straight line to this data. No matter how many houses you train on, a straight line cannot bend — it will always be wrong in a systematic way. That systematic wrongness is <strong>bias</strong>.</p>
+  <p><strong>High bias = underfitting.</strong> The model is too simple to represent reality.</p>
+  <h3>6.2 Variance — error from over-sensitivity to the training set</h3>
+  <p>The model is too flexible. It bends itself to fit every single training point — including random noise — so tiny changes to the training data produce wildly different models.</p>
+  <p><strong>Example:</strong> A super-flexible squiggly curve that passes through every training point exactly. Retrain with slightly different data and the squiggle looks completely different. That instability is <strong>variance</strong>.</p>
+  <p><strong>High variance = overfitting.</strong> The model is too complex and memorizes noise.</p>
+  <h3>6.3 The Tradeoff</h3>
+  <p>You cannot easily have zero bias AND zero variance simultaneously. Reducing one tends to increase the other. The art of ML is finding the sweet spot.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Situation</th><th>Bias</th><th>Variance</th><th>Outcome</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Underfitting</strong></td><td style="color:var(--red)">High ↑</td><td style="color:var(--green)">Low ↓</td><td>Model too simple — wrong everywhere</td></tr>
+      <tr><td><strong>Overfitting</strong></td><td style="color:var(--green)">Low ↓</td><td style="color:var(--red)">High ↑</td><td>Model too complex — right on training, wrong on new data</td></tr>
+      <tr><td><strong>Sweet spot ✅</strong></td><td style="color:var(--green)">Low ↓</td><td style="color:var(--green)">Low ↓</td><td>Generalizes well — the goal</td></tr>
+    </tbody>
+  </table></div>
+  <div class="call tip">💡 <strong>Mnemonic:</strong> <em>Bias = Bad assumptions (too simple). Variance = Volatile (too sensitive to the specific training set).</em></div>
+</section><hr>
+
+<!-- PART 7 -->
+<section class="sec" id="p7">
+  <div class="ph"><span class="pn">Part 7</span><h2 class="pt">Evaluation Metrics</h2></div>
+  <p>This is where many candidates lose points. The exam doesn't just ask you to define metrics — it gives you a scenario and asks which metric is appropriate. Master the "when to use which" logic.</p>
+  <h3>7.1 The Confusion Matrix — the foundation of all classification metrics</h3>
+  <p>For binary classification, every prediction falls into one of exactly four boxes. Every metric below is computed from these four numbers. Learn this grid cold.</p>
+  <div class="cm">
+    <div></div>
+    <div class="cmh">Predicted POSITIVE</div>
+    <div class="cmh">Predicted NEGATIVE</div>
+    <div class="cml">Actually<br>POSITIVE</div>
+    <div class="tp">✅ True Positive (TP)<br><small style="font-weight:400">Correctly flagged positive</small></div>
+    <div class="fn">❌ False Negative (FN)<br><small style="font-weight:400">Missed it — said negative, was positive</small></div>
+    <div class="cml">Actually<br>NEGATIVE</div>
+    <div class="fp">❌ False Positive (FP)<br><small style="font-weight:400">False alarm — said positive, was negative</small></div>
+    <div class="tn">✅ True Negative (TN)<br><small style="font-weight:400">Correctly cleared as negative</small></div>
+  </div>
+  <p style="text-align:center;font-size:13px;color:var(--muted)">Top-left and bottom-right = <span style="color:var(--green)">correct predictions</span>. The off-diagonal = <span style="color:var(--red)">errors</span>.</p>
+
+  <h3>7.2 Accuracy</h3>
+  <div class="code">Accuracy = (TP + TN) / (TP + TN + FP + FN)</div>
+  <p><strong>Plain English:</strong> Of all predictions made, what fraction were correct?</p>
+  <p><strong>Use when:</strong> Classes are roughly balanced — close to 50/50 distribution.</p>
+  <div class="call warn">⚠️ <strong>The accuracy trap — guaranteed exam question:</strong> If 99% of transactions are legitimate and 1% are fraud, a model that <em>always predicts "legitimate"</em> achieves 99% accuracy but catches zero fraud. It is completely useless. <strong>Never use accuracy alone on imbalanced data.</strong></div>
+
+  <h3>7.3 Precision</h3>
+  <div class="code">Precision = TP / (TP + FP)</div>
+  <p><strong>Plain English:</strong> Of everything the model flagged as positive, what fraction actually was positive? How precise are your positive predictions?</p>
+  <p><strong>Use when:</strong> False positives are expensive or harmful — you want to be sure before you call something positive.</p>
+  <p><strong>Classic example — Spam filter:</strong> If the model marks a legitimate email as spam (FP), the user misses something important — maybe a job offer. High precision means: "When I say spam, I'm confident it really is spam."</p>
+
+  <h3>7.4 Recall (also called Sensitivity)</h3>
+  <div class="code">Recall = TP / (TP + FN)</div>
+  <p><strong>Plain English:</strong> Of all the actual positive cases that exist, what fraction did the model catch? How many real cases did it miss?</p>
+  <p><strong>Use when:</strong> False negatives are expensive or dangerous — you cannot afford to miss a real case.</p>
+  <p><strong>Classic example — Cancer screening:</strong> If the model misses a real cancer case (FN), the patient doesn't get treated. That's catastrophic. High recall means: "I catch nearly every real cancer case — I might raise false alarms, but I won't miss the real ones."</p>
+
+  <h3>7.5 The Precision–Recall Tradeoff</h3>
+  <p>You trade one for the other by adjusting the model's <strong>decision threshold</strong> — the probability cutoff above which it calls something "positive."</p>
+  <ul>
+    <li><strong>Lower the threshold</strong> → flag more things as positive → catch more real positives (↑ recall) but also more false alarms (↓ precision)</li>
+    <li><strong>Raise the threshold</strong> → only flag the most certain cases → fewer false alarms (↑ precision) but miss some real cases (↓ recall)</li>
+  </ul>
+  <p>Choose based on <strong>what's costlier in your domain</strong>: missing a real case, or raising a false alarm?</p>
+
+  <h3>7.6 F1 Score</h3>
+  <div class="code">F1 = 2 × (Precision × Recall) / (Precision + Recall)</div>
+  <p><strong>Plain English:</strong> The harmonic mean of precision and recall. A single balanced number. It punishes extreme imbalances — a model with 100% precision but 0% recall gets F1 = 0, not 50%.</p>
+  <p><strong>Use when:</strong> Data is imbalanced and both false positives AND false negatives matter. This is your default for fraud detection, disease detection, and any rare-event classification.</p>
+  <div class="call tip">💡 AWS exam pattern: "imbalanced fraud dataset, which metric?" → <strong>F1</strong> or <strong>Recall</strong>. If missing fraud is the primary concern → Recall. If both matter → F1.</div>
+
+  <h3>7.7 AUC-ROC</h3>
+  <p><strong>ROC curve:</strong> plots Recall (True Positive Rate) on Y-axis vs False Positive Rate on X-axis, at every possible threshold value.</p>
+  <p><strong>AUC (Area Under the Curve):</strong> a single number from 0 to 1 summarizing the whole curve.</p>
+  <ul>
+    <li><strong>AUC = 1.0</strong> → perfect classifier</li>
+    <li><strong>AUC = 0.5</strong> → no better than random guessing (diagonal line)</li>
+    <li><strong>AUC &lt; 0.5</strong> → worse than random (flip your predictions)</li>
+  </ul>
+  <p><strong>Use when:</strong> binary classification, you want a <em>threshold-independent</em> measure, or you're comparing multiple models to pick the best one.</p>
+  <p><strong>Plain English:</strong> "How well does this model separate positives from negatives overall, regardless of where I draw the decision line?"</p>
+
+  <h3>7.8 Regression Metrics (for numeric output problems)</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Metric</th><th>How computed</th><th>What it tells you</th></tr></thead>
+    <tbody>
+      <tr><td><strong>MAE</strong> — Mean Absolute Error</td><td>avg of |predicted − actual|</td><td>Average error size in the same units as your target. Easy to explain.</td></tr>
+      <tr><td><strong>MSE</strong> — Mean Squared Error</td><td>avg of (predicted − actual)²</td><td>Penalizes big errors much more than small ones — squaring magnifies large gaps</td></tr>
+      <tr><td><strong>RMSE</strong> — Root Mean Squared Error</td><td>√MSE</td><td>Same penalty structure as MSE but back in the original units — more interpretable</td></tr>
+      <tr><td><strong>R²</strong> — R-squared</td><td>1 − (residual variance ÷ total variance)</td><td>Fraction of variance explained. 0 = no better than predicting the mean; 1 = perfect fit</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>7.9 The Master Cheat Table — memorize this cold</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Scenario</th><th>Best Metric</th></tr></thead>
+    <tbody>
+      <tr><td>Balanced classes</td><td><strong>Accuracy</strong></td></tr>
+      <tr><td>False positive is dangerous (spam filter)</td><td><strong style="color:var(--cyan)">Precision</strong></td></tr>
+      <tr><td>False negative is dangerous (cancer, critical fraud)</td><td><strong style="color:var(--green)">Recall</strong></td></tr>
+      <tr><td>Imbalanced data, both error types matter</td><td><strong style="color:var(--orange)">F1 Score</strong></td></tr>
+      <tr><td>Compare binary classifiers, threshold-independent</td><td><strong style="color:var(--pink)">AUC-ROC</strong></td></tr>
+      <tr><td>Spam filter</td><td><strong style="color:var(--cyan)">Precision</strong></td></tr>
+      <tr><td>Medical diagnosis / cancer detection</td><td><strong style="color:var(--green)">Recall</strong></td></tr>
+      <tr><td>Fraud detection</td><td><strong style="color:var(--orange)">F1 or Recall</strong></td></tr>
+      <tr><td>Regression problem (predict a number)</td><td><strong>RMSE / MAE / R²</strong></td></tr>
+    </tbody>
+  </table></div>
+</section><hr>
+
+<!-- PART 8 -->
+<section class="sec" id="p8">
+  <div class="ph"><span class="pn">Part 8</span><h2 class="pt">Neural Network Basics</h2></div>
+  <p>You don't need to derive the math. You need to know what each piece <em>does</em> and when to use which activation function — the exam tests this.</p>
+
+  <h3>8.1 The Neuron — the building block</h3>
+  <p>A single artificial neuron does one thing: takes a set of numbers as inputs, multiplies each by a learned weight, adds them up, adds a bias, then passes the result through an activation function.</p>
+  <div class="code">output = activation_function(  Σ (input × weight)  +  bias  )</div>
+  <ul>
+    <li><strong>Inputs:</strong> the numerical features coming in (pixel values, word embeddings, sensor readings…)</li>
+    <li><strong>Weights:</strong> learned numbers controlling how important each input is. A high weight = "this input matters a lot."</li>
+    <li><strong>Bias:</strong> a learned offset that lets the neuron "fire" even when all inputs are zero — adds flexibility</li>
+    <li><strong>Activation function:</strong> introduces non-linearity. Without it, the whole network collapses into a single linear equation no matter how many layers you have — useless for complex patterns.</li>
+  </ul>
+
+  <h3>8.2 Layers</h3>
+  <p>A neural network is just neurons arranged in layers, where the output of one layer feeds into the input of the next.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Layer</th><th>Job</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Input layer</strong></td><td>Receives the raw features. One neuron per input feature. Does no computation — just passes data in.</td></tr>
+      <tr><td><strong>Hidden layer(s)</strong></td><td>Learn intermediate representations — combinations of features that are useful for the final prediction. More hidden layers = "deeper" = deep learning.</td></tr>
+      <tr><td><strong>Output layer</strong></td><td>Produces the final prediction. Its structure depends on the problem: one neuron for regression, one sigmoid neuron for binary classification, N softmax neurons for N-class classification.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>8.3 Activation Functions — know which goes where</h3>
+  <p>Activation functions add non-linearity so the network can learn curves, corners, and complex shapes — not just straight lines.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Activation</th><th>What it does</th><th>Where it's used</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ReLU</strong><br>(Rectified Linear Unit)</td><td>If input &gt; 0, output = input. If input ≤ 0, output = 0. Simple, fast, avoids the "vanishing gradient" problem.</td><td>Default for hidden layers in almost all modern networks</td></tr>
+      <tr><td><strong>Sigmoid</strong></td><td>Squashes any number into the range 0–1. Interpretable as a probability.</td><td>Output layer for <strong>binary classification</strong> — gives "probability of being positive"</td></tr>
+      <tr><td><strong>Softmax</strong></td><td>Takes N values and converts them to N probabilities that sum to exactly 1.</td><td>Output layer for <strong>multi-class classification</strong> — one probability per class</td></tr>
+      <tr><td><strong>Tanh</strong></td><td>Squashes to range −1 to +1. Zero-centered unlike sigmoid.</td><td>Older networks, some sequence models (RNNs)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>8.4 Backpropagation — how a network learns</h3>
+  <p><strong>The intuition:</strong> The network makes a prediction. You compare that prediction to the true answer and calculate the error. That error is then propagated <em>backward</em> through the network, layer by layer. Each weight gets nudged slightly in the direction that would have reduced the error. Repeat this millions of times and the network gradually gets better.</p>
+  <div class="code">Step 1 — Forward pass:   Input → Layer 1 → Layer 2 → ... → Prediction
+Step 2 — Calculate error: Compare Prediction to Actual Answer → Loss value
+Step 3 — Backward pass:  Propagate error backward → calculate how much
+                          each weight contributed to the error
+Step 4 — Update weights: Nudge each weight slightly to reduce loss (gradient descent)
+Step 5 — Repeat:         Do this for every training example, thousands of times</div>
+  <p>This process of iterating over the full training set is called an <strong>epoch</strong>. Training typically runs for many epochs until the loss stops improving.</p>
+</section><hr>
+
+<!-- PART 9 -->
+<section class="sec" id="p9">
+  <div class="ph"><span class="pn">Part 9</span><h2 class="pt">Deep Learning Model Types</h2></div>
+  <p>Three architectural families dominate the exam. Learn <em>what problem each solves</em> and <em>why</em> — the exam frequently gives you a use case and asks you to pick the right architecture.</p>
+
+  <h3>9.1 CNN — Convolutional Neural Network</h3>
+  <p><strong>Best for: images and video.</strong></p>
+  <p><strong>Why CNNs for images?</strong> A regular (fully connected) neural network would treat each pixel as completely independent. An image of 224×224 pixels = 50,176 inputs, and every neuron in the first layer would connect to all 50,176. This is computationally exploding, and it ignores the fact that nearby pixels are related — edges, textures, shapes are all local patterns.</p>
+  <p>A CNN instead uses <strong>convolutional filters</strong> — small grids (e.g., 3×3) that slide across the image and detect local patterns. Early filters detect edges and corners. Later filters combine those into shapes. Later still into objects. This is how the network learns to recognize a face — it first finds edges, then eyes/nose/mouth shapes, then the combination that means "face."</p>
+  <p><strong>Use cases:</strong></p>
+  <ul>
+    <li>Image classification (cat vs dog, product category)</li>
+    <li>Object detection (find and locate all cars in this photo)</li>
+    <li>Facial recognition</li>
+    <li>Medical imaging (tumor detection in X-rays, MRI scans)</li>
+    <li>Defect detection in manufacturing</li>
+    <li>Self-driving car perception</li>
+  </ul>
+  <div class="call key">🔑 <strong>Exam clue words:</strong> image, visual, pixels, object detection, computer vision, photo, video frames</div>
+
+  <h3>9.2 RNN — Recurrent Neural Network</h3>
+  <p><strong>Best for: sequential and time-ordered data.</strong></p>
+  <p><strong>Why RNNs for sequences?</strong> Regular networks process each input independently — they have no memory. But for sequences, order matters and context from earlier in the sequence affects later parts. A sentence like "the bank approved the loan" has "bank" meaning a financial institution — but to know that, you need context from the rest of the sentence.</p>
+  <p>RNNs have a <strong>hidden state</strong> — a memory that gets updated at each step. The output at time <em>t</em> depends on the input at time <em>t</em> AND the hidden state carried over from time <em>t-1</em>.</p>
+  <p><strong>Use cases:</strong></p>
+  <ul>
+    <li>Time-series forecasting (stock prices, sensor readings)</li>
+    <li>Speech recognition (audio frames over time)</li>
+    <li>Older text generation tasks</li>
+    <li>Sensor data streams</li>
+  </ul>
+  <p><strong>Key weakness:</strong> RNNs struggle with <em>long-range dependencies</em>. If a sentence is 50 words, by the time the RNN reaches word 50, the signal from word 1 has been diluted through 49 updates — it's largely forgotten. <strong>Transformers fixed this problem.</strong></p>
+  <div class="call key">🔑 <strong>Exam clue words:</strong> sequence, time series, ordered data, temporal, stream, previous step</div>
+
+  <h3>9.3 Transformers</h3>
+  <p><strong>Best for: language, generative AI, and everything text-related. This is the architecture behind every modern LLM.</strong></p>
+  <p><strong>Why Transformers dominate?</strong> Instead of processing tokens one at a time like RNNs, Transformers use an <strong>attention mechanism</strong> that lets every token in a sequence directly look at every other token simultaneously. When processing the word "bank," the model can immediately attend to "loan" and "approved" in the same sentence to resolve meaning — no matter how far apart they are.</p>
+  <p>This gives three massive advantages over RNNs:</p>
+  <ul>
+    <li><strong>Long-range dependencies:</strong> any word can directly attend to any other word — no more forgetting</li>
+    <li><strong>Parallelism:</strong> all tokens are processed simultaneously, not one by one — training is dramatically faster</li>
+    <li><strong>Scale:</strong> they scale beautifully to billions of parameters on massive datasets — GPT-4, Claude, Llama are all Transformers</li>
+  </ul>
+  <p><strong>Use cases:</strong></p>
+  <ul>
+    <li>Text generation (chatbots, story writing)</li>
+    <li>Translation (English → French)</li>
+    <li>Summarization</li>
+    <li>Question answering</li>
+    <li>Code generation</li>
+    <li>All Large Language Models (LLMs)</li>
+    <li>All Foundation Models</li>
+  </ul>
+  <div class="call key">🔑 <strong>Exam clue words:</strong> LLM, generative AI, foundation model, attention, chatbot, summarization, text generation, GPT, Claude</div>
+
+  <h3>Quick Architecture Mapping</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Data shape</th><th>Architecture</th></tr></thead>
+    <tbody>
+      <tr><td>Images, video frames</td><td><strong style="color:var(--cyan)">CNN</strong></td></tr>
+      <tr><td>Time series, sensor streams, sequential data</td><td><strong style="color:var(--orange)">RNN</strong> (or modern variants like LSTM, GRU)</td></tr>
+      <tr><td>Text, language, generative tasks, LLMs</td><td><strong style="color:var(--accent)">Transformer</strong></td></tr>
+    </tbody>
+  </table></div>
+</section><hr>
+
+<!-- PART 10 -->
+<section class="sec" id="p10">
+  <div class="ph"><span class="pn">Part 10</span><h2 class="pt">Training Data Concepts</h2></div>
+
+  <h3>10.1 Labeling</h3>
+  <p>Adding the correct answer to each training example. This is required for supervised learning. Without labels, the model has nothing to learn from.</p>
+  <p>Labeling is often the most expensive and time-consuming part of building a supervised ML system — it requires human experts (doctors for medical data, lawyers for legal data, etc.).</p>
+  <p><strong>AWS service: SageMaker Ground Truth.</strong> It coordinates human labelers (using a workforce from Amazon Mechanical Turk, private teams, or vendors) and uses ML to speed up the process — once enough labels exist, it uses active learning to auto-label confident cases and only send the ambiguous ones to humans.</p>
+
+  <h3>10.2 Data Splits — the three sacred sets</h3>
+  <p>You split your full dataset into three non-overlapping parts with very specific rules about how each is used:</p>
+  <div class="tw"><table>
+    <thead><tr><th>Split</th><th>Purpose</th><th>Rule</th><th>Typical size</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Training set</strong></td><td>The model learns from this — parameters are adjusted using this data</td><td>Used repeatedly during training</td><td>70–80%</td></tr>
+      <tr><td><strong>Validation set</strong></td><td>Tune hyperparameters, compare different model architectures, pick the best version</td><td>Used during development but never to update parameters directly</td><td>10–15%</td></tr>
+      <tr><td><strong>Test set</strong></td><td>Final unbiased evaluation after everything is decided</td><td><strong>Used exactly once, at the very end.</strong> Never look at it during development.</td><td>10–15%</td></tr>
+    </tbody>
+  </table></div>
+  <div class="call warn">⚠️ <strong>Cardinal rule:</strong> Never train on the test set. Never tune hyperparameters on the test set. If you look at the test set during development, your final accuracy number is a lie — the model has indirectly been tuned on it.</div>
+
+  <h3>10.3 Class Imbalance</h3>
+  <p><strong>The problem:</strong> Fraud detection has 1% fraud and 99% legitimate. A model that always predicts "legitimate" gets 99% accuracy but is completely useless — it catches no fraud at all.</p>
+  <p><strong>Fixes:</strong></p>
+  <div class="tw"><table>
+    <thead><tr><th>Technique</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Oversampling minority class</strong></td><td>Duplicate existing minority examples so they appear more often during training</td></tr>
+      <tr><td><strong>Undersampling majority class</strong></td><td>Randomly drop some majority examples to bring the ratio closer to balanced</td></tr>
+      <tr><td><strong>SMOTE</strong> (Synthetic Minority Over-sampling Technique)</td><td>Generates new synthetic minority examples by interpolating between existing ones — smarter than just duplicating</td></tr>
+      <tr><td><strong>Class weights</strong></td><td>Tell the model "a mistake on the minority class costs 99× more" — it learns to care more about getting those right</td></tr>
+      <tr><td><strong>Use F1 / Recall instead of accuracy</strong></td><td>Fix the metric you evaluate with, not just the data</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>10.4 Data Augmentation</h3>
+  <p>Artificially expand your training set by creating modified versions of existing examples. The model sees more variety without you collecting new data. This reduces overfitting and improves generalization.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Data Type</th><th>Augmentation Techniques</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Images</strong></td><td>Rotate, crop, flip horizontally/vertically, change brightness/contrast, add Gaussian noise, zoom in/out</td></tr>
+      <tr><td><strong>Text</strong></td><td>Synonym replacement, back-translation (translate to French then back to English), random word dropout, sentence shuffling</td></tr>
+      <tr><td><strong>Audio</strong></td><td>Time-stretching (speed up/slow down), pitch-shifting, adding background noise, time-shifting</td></tr>
+    </tbody>
+  </table></div>
+  <div class="call tip">💡 Data augmentation is one of the seven overfitting fixes from Part 5 — it works by making the training set larger and more diverse, which is harder to memorize.</div>
+</section><hr>
+
+<!-- PART 11 -->
+<section class="sec" id="p11">
+  <div class="ph"><span class="pn">Part 11</span><h2 class="pt">Hyperparameters vs Parameters</h2></div>
+  <p>This distinction appears constantly on the exam — in questions about training, tuning, and SageMaker features.</p>
+
+  <h3>11.1 Parameters — what the model learns</h3>
+  <p>Parameters are the internal numbers that the model adjusts automatically during training. You never set these manually — the optimizer (gradient descent) finds their optimal values by minimizing the loss function.</p>
+  <p><strong>Examples:</strong></p>
+  <ul>
+    <li>Weights and biases in a neural network (there can be billions of these)</li>
+    <li>Learned word embeddings</li>
+    <li>Split thresholds in a decision tree</li>
+  </ul>
+
+  <h3>11.2 Hyperparameters — what you set</h3>
+  <p>Hyperparameters are settings you choose <em>before</em> training begins. They control the learning process itself — how fast to learn, how big each batch of data is, how complex the model is. The model cannot learn these from data; you must choose them.</p>
+  <p><strong>Examples:</strong></p>
+  <ul>
+    <li><strong>Learning rate:</strong> how big each weight-update step is. Too high → overshoots, never converges. Too low → takes forever.</li>
+    <li><strong>Batch size:</strong> how many training examples are processed before updating weights</li>
+    <li><strong>Number of epochs:</strong> how many times the model sees the full training set</li>
+    <li><strong>Number of layers / neurons per layer:</strong> the model's architectural complexity</li>
+    <li><strong>Dropout rate:</strong> what fraction of neurons to randomly disable during each training step</li>
+    <li><strong>Regularization strength (λ):</strong> how heavily to penalize model complexity</li>
+    <li><strong>Number of trees in a random forest</strong></li>
+    <li><strong>Max tree depth</strong></li>
+  </ul>
+
+  <h3>11.3 Hyperparameter Tuning</h3>
+  <p>Finding the best hyperparameter values is called <strong>hyperparameter tuning</strong> (or hyperparameter optimization, HPO). You try different combinations and evaluate each on the validation set. Common strategies:</p>
+  <ul>
+    <li><strong>Grid search:</strong> try every combination in a defined grid — exhaustive but slow</li>
+    <li><strong>Random search:</strong> randomly sample combinations — often finds good values faster than grid search</li>
+    <li><strong>Bayesian optimization:</strong> intelligently choose next values to try based on results so far — the most efficient method</li>
+  </ul>
+  <div class="call tip">💡 <strong>AWS:</strong> <strong>SageMaker Automatic Model Tuning (AMT)</strong> — also called HPO — searches the hyperparameter space for you automatically using Bayesian optimization or random search. You define the ranges; SageMaker runs the experiments and returns the best configuration.</div>
+
+  <div class="tw"><table>
+    <thead><tr><th>Type</th><th>Set by</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Parameter</strong></td><td>Model (learned during training)</td><td>Neural network weights</td></tr>
+      <tr><td><strong>Hyperparameter</strong></td><td>You (chosen before training)</td><td>Learning rate, batch size, number of layers</td></tr>
+    </tbody>
+  </table></div>
+</section><hr>
+
+<!-- PART 12 -->
+<section class="sec" id="p12">
+  <div class="ph"><span class="pn">Part 12</span><h2 class="pt">Inference vs Training</h2></div>
+  <p>These are the two distinct phases of every ML system's life. The exam tests whether you understand the differences and which AWS deployment mode fits each real-time scenario.</p>
+  <h3>12.1 Training — the model learns</h3>
+  <p>During training, the model processes the training dataset, computes its errors, and updates its weights through backpropagation. This is computationally intensive and happens before the model is ever used in production.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Factor</th><th>Training</th></tr></thead>
+    <tbody>
+      <tr><td>Compute needed</td><td>Very high — typically requires GPUs (often many of them)</td></tr>
+      <tr><td>Time</td><td>Long — hours to weeks depending on dataset and model size</td></tr>
+      <tr><td>Cost</td><td>High — large instances running for long periods</td></tr>
+      <tr><td>Data used</td><td>The entire training dataset, processed repeatedly</td></tr>
+      <tr><td>Output</td><td>A trained model — a file of learned weights</td></tr>
+      <tr><td>Frequency</td><td>Periodic — done once, then the model is retrained later when needed</td></tr>
+    </tbody>
+  </table></div>
+  <h3>12.2 Inference — the model predicts</h3>
+  <p>During inference, the trained model takes a new, never-before-seen input and produces a prediction. No learning happens — weights are frozen. This is what happens when your product is live and users are sending requests.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Factor</th><th>Inference</th></tr></thead>
+    <tbody>
+      <tr><td>Compute needed</td><td>Lower per request — but scales with request volume</td></tr>
+      <tr><td>Time</td><td>Should be fast — users are waiting</td></tr>
+      <tr><td>Cost</td><td>Depends on traffic volume and instance type</td></tr>
+      <tr><td>Data used</td><td>One input at a time (or a small batch)</td></tr>
+      <tr><td>Output</td><td>A prediction — a category, a number, generated text…</td></tr>
+      <tr><td>Frequency</td><td>Continuous — every time a user or system sends a request</td></tr>
+    </tbody>
+  </table></div>
+  <h3>12.3 Inference Modes — critical for the AWS exam</h3>
+  <p>There are four ways to deploy a model in SageMaker. The exam gives a scenario and expects you to pick the right one. Memorize all four.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Mode</th><th>When to use</th><th>AWS option</th><th>Exam clue words</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Real-time inference</strong></td><td>Need a response in under 1 second. User is waiting.</td><td>SageMaker Real-time Endpoint</td><td>"low latency", "during checkout", "live", "instant", "&lt;100ms"</td></tr>
+      <tr><td><strong>Batch inference</strong></td><td>Score a large dataset all at once. No urgency — can run overnight.</td><td>SageMaker Batch Transform</td><td>"overnight", "millions of records", "no real-time requirement", "bulk scoring"</td></tr>
+      <tr><td><strong>Async inference</strong></td><td>Input is large (video, big documents) or processing takes minutes. Caller doesn't need to wait synchronously.</td><td>SageMaker Async Inference</td><td>"large payload", "video analysis", "takes minutes", "&gt;1MB input", "async OK"</td></tr>
+      <tr><td><strong>Serverless inference</strong></td><td>Traffic is sporadic and unpredictable. You don't want to pay for an always-on server.</td><td>SageMaker Serverless Inference</td><td>"sporadic traffic", "occasional requests", "skip server management", "internal tool"</td></tr>
+    </tbody>
+  </table></div>
+  <div class="call exam">🚨 <strong>Exam pattern — practice these mappings out loud:</strong><br><br>
+  "Process millions of records every night, no real-time requirement." → <strong>Batch Transform</strong><br>
+  "Large 500MB image, processing takes 5 minutes." → <strong>Async Inference</strong><br>
+  "Detect fraud during checkout in under 100ms." → <strong>Real-time Endpoint</strong><br>
+  "An internal tool used a few times a day, no dedicated server needed." → <strong>Serverless Inference</strong></div>
+</section><hr>
+
+<!-- PART 13 -->
+<section class="sec" id="p13">
+  <div class="ph"><span class="pn">Part 13</span><h2 class="pt">MLOps Concepts</h2></div>
+  <p><strong>MLOps = DevOps applied to Machine Learning.</strong> It's the practice of building, deploying, and maintaining ML systems reliably, repeatably, and at scale.</p>
+  <h3>13.1 Model Versioning</h3>
+  <p>Every time you train a new model — with fresh data, a new architecture, or different hyperparameters — you create a new version. You must track versions carefully.</p>
+  <p><strong>Why versioning matters:</strong></p>
+  <ul>
+    <li><strong>Rollback:</strong> if the new model breaks production, instantly revert to the previous version</li>
+    <li><strong>Compare:</strong> which version — v2 or v3 — performs better on the latest data?</li>
+    <li><strong>Audit:</strong> what changed and when? Required in regulated industries (banking, healthcare)</li>
+    <li><strong>Reproduce:</strong> can you recreate exactly the model that was in production on a specific date?</li>
+    <li><strong>Compliance:</strong> GDPR, banking regulations, FDA processes all require model lineage tracking</li>
+  </ul>
+  <h3>13.2 CI/CD/CT for ML</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Stage</th><th>What it automates</th></tr></thead>
+    <tbody>
+      <tr><td><strong>CI — Continuous Integration</strong></td><td>Automatically test your code, data pipelines, and training scripts every time someone pushes a change. Catches bugs before they reach production.</td></tr>
+      <tr><td><strong>CD — Continuous Delivery</strong></td><td>Automatically deploy new model versions safely — using canary deployments (5% of traffic to new model, monitor, then gradually increase) or blue-green deployments (run both versions, switch traffic).</td></tr>
+      <tr><td><strong>CT — Continuous Training</strong></td><td>Automatically retrain the model when a trigger fires — e.g., every Sunday, when accuracy drops below 90%, or when new labeled data arrives.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>13.3 Monitoring in Production</h3>
+  <p>After deployment, the world changes and your model gradually becomes less accurate. Monitor for multiple problem types:</p>
+  <div class="tw"><table>
+    <thead><tr><th>What to monitor</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Accuracy / business metric</strong></td><td>Is the model still producing correct predictions? Still generating business value?</td></tr>
+      <tr><td><strong>Latency</strong></td><td>Are predictions getting slower? Indicates a resource or complexity problem.</td></tr>
+      <tr><td><strong>Errors</strong></td><td>Are inference requests failing? At what rate?</td></tr>
+      <tr><td><strong>Data drift</strong></td><td>Has the distribution of input data shifted from training? E.g., a new product category the model never saw.</td></tr>
+      <tr><td><strong>Model drift / concept drift</strong></td><td>Has the relationship between inputs and outputs changed? E.g., COVID changed shopping patterns overnight — pre-COVID models became wrong.</td></tr>
+      <tr><td><strong>Bias</strong></td><td>Is the model treating demographic groups unfairly? E.g., systematically denying loans for certain zip codes.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>13.4 Retraining Triggers</h3>
+  <p>Monitoring detects problems. Retraining fixes them. Trigger a retrain when:</p>
+  <ul>
+    <li>Accuracy drops below a defined threshold</li>
+    <li>New labeled data becomes available</li>
+    <li>Data drift is detected above a threshold</li>
+    <li>Business rules change (new product launch, new regulation)</li>
+    <li>Seasonality shifts (holiday vs non-holiday patterns)</li>
+    <li>Bias is detected in production predictions</li>
+    <li>Compliance or audit requirements mandate it</li>
+  </ul>
+  <div class="call tip">💡 <strong>AWS service:</strong> <strong>SageMaker Pipelines</strong> automates this entire loop — preprocessing → training → evaluation → deployment — as a repeatable, versioned, auditable workflow.</div>
+</section><hr>
+
+<!-- PART 14 -->
+<section class="sec" id="p14">
+  <div class="ph"><span class="pn">Parts 14–16</span><h2 class="pt">Amazon SageMaker AI — The Big One</h2></div>
+  <p>SageMaker AI is AWS's flagship ML platform. It covers the <strong>full ML lifecycle</strong>: prepare data → build → train → tune → deploy → monitor. The exam does not just ask "what is SageMaker?" — it asks which <em>specific feature</em> of SageMaker handles which part of the lifecycle. Memorize each feature's job and clue words.</p>
+
+  <h3>14.1 SageMaker Studio</h3>
+  <p><strong>What it is:</strong> A fully web-based IDE (Integrated Development Environment) for ML. Think of it as VS Code, but purpose-built for ML and running entirely in your browser.</p>
+  <p><strong>What you can do in it:</strong> write and run notebooks, launch training jobs, visualize experiments, deploy models, monitor endpoints — all from one unified interface.</p>
+  <p><strong>Use when:</strong> you want one workspace to do everything without switching between tools.</p>
+  <div class="call key">🔑 Clue words: "integrated development environment for ML", "unified ML workspace", "web-based ML IDE"</div>
+
+  <h3>14.2 SageMaker Autopilot</h3>
+  <p><strong>What it is:</strong> AutoML. You give it a dataset and point it at a target column, and it automatically: tries multiple algorithms, preprocesses the data, tunes hyperparameters, and delivers a deployable model — all without you writing a single line of ML code.</p>
+  <p><strong>Under the hood:</strong> Autopilot actually generates the training notebooks and code it uses, so you can inspect and modify what it did. It's not a black box.</p>
+  <p><strong>Use when:</strong> your team has little ML expertise, or you want a strong baseline model quickly to compare against.</p>
+  <div class="call key">🔑 Clue words: "AutoML", "automatically build model", "least amount of ML code", "no ML expertise", "quick baseline"</div>
+
+  <h3>14.3 SageMaker Ground Truth</h3>
+  <p><strong>What it is:</strong> A data labeling service. It manages the entire labeling workflow — sending data to human labelers, collecting results, and using ML to accelerate the process.</p>
+  <p><strong>How it accelerates labeling:</strong> Using <em>active learning</em> — once enough examples are labeled, it trains a model to auto-label the examples it's confident about, and only sends the ambiguous ones to humans. This can reduce human labeling effort by up to 70%.</p>
+  <p><strong>Workforce options:</strong> Amazon Mechanical Turk (public crowd), private workforce (your own employees), or AWS Marketplace vendors (specialists like medical annotators).</p>
+  <p><strong>Use when:</strong> you need labeled training data for supervised learning.</p>
+  <div class="call key">🔑 Clue words: "label training data", "human labelers", "data annotation", "create labeled dataset"</div>
+
+  <h3>14.4 SageMaker Pipelines</h3>
+  <p><strong>What it is:</strong> A workflow orchestration service for ML. You define a pipeline as a sequence of steps — data processing → training → evaluation → conditional deployment — and SageMaker runs it automatically, tracks each run, and stores artifacts.</p>
+  <p><strong>Why it matters:</strong> Without pipelines, ML workflows are manual and error-prone. With Pipelines, every model is trained the same way, every step is logged, and you can reproduce any past run exactly.</p>
+  <p><strong>Use when:</strong> you need repeatable MLOps workflows, CI/CD for ML, or automated retraining on a schedule or trigger.</p>
+  <div class="call key">🔑 Clue words: "orchestrate ML workflow", "automate end-to-end ML", "repeatable pipeline", "CI/CD for ML"</div>
+
+  <h3>14.5 SageMaker Clarify</h3>
+  <p><strong>What it is:</strong> A tool for detecting bias in data and models, and explaining why a model made a specific prediction.</p>
+  <p><strong>Two jobs:</strong></p>
+  <ul>
+    <li><strong>Bias detection:</strong> measures statistical bias in training data (e.g., the training set has 90% male applicants, which will bias a loan model) and in model predictions (e.g., approval rate for women is 60% vs 80% for men)</li>
+    <li><strong>Explainability:</strong> uses SHAP values to show which features most influenced each prediction — "this loan was denied primarily because the debt-to-income ratio was high"</li>
+  </ul>
+  <p><strong>Use when:</strong> you need to meet fairness requirements, explain predictions to regulators, or debug why a model performs poorly on a subgroup.</p>
+  <div class="call key">🔑 Clue words: "bias detection", "fairness", "explainability", "feature attribution", "why did the model predict this?", "SHAP"</div>
+
+  <h3>14.6 SageMaker Model Monitor</h3>
+  <p><strong>What it is:</strong> Automatically monitors deployed SageMaker endpoints in production and alerts you when it detects problems.</p>
+  <p><strong>What it monitors:</strong></p>
+  <ul>
+    <li><strong>Data quality:</strong> statistical properties of inputs have shifted from training (data drift)</li>
+    <li><strong>Model quality:</strong> prediction accuracy has degraded (requires ground truth labels to flow back)</li>
+    <li><strong>Bias drift:</strong> the model has become more biased over time on certain groups</li>
+    <li><strong>Feature attribution drift:</strong> the features that matter most to the model have changed</li>
+  </ul>
+  <p><strong>Use when:</strong> you need ongoing production monitoring of a deployed model.</p>
+  <div class="call key">🔑 Clue words: "detect drift", "monitor deployed model", "production monitoring", "data quality alerts"</div>
+
+  <h3>14.7 SageMaker JumpStart</h3>
+  <p><strong>What it is:</strong> A hub of pretrained models, foundation models, and end-to-end solution templates that you can deploy or fine-tune with one click inside SageMaker.</p>
+  <p><strong>What's available:</strong> hundreds of models from Hugging Face, TensorFlow Hub, PyTorch Hub, plus foundation models (Llama, Falcon, Stable Diffusion, etc.) and complete solution templates for common use cases (fraud detection, churn prediction, etc.).</p>
+  <p><strong>Use when:</strong> you don't want to train from scratch and want a strong pretrained starting point.</p>
+  <div class="call key">🔑 Clue words: "pretrained model", "quick start", "foundation model in SageMaker", "fine-tune a model", "solution template"</div>
+
+  <h3>14.8 SageMaker Feature Store</h3>
+  <p><strong>What it is:</strong> A centralized repository for ML features — the engineered inputs you feed to models. It has two stores:</p>
+  <ul>
+    <li><strong>Online store:</strong> low-latency retrieval for real-time inference (millisecond lookups)</li>
+    <li><strong>Offline store:</strong> large-scale historical feature storage for training (stored in S3)</li>
+  </ul>
+  <p><strong>Why it matters:</strong> Without Feature Store, different teams build the same features differently, and the features used at training time may differ from those at inference time — causing silent bugs. Feature Store ensures consistency.</p>
+  <p><strong>Use when:</strong> multiple teams or models need to reuse the same features consistently, or you need to ensure training-serving feature consistency.</p>
+  <div class="call key">🔑 Clue words: "store and reuse features", "training-serving skew", "feature consistency", "centralized features", "share features across teams"</div>
+
+  <h3>14.9 SageMaker Data Wrangler</h3>
+  <p><strong>What it is:</strong> A visual, low-code data preparation and feature engineering tool built into SageMaker Studio. You connect to data sources, apply 300+ built-in transforms, visualize data quality, and export the workflow as code.</p>
+  <p><strong>Use when:</strong> cleaning, transforming, and exploring data before training — especially for users who prefer visual tools over writing pandas/Spark code.</p>
+  <div class="call key">🔑 Clue words: "visual data prep", "low-code feature engineering", "data transformation UI", "explore data before training"</div>
+
+  <h3>14.10 SageMaker Canvas</h3>
+  <p><strong>What it is:</strong> No-code ML for business analysts and non-technical users. Drag-and-drop interface — upload data, point at the target column, click "Build Model," and get predictions without writing a single line of code or knowing any ML concepts.</p>
+  <p><strong>Use when:</strong> business analysts, executives, or domain experts want to build ML models without an ML engineer.</p>
+  <div class="call key">🔑 Clue words: "no-code ML", "non-technical users", "business analyst builds model", "drag and drop ML", "no ML expertise required"</div>
+
+  <h3>Part 15 — SageMaker Training: Three Levels of Control</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Option</th><th>Control</th><th>Effort</th><th>When to use</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Built-in algorithms</strong></td><td>Low</td><td>Low</td><td>Standard problems — just configure and launch. No coding.</td></tr>
+      <tr><td><strong>Script mode</strong></td><td>Medium</td><td>Medium</td><td>Bring your own TensorFlow / PyTorch / scikit-learn training script. SageMaker manages the infrastructure.</td></tr>
+      <tr><td><strong>Custom containers</strong></td><td>High</td><td>High</td><td>Full control — bring your own Docker image with any framework or custom runtime.</td></tr>
+    </tbody>
+  </table></div>
+  <h4>Common Built-in Algorithms</h4>
+  <div class="tw"><table>
+    <thead><tr><th>Problem</th><th>Built-in Algorithm</th></tr></thead>
+    <tbody>
+      <tr><td>Classification / Regression</td><td><strong>XGBoost</strong> — gradient boosted trees, excellent general purpose</td></tr>
+      <tr><td>Regression (simpler)</td><td><strong>Linear Learner</strong></td></tr>
+      <tr><td>Clustering</td><td><strong>K-Means</strong></td></tr>
+      <tr><td>Anomaly detection</td><td><strong>Random Cut Forest</strong></td></tr>
+      <tr><td>Recommendation</td><td><strong>Factorization Machines</strong></td></tr>
+      <tr><td>Time-series forecasting</td><td><strong>DeepAR</strong></td></tr>
+      <tr><td>Image classification</td><td><strong>ResNet (built-in)</strong></td></tr>
+      <tr><td>Topic modeling</td><td><strong>LDA, Neural Topic Model</strong></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Part 16 — SageMaker Deployment Types</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Deployment</th><th>When</th><th>Examples</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Real-time Endpoint</strong></td><td>Need answer in &lt;1 sec</td><td>Fraud check at payment, product recommendations on a website, chatbot response</td></tr>
+      <tr><td><strong>Batch Transform</strong></td><td>Score a huge dataset offline, no rush</td><td>Score all customers overnight, monthly churn batch, weekly risk reports</td></tr>
+      <tr><td><strong>Async Inference</strong></td><td>Large payload OR long processing, async OK</td><td>Video analysis, large document processing, inputs over 1GB</td></tr>
+      <tr><td><strong>Serverless Inference</strong></td><td>Sporadic / unpredictable traffic, skip server management</td><td>Internal tools used a few times a day, dev/test environments</td></tr>
+    </tbody>
+  </table></div>
+</section><hr>
+
+<!-- PARTS 17-18 -->
+<section class="sec" id="p17">
+  <div class="ph"><span class="pn">Parts 17–18</span><h2 class="pt">Pre-built AWS AI Services</h2></div>
+  <p>These are <strong>API-based services — no training needed</strong>. You send data to the API and AWS returns the AI result. Think of them as "AI as a service." For any task these services cover, use them instead of building a custom model — they're faster, cheaper, and require zero ML expertise.</p>
+
+  <h3>17.1 Amazon Rekognition — Images &amp; Video</h3>
+  <p><strong>What it does:</strong> Analyzes images and videos to detect and identify visual content.</p>
+  <ul>
+    <li>Face detection and analysis (age range, emotions, whether wearing glasses)</li>
+    <li>Face comparison and search (is this face in your database?)</li>
+    <li>Object and scene detection (car, beach, sunset, animal…)</li>
+    <li>Content moderation — detect unsafe or inappropriate content (nudity, violence, drug use)</li>
+    <li>Celebrity recognition</li>
+    <li>Text in images (e.g., reading a license plate or a sign in a photo)</li>
+    <li>Activity detection in video (e.g., detecting a fall)</li>
+  </ul>
+  <div class="call key">🔑 Clue words: image/video analysis, detect faces/objects, content moderation, visual recognition</div>
+
+  <h3>17.2 Amazon Comprehend — Text Understanding (NLP)</h3>
+  <p><strong>What it does:</strong> Understands the content and meaning of text documents using Natural Language Processing.</p>
+  <ul>
+    <li><strong>Sentiment analysis:</strong> is this review positive, negative, neutral, or mixed?</li>
+    <li><strong>Entity recognition:</strong> extract names of people, places, organizations, dates, dollar amounts</li>
+    <li><strong>Key phrase extraction:</strong> what are the main topics discussed?</li>
+    <li><strong>Language detection:</strong> what language is this text written in?</li>
+    <li><strong>Topic modeling:</strong> what themes run through a collection of documents?</li>
+    <li><strong>Document classification:</strong> train a custom classifier on your own categories</li>
+    <li><strong>Comprehend Medical:</strong> specialized version that extracts medical entities — drug names, dosages, medical conditions, procedures</li>
+  </ul>
+  <div class="call key">🔑 Clue words: understand text, sentiment analysis, extract entities, key phrases, NLP on documents</div>
+
+  <h3>17.3 Amazon Textract — Extract Data from Documents</h3>
+  <p><strong>What it does:</strong> Goes beyond basic OCR. Not only reads text from scanned documents, but also understands document structure — extracts tables with their rows and columns intact, form fields with their labels and values, key-value pairs from invoices.</p>
+  <ul>
+    <li>Scanned PDF text extraction</li>
+    <li>Table extraction from invoices, financial statements</li>
+    <li>Form extraction (field name + field value) from applications, contracts</li>
+    <li>Handwriting recognition</li>
+    <li>Works on low-quality, skewed, or partially obscured scans</li>
+  </ul>
+  <div class="call exam">🚨 <strong>Textract vs Rekognition trap:</strong> Rekognition sees an image as a visual scene (faces, objects). Textract treats an image as a document and extracts its structured text content. "Extract text from a scanned invoice" → <strong>Textract</strong>, not Rekognition.</div>
+  <div class="call key">🔑 Clue words: OCR, forms, tables, invoice extraction, document data extraction, structured data from scan</div>
+
+  <h3>17.4 Amazon Transcribe — Speech → Text</h3>
+  <p><strong>What it does:</strong> Converts audio and video files into text transcriptions.</p>
+  <ul>
+    <li>Real-time transcription (live captions)</li>
+    <li>Batch transcription (upload a file, get transcript back)</li>
+    <li>Speaker diarization — labels which speaker said what ("Speaker 1:", "Speaker 2:")</li>
+    <li>Custom vocabulary — teach it domain-specific words (drug names, product names, jargon)</li>
+    <li>Automatic punctuation and formatting</li>
+    <li><strong>Transcribe Medical:</strong> specialized for clinical conversations — understands medical terminology, clinical notes dictation</li>
+  </ul>
+  <div class="call key">🔑 Clue words: audio to text, speech recognition, call transcription, live captions, voice to text</div>
+
+  <h3>17.5 Amazon Polly — Text → Speech</h3>
+  <p><strong>What it does:</strong> The opposite of Transcribe. Converts written text into natural-sounding spoken audio.</p>
+  <ul>
+    <li>Dozens of voices across 30+ languages</li>
+    <li>Standard voices and Neural TTS voices (more natural, harder to distinguish from human)</li>
+    <li>SSML support — control speaking rate, pitch, volume, add pauses, spell out words</li>
+    <li>Real-time streaming or batch generation</li>
+  </ul>
+  <p><strong>Classic use cases:</strong> accessibility features, IVR systems ("Press 1 for billing"), audiobook generation, voice assistants.</p>
+  <div class="call tip">💡 <strong>Mnemonic:</strong> <em>Transcribe writes down what was said. Polly reads things out loud.</em></div>
+  <div class="call key">🔑 Clue words: text to speech, natural voice, generate audio from text, voice-enable an application</div>
+
+  <h3>17.6 Amazon Translate — Language Translation</h3>
+  <p><strong>What it does:</strong> Translates text between 75+ language pairs in real-time or batch mode.</p>
+  <ul>
+    <li>Real-time translation API (for live chat translation)</li>
+    <li>Batch translation of documents</li>
+    <li>Custom terminology — specify how brand names, product names, or jargon should be translated (don't translate "SageMaker" to a French word)</li>
+    <li>Active Custom Translation — fine-tune quality using your own parallel text examples</li>
+  </ul>
+  <div class="call key">🔑 Clue words: translate languages, multilingual support, localize content, cross-language</div>
+
+  <h3>17.7 Amazon Lex — Chatbots &amp; Voice Bots</h3>
+  <p><strong>What it does:</strong> Builds conversational interfaces — chatbots and voice bots — using the same deep learning engine that powers Amazon Alexa.</p>
+  <p><strong>Key concepts you must know:</strong></p>
+  <ul>
+    <li><strong>Intent:</strong> what the user is trying to do — e.g., "BookFlight", "CheckBalance", "CancelOrder"</li>
+    <li><strong>Slot:</strong> a piece of information needed to fulfill the intent — e.g., for BookFlight: {destination}, {date}, {passenger_count}</li>
+    <li><strong>Utterance:</strong> the different ways a user might phrase the same intent — "I want to fly to NYC", "Book me a flight to New York", "Get me to New York on Friday"</li>
+    <li>Lex understands all of these utterances, maps them to the intent, and asks for any missing slots</li>
+  </ul>
+  <p><strong>Use cases:</strong> customer service chatbots, voice-controlled applications, IVR phone systems, order management bots.</p>
+  <div class="call key">🔑 Clue words: chatbot, voice bot, conversational interface, IVR, intent, slots, Alexa-like bot</div>
+
+  <h3>18.1 Amazon Forecast — Time-Series Forecasting</h3>
+  <p><strong>What it does:</strong> Predicts future values from historical time-series data. You upload your historical data (and optionally related data like holidays, weather, promotions) and Forecast automatically selects the best algorithm and produces predictions.</p>
+  <ul>
+    <li>Demand forecasting (how much product will we sell next month?)</li>
+    <li>Inventory optimization (how much stock to hold?)</li>
+    <li>Workforce planning (how many agents do we need next week?)</li>
+    <li>Financial planning (revenue projections)</li>
+    <li>Energy demand forecasting</li>
+  </ul>
+  <div class="call key">🔑 Clue words: forecast future values, time-series prediction, demand planning, predict next month's sales</div>
+
+  <h3>18.2 Amazon Personalize — Recommendations</h3>
+  <p><strong>What it does:</strong> Provides real-time, personalized recommendations. This is the same recommendation engine that powers Amazon.com's "Customers who bought this also bought" and "Recommended for you" features.</p>
+  <ul>
+    <li>User-personalized recommendations ("Top picks for you")</li>
+    <li>Similar items ("Customers also viewed…")</li>
+    <li>Personalized re-ranking (reorder a list of items by predicted relevance for a specific user)</li>
+    <li>User segmentation (group users by predicted behavior)</li>
+    <li>Handles cold start — new users and new items with no history</li>
+  </ul>
+  <div class="call key">🔑 Clue words: personalized recommendations, users who bought X also bought Y, suggest items, next best offer</div>
+
+  <h3>18.3 Amazon Kendra — Intelligent Enterprise Search</h3>
+  <p><strong>What it does:</strong> Natural-language search across your company's internal documents and knowledge bases. Unlike a keyword search engine (which returns links), Kendra returns <em>answers</em> — it reads the documents and extracts the specific passage that answers your question.</p>
+  <ul>
+    <li>Connects to S3, SharePoint, Confluence, Salesforce, databases, and more via connectors</li>
+    <li>Returns direct answers with source citations</li>
+    <li>Understands synonyms and semantic meaning — searching for "vacation days" finds documents about "PTO" and "annual leave"</li>
+  </ul>
+  <div class="call exam">🚨 <strong>Comprehend vs Kendra trap:</strong> Comprehend <em>analyzes</em> text (what's the sentiment? what entities are mentioned?). Kendra <em>searches</em> a document library to find answers to questions. These are completely different tasks.</div>
+  <div class="call key">🔑 Clue words: enterprise search, search across documents, knowledge base, natural-language question answering over company docs</div>
+
+  <h3>18.4 Amazon Fraud Detector</h3>
+  <p><strong>What it does:</strong> Detects online fraud — payment fraud, fake account creation, suspicious logins — using ML models trained on your data combined with Amazon's fraud detection expertise.</p>
+  <div class="call warn">⚠️ <strong>Important note:</strong> As of November 7, 2025, Amazon Fraud Detector is no longer accepting new customers. Existing customers continue to use it. Know what it does conceptually — the exam may still reference it. New fraud-detection use cases are now typically built on <strong>SageMaker</strong> instead.</div>
+  <div class="call key">🔑 Clue words: online fraud detection, payment fraud, fake accounts, risk scoring</div>
+
+  <h3>18.5 Amazon Lookout for Metrics — Anomaly Detection in Business KPIs</h3>
+  <p><strong>What it does:</strong> Automatically detects anomalies in business metrics and KPIs — revenue, web traffic, conversion rates, signups — and helps you understand the root cause.</p>
+  <ul>
+    <li>Connects to data sources (S3, Redshift, RDS, CloudWatch) and continuously monitors your metrics</li>
+    <li>Alerts when a metric behaves unusually compared to its historical pattern</li>
+    <li>Groups related anomalies together — e.g., "revenue dropped AND order count dropped AND traffic from mobile dropped all at the same time"</li>
+  </ul>
+  <div class="call key">🔑 Clue words: detect anomalies in metrics, business KPI monitoring, unusual revenue/traffic spikes, metric anomaly detection</div>
+
+  <h3>Bonus Services Worth Recognizing</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Service</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Amazon Bedrock</strong></td><td>Managed API access to foundation models (Claude, Llama, Titan, Stable Diffusion, etc.) for building generative AI applications. Pair with <strong>Knowledge Bases</strong> for RAG (Retrieval-Augmented Generation). No infrastructure to manage.</td></tr>
+      <tr><td><strong>Amazon Q</strong></td><td>Generative AI assistant for two audiences: Q Business (enterprise assistant — answer questions from your company's documents and data) and Q Developer (AI coding assistant in your IDE, formerly CodeWhisperer).</td></tr>
+      <tr><td><strong>Amazon Lookout for Vision</strong></td><td>Detects visual defects in industrial products using computer vision. E.g., scratch on a circuit board, crack in a manufactured part. Uses your own images of good and defective products.</td></tr>
+      <tr><td><strong>Amazon Lookout for Equipment</strong></td><td>Predictive maintenance from industrial sensor data. Learns normal patterns from vibration, temperature, pressure sensors and alerts when patterns suggest impending equipment failure.</td></tr>
+      <tr><td><strong>Amazon CodeWhisperer / Q Developer</strong></td><td>AI-powered code suggestions directly in your IDE (VS Code, JetBrains, etc.). Suggests whole functions based on comments and context.</td></tr>
+    </tbody>
+  </table></div>
+</section><hr>
+<!-- PART 19 -->
+<section class="sec" id="p19">
+  <div class="ph"><span class="pn">Part 19</span><h2 class="pt">Master "Which Service?" Table</h2></div>
+  <p>This is the table you must know cold. <strong>Every exam has 5+ questions that map directly to this.</strong> Cover the right column with your hand and drill yourself until you get 100%.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Use Case</th><th>AWS Service</th></tr></thead>
+    <tbody>
+      <tr><td>Detect objects / faces in images or videos</td><td><strong style="color:var(--accent)">Rekognition</strong></td></tr>
+      <tr><td>Moderate unsafe image or video content</td><td><strong style="color:var(--accent)">Rekognition</strong></td></tr>
+      <tr><td>Compare two faces / search faces in a database</td><td><strong style="color:var(--accent)">Rekognition</strong></td></tr>
+      <tr><td>Extract text from scanned documents</td><td><strong style="color:var(--cyan)">Textract</strong></td></tr>
+      <tr><td>Extract tables / forms / key-value pairs from invoices</td><td><strong style="color:var(--cyan)">Textract</strong></td></tr>
+      <tr><td>Convert speech / audio to text</td><td><strong style="color:var(--green)">Transcribe</strong></td></tr>
+      <tr><td>Generate live captions from audio stream</td><td><strong style="color:var(--green)">Transcribe</strong></td></tr>
+      <tr><td>Convert text to natural-sounding speech</td><td><strong style="color:var(--green)">Polly</strong></td></tr>
+      <tr><td>Add voice to an application (text → audio)</td><td><strong style="color:var(--green)">Polly</strong></td></tr>
+      <tr><td>Translate text between languages</td><td><strong style="color:var(--green)">Translate</strong></td></tr>
+      <tr><td>Sentiment / entities / key phrases in text</td><td><strong style="color:var(--orange)">Comprehend</strong></td></tr>
+      <tr><td>Analyze customer reviews for sentiment</td><td><strong style="color:var(--orange)">Comprehend</strong></td></tr>
+      <tr><td>Extract medical entities from clinical notes</td><td><strong style="color:var(--orange)">Comprehend Medical</strong></td></tr>
+      <tr><td>Build a chatbot or voice bot</td><td><strong style="color:var(--orange)">Lex</strong></td></tr>
+      <tr><td>IVR system (phone bot with intents and slots)</td><td><strong style="color:var(--orange)">Lex</strong></td></tr>
+      <tr><td>Forecast future demand / sales / inventory</td><td><strong style="color:var(--yellow)">Forecast</strong></td></tr>
+      <tr><td>Predict future time-series values</td><td><strong style="color:var(--yellow)">Forecast</strong></td></tr>
+      <tr><td>Recommend products / content to users</td><td><strong style="color:var(--yellow)">Personalize</strong></td></tr>
+      <tr><td>Personalized "you may also like" feature</td><td><strong style="color:var(--yellow)">Personalize</strong></td></tr>
+      <tr><td>Natural-language search across enterprise documents</td><td><strong style="color:var(--yellow)">Kendra</strong></td></tr>
+      <tr><td>Find answers from a company knowledge base</td><td><strong style="color:var(--yellow)">Kendra</strong></td></tr>
+      <tr><td>Detect fraud in online payments (legacy)</td><td><strong style="color:var(--muted)">Fraud Detector</strong> (or SageMaker)</td></tr>
+      <tr><td>Detect anomalies in business KPIs / metrics</td><td><strong style="color:var(--muted)">Lookout for Metrics</strong></td></tr>
+      <tr><td>Detect visual defects in manufactured products</td><td><strong style="color:var(--muted)">Lookout for Vision</strong></td></tr>
+      <tr><td>Predictive maintenance from sensor data</td><td><strong style="color:var(--muted)">Lookout for Equipment</strong></td></tr>
+      <tr><td>Build / train / deploy a custom ML model</td><td><strong style="color:var(--pink)">SageMaker AI</strong></td></tr>
+      <tr><td>Label training data with human annotators</td><td><strong style="color:var(--pink)">SageMaker Ground Truth</strong></td></tr>
+      <tr><td>Auto-build ML models without ML expertise (AutoML)</td><td><strong style="color:var(--pink)">SageMaker Autopilot</strong></td></tr>
+      <tr><td>Detect bias / explain model predictions</td><td><strong style="color:var(--pink)">SageMaker Clarify</strong></td></tr>
+      <tr><td>Monitor drift in a deployed production model</td><td><strong style="color:var(--pink)">SageMaker Model Monitor</strong></td></tr>
+      <tr><td>Store / reuse ML features across teams</td><td><strong style="color:var(--pink)">SageMaker Feature Store</strong></td></tr>
+      <tr><td>Use pretrained / foundation models inside SageMaker</td><td><strong style="color:var(--pink)">SageMaker JumpStart</strong></td></tr>
+      <tr><td>Automate ML workflow end-to-end</td><td><strong style="color:var(--pink)">SageMaker Pipelines</strong></td></tr>
+      <tr><td>Real-time predictions (&lt;1 second response)</td><td><strong style="color:var(--pink)">SageMaker Real-time Endpoint</strong></td></tr>
+      <tr><td>Offline bulk predictions (millions of records)</td><td><strong style="color:var(--pink)">SageMaker Batch Transform</strong></td></tr>
+      <tr><td>Large-payload / long-running async inference</td><td><strong style="color:var(--pink)">SageMaker Async Inference</strong></td></tr>
+      <tr><td>No-code ML for business analysts</td><td><strong style="color:var(--pink)">SageMaker Canvas</strong></td></tr>
+      <tr><td>Build a generative AI app using foundation models</td><td><strong style="color:var(--accent)">Amazon Bedrock</strong></td></tr>
+      <tr><td>RAG — search company docs with a foundation model</td><td><strong style="color:var(--accent)">Bedrock Knowledge Bases</strong></td></tr>
+      <tr><td>Enterprise GenAI assistant over company data</td><td><strong style="color:var(--accent)">Amazon Q Business</strong></td></tr>
+      <tr><td>AI code suggestions in the IDE</td><td><strong style="color:var(--accent)">Amazon Q Developer</strong></td></tr>
+    </tbody>
+  </table></div>
+  <div class="call key">🔑 <strong>Default heuristic:</strong> If a pre-built service (Rekognition, Comprehend, Textract, etc.) covers the task exactly → use it. It's cheaper, faster, no training needed. Only use SageMaker when you need a custom model on your own data or the pre-built services don't fit the specific task.</div>
+</section><hr>
+
+<!-- PART 20 -->
+<section class="sec" id="p20">
+  <div class="ph"><span class="pn">Part 20</span><h2 class="pt">Exam Traps — Read These Twice</h2></div>
+  <p>Each of these is worth 1–2 exam points. These are the questions that separate prepared candidates from unprepared ones. Every trap below has caused many exam failures.</p>
+  <div class="traps">
+    <div class="tc">
+      <div class="tn2">Trap 1</div>
+      <div class="tt">"Accuracy is the right metric" — almost never</div>
+      <div class="tb">The exam almost never wants accuracy. If the dataset is imbalanced (fraud: 1%, disease detection, rare events) → accuracy is misleading. Use <strong>F1, Recall, or AUC-ROC</strong>. Only use accuracy when classes are roughly balanced and both error types matter equally.</div>
+    </div>
+    <div class="tc">
+      <div class="tn2">Trap 2</div>
+      <div class="tt">Rekognition vs Textract — visual scene vs document</div>
+      <div class="tb"><strong>Rekognition</strong> = treats an image as a visual scene — faces, objects, scenes, emotions, unsafe content. <strong>Textract</strong> = treats an image as a document — extracts text, tables, forms, key-value pairs. "Extract line items from a scanned invoice" → <strong>Textract</strong>, not Rekognition. "Detect faces at a venue entrance" → <strong>Rekognition</strong>, not Textract.</div>
+    </div>
+    <div class="tc">
+      <div class="tn2">Trap 3</div>
+      <div class="tt">Transcribe vs Polly — direction matters</div>
+      <div class="tb"><strong>Transcribe</strong> = audio/speech → text (speech recognition). <strong>Polly</strong> = text → audio/speech (speech synthesis). They are exact opposites. Mnemonic: <em>Transcribe writes down what was said. Polly reads things out loud.</em> The exam has given both in the same question to test whether you know the direction.</div>
+    </div>
+    <div class="tc">
+      <div class="tn2">Trap 4</div>
+      <div class="tt">Comprehend vs Kendra — analyze vs search</div>
+      <div class="tb"><strong>Comprehend</strong> = analyzes the content of text (what's the sentiment? what entities are mentioned? what language is this?). <strong>Kendra</strong> = searches across a library of documents to find answers to natural-language questions. "Analyze 10,000 customer reviews for sentiment" → Comprehend. "Let employees ask questions and get answers from our internal policy documents" → Kendra.</div>
+    </div>
+    <div class="tc">
+      <div class="tn2">Trap 5</div>
+      <div class="tt">Forecast vs Personalize — predict numbers vs recommend items</div>
+      <div class="tb"><strong>Forecast</strong> = predict a numeric value over time (how many units will we sell next month?). <strong>Personalize</strong> = recommend specific items to specific users (what products should we show this customer?). Both involve historical data, but Forecast produces numbers and Personalize produces ranked lists of items.</div>
+    </div>
+    <div class="tc">
+      <div class="tn2">Trap 6</div>
+      <div class="tt">SageMaker vs Pre-built AI Service — when to use which</div>
+      <div class="tb">
+        <div class="tw"><table>
+          <thead><tr><th>Situation</th><th>Choose</th></tr></thead>
+          <tbody>
+            <tr><td>There's a ready API that does exactly this task</td><td>Pre-built AI service</td></tr>
+            <tr><td>You need a custom model on your own labeled data</td><td>SageMaker AI</td></tr>
+            <tr><td>You want full ML lifecycle control</td><td>SageMaker AI</td></tr>
+            <tr><td>Team has no ML expertise, task is standard</td><td>Pre-built AI service or Autopilot/Canvas</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+    <div class="tc">
+      <div class="tn2">Trap 7</div>
+      <div class="tt">Real-time vs Batch vs Async Inference — scenario matching</div>
+      <div class="tb">These keywords lock in the answer:
+        <ul style="margin-top:8px">
+          <li><em>"low latency", "during checkout", "live response", "immediate"</em> → <strong>Real-time Endpoint</strong></li>
+          <li><em>"overnight", "millions of records", "no real-time requirement", "weekly batch"</em> → <strong>Batch Transform</strong></li>
+          <li><em>"large input (video / 500MB file)", "long processing (5 minutes)", "async OK"</em> → <strong>Async Inference</strong></li>
+          <li><em>"sporadic traffic", "used occasionally", "no dedicated server"</em> → <strong>Serverless Inference</strong></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tc">
+      <div class="tn2">Trap 8</div>
+      <div class="tt">Underfitting fixes ≠ Overfitting fixes — don't mix them up</div>
+      <div class="tb">A very common wrong answer choice: "add regularization" when the scenario describes underfitting (both training and validation accuracy are low). <strong>Regularization is an overfitting fix.</strong> For underfitting → <strong>reduce</strong> regularization, <strong>increase</strong> model complexity, train longer, add more/better features. Never add regularization to a model that is already too simple.</div>
+    </div>
+    <div class="tc">
+      <div class="tn2">Trap 9</div>
+      <div class="tt">"Model is biased" usually means the data is biased</div>
+      <div class="tb">When a question says the model is producing biased predictions, the first instinct might be to tune the model. Wrong. The exam answer is almost always: <strong>collect more representative training data</strong>, or use <strong>SageMaker Clarify</strong> to detect and mitigate bias at the data and model level. Bias in a model almost always originates in the training data — garbage in, biased garbage out.</div>
+    </div>
+    <div class="tc">
+      <div class="tn2">Trap 10</div>
+      <div class="tt">JumpStart vs Bedrock — hosted in SageMaker vs managed API</div>
+      <div class="tb"><strong>SageMaker JumpStart</strong> = a catalog of pretrained and foundation models you deploy <em>inside SageMaker</em> onto your own infrastructure. You can fine-tune them with your data. <strong>Amazon Bedrock</strong> = a fully managed API — you call a foundation model (Claude, Llama, Titan) via API with <em>no infrastructure at all</em>. Use JumpStart when you need to customize/fine-tune within SageMaker. Use Bedrock when you just want to call a foundation model as a service.</div>
+    </div>
+  </div>
+</section><hr>
+
+<!-- PART 21 -->
+<section class="sec" id="p21">
+  <div class="ph"><span class="pn">Part 21</span><h2 class="pt">One-Line Memory Sheet</h2></div>
+  <p>Use this as your <strong>final 5-minute pre-exam revision</strong>. Cover the right column with your hand and recall each answer before revealing it.</p>
+  <div class="cheat">
+    <div class="ci"><span class="ck">Supervised</span><span class="cv">Labeled data</span></div>
+    <div class="ci"><span class="ck">Unsupervised</span><span class="cv">No labels, find patterns</span></div>
+    <div class="ci"><span class="ck">Reinforcement</span><span class="cv">Agent learns by reward</span></div>
+    <div class="ci"><span class="ck">Semi-supervised</span><span class="cv">Few labels + many unlabeled</span></div>
+    <div class="ci"><span class="ck">Classification</span><span class="cv">Predict category</span></div>
+    <div class="ci"><span class="ck">Regression</span><span class="cv">Predict number</span></div>
+    <div class="ci"><span class="ck">Clustering</span><span class="cv">Group similar things</span></div>
+    <div class="ci"><span class="ck">Anomaly detection</span><span class="cv">Find unusual behavior</span></div>
+    <div class="ci"><span class="ck">Recommendation</span><span class="cv">Suggest relevant items</span></div>
+    <div class="ci"><span class="ck">Overfitting</span><span class="cv">Memorized training, fails new</span></div>
+    <div class="ci"><span class="ck">Underfitting</span><span class="cv">Too simple to learn</span></div>
+    <div class="ci"><span class="ck">Bias</span><span class="cv">Too simple (→ underfit)</span></div>
+    <div class="ci"><span class="ck">Variance</span><span class="cv">Too sensitive (→ overfit)</span></div>
+    <div class="ci"><span class="ck">Precision</span><span class="cv">Avoid false positives</span></div>
+    <div class="ci"><span class="ck">Recall</span><span class="cv">Avoid false negatives</span></div>
+    <div class="ci"><span class="ck">F1</span><span class="cv">Balance precision &amp; recall</span></div>
+    <div class="ci"><span class="ck">AUC-ROC</span><span class="cv">Class separation ability</span></div>
+    <div class="ci"><span class="ck">CNN</span><span class="cv">Images &amp; video</span></div>
+    <div class="ci"><span class="ck">RNN</span><span class="cv">Sequential / time-series</span></div>
+    <div class="ci"><span class="ck">Transformer</span><span class="cv">Language / GenAI / LLMs</span></div>
+    <div class="ci"><span class="ck">Parameter</span><span class="cv">Model learns it</span></div>
+    <div class="ci"><span class="ck">Hyperparameter</span><span class="cv">You set it before training</span></div>
+    <div class="ci"><span class="ck">Training</span><span class="cv">Model learns weights</span></div>
+    <div class="ci"><span class="ck">Inference</span><span class="cv">Model predicts on new input</span></div>
+    <div class="ci"><span class="ck">Real-time inference</span><span class="cv">&lt;1 second response</span></div>
+    <div class="ci"><span class="ck">Batch Transform</span><span class="cv">Offline, large dataset</span></div>
+    <div class="ci"><span class="ck">Async Inference</span><span class="cv">Large payload, long processing</span></div>
+    <div class="ci"><span class="ck">Ground Truth</span><span class="cv">Label training data</span></div>
+    <div class="ci"><span class="ck">Autopilot</span><span class="cv">AutoML</span></div>
+    <div class="ci"><span class="ck">Clarify</span><span class="cv">Bias / explainability</span></div>
+    <div class="ci"><span class="ck">Model Monitor</span><span class="cv">Drift detection in production</span></div>
+    <div class="ci"><span class="ck">Feature Store</span><span class="cv">Reuse features across teams</span></div>
+    <div class="ci"><span class="ck">JumpStart</span><span class="cv">Pretrained models in SageMaker</span></div>
+    <div class="ci"><span class="ck">Pipelines</span><span class="cv">ML workflow automation</span></div>
+    <div class="ci"><span class="ck">Canvas</span><span class="cv">No-code ML for analysts</span></div>
+    <div class="ci"><span class="ck">Bedrock</span><span class="cv">Foundation models as API</span></div>
+    <div class="ci"><span class="ck">Rekognition</span><span class="cv">Image / video visual analysis</span></div>
+    <div class="ci"><span class="ck">Textract</span><span class="cv">Document OCR + structure</span></div>
+    <div class="ci"><span class="ck">Comprehend</span><span class="cv">NLP — sentiment, entities</span></div>
+    <div class="ci"><span class="ck">Transcribe</span><span class="cv">Speech → Text</span></div>
+    <div class="ci"><span class="ck">Polly</span><span class="cv">Text → Speech</span></div>
+    <div class="ci"><span class="ck">Translate</span><span class="cv">Language translation</span></div>
+    <div class="ci"><span class="ck">Lex</span><span class="cv">Chatbots (intents + slots)</span></div>
+    <div class="ci"><span class="ck">Forecast</span><span class="cv">Time-series forecasting</span></div>
+    <div class="ci"><span class="ck">Personalize</span><span class="cv">Personalized recommendations</span></div>
+    <div class="ci"><span class="ck">Kendra</span><span class="cv">Enterprise document search</span></div>
+    <div class="ci"><span class="ck">Lookout for Metrics</span><span class="cv">Anomalies in KPIs</span></div>
+    <div class="ci"><span class="ck">Lookout for Vision</span><span class="cv">Visual defects in products</span></div>
+    <div class="ci"><span class="ck">Lookout for Equipment</span><span class="cv">Predictive maintenance</span></div>
+    <div class="ci"><span class="ck">Amazon Q Business</span><span class="cv">GenAI over company data</span></div>
+    <div class="ci"><span class="ck">Amazon Q Developer</span><span class="cv">AI code suggestions in IDE</span></div>
+  </div>
+</section><hr>
+
+<!-- PART 22 -->
+<section class="sec" id="p22">
+  <div class="ph"><span class="pn">Part 22</span><h2 class="pt">Day 1 Study Plan</h2></div>
+  <p>You will <em>not</em> fail this exam on definitions. <strong>You will fail it on service selection under pressure.</strong> Every study minute should be optimized for that.</p>
+
+  <div class="ssteps">
+    <div class="sstep"><div class="snum">1</div><div>
+      <div class="stitle">Read Parts 1–6 in order <span class="stime">30–45 min</span></div>
+      <div class="sdesc">Foundations: ML types → problem types → pipeline → overfitting/underfitting → bias/variance. Everything else builds on this. Don't skip.</div>
+    </div></div>
+    <div class="sstep"><div class="snum">2</div><div>
+      <div class="stitle">Drill Part 7 — Metrics <span class="stime">20 min</span></div>
+      <div class="sdesc">Until you can answer "spam filter → precision", "cancer screening → recall", "imbalanced fraud → F1" without thinking. These mappings must be automatic.</div>
+    </div></div>
+    <div class="sstep"><div class="snum">3</div><div>
+      <div class="stitle">Read Parts 8–13 <span class="stime">30 min</span></div>
+      <div class="sdesc">Neural networks, DL architectures (CNN/RNN/Transformer), training data concepts, hyperparameters, inference modes, MLOps. Solid conceptual grounding.</div>
+    </div></div>
+    <div class="sstep"><div class="snum">4</div><div>
+      <div class="stitle">Memorize Parts 14–18 — SageMaker + AI Services <span class="stime">60+ min</span></div>
+      <div class="sdesc">The heaviest section. For each service: cover the clue words and try to recall the service name. Repeat the ones you miss. Use spaced repetition.</div>
+    </div></div>
+    <div class="sstep"><div class="snum">5</div><div>
+      <div class="stitle">Memorize Part 19 — Which Service? table cold <span class="stime">30 min</span></div>
+      <div class="sdesc">Cover the right column with your hand. Quiz yourself row by row. Repeat until you get 100% three times in a row. This is the exam.</div>
+    </div></div>
+    <div class="sstep"><div class="snum">6</div><div>
+      <div class="stitle">Read Part 20 — Traps twice <span class="stime">15 min</span></div>
+      <div class="sdesc">Each trap is worth 1–2 exam points. Read them once, then come back and read them again. They are easy points if you know them, easy losses if you don't.</div>
+    </div></div>
+    <div class="sstep"><div class="snum">7</div><div>
+      <div class="stitle">Use Part 21 for final 5-minute pre-exam revision <span class="stime">5 min</span></div>
+      <div class="sdesc">Read Parts 19 + 21 right before sleep — the last thing you read sticks best.</div>
+    </div></div>
+  </div>
+
+  <h3 style="margin-top:40px">Self-Test — Answer These Before You Stop Today</h3>
+  <p>If you can answer 8 or more correctly from memory, you are in great shape for Day 1. Click each to reveal the answer.</p>
+
+  <div class="titem" onclick="this.classList.toggle('open')">
+    <div class="tq"><span class="tqn">Q1</span>A bank wants to flag suspicious transactions where 0.1% are fraud. Which evaluation metric should it prioritize and why?</div>
+    <div class="thint">Click to reveal →</div>
+    <div class="ta"><strong>Recall</strong> (or F1). Missing fraud — a false negative — means a fraudulent transaction slips through, costing money. Accuracy is meaningless on 0.1% imbalanced data (a model that never flags anything gets 99.9% accuracy but catches no fraud).</div>
+  </div>
+  <div class="titem" onclick="this.classList.toggle('open')">
+    <div class="tq"><span class="tqn">Q2</span>A retailer has 50 million customers and wants to find natural shopping segments without predefined groups. What ML type and problem type is this?</div>
+    <div class="thint">Click to reveal →</div>
+    <div class="ta"><strong>Unsupervised learning. Clustering.</strong> No labels exist — the model discovers natural groupings on its own. "Natural groups" and "no predefined categories" are the giveaway clue words.</div>
+  </div>
+  <div class="titem" onclick="this.classList.toggle('open')">
+    <div class="tq"><span class="tqn">Q3</span>The model gets 99% training accuracy and 71% validation accuracy. What is the diagnosis and name 3 fixes?</div>
+    <div class="thint">Click to reveal →</div>
+    <div class="ta"><strong>Overfitting.</strong> Large gap between training (99%) and validation (71%) is the defining sign. Three fixes from: get more training data, add regularization (L1/L2), apply dropout, reduce model complexity, use early stopping, apply cross-validation, add data augmentation.</div>
+  </div>
+  <div class="titem" onclick="this.classList.toggle('open')">
+    <div class="tq"><span class="tqn">Q4</span>A company wants to extract line items and totals from scanned PDF invoices. Which AWS service?</div>
+    <div class="thint">Click to reveal →</div>
+    <div class="ta"><strong>Amazon Textract.</strong> It extracts structured data — tables, forms, key-value pairs — from scanned documents. Rekognition would be wrong here — it sees the invoice as a visual image, not a document to be parsed.</div>
+  </div>
+  <div class="titem" onclick="this.classList.toggle('open')">
+    <div class="tq"><span class="tqn">Q5</span>A team needs to monitor a deployed model for changes in the distribution of input data over time. Which SageMaker feature?</div>
+    <div class="thint">Click to reveal →</div>
+    <div class="ta"><strong>SageMaker Model Monitor.</strong> It monitors deployed endpoints and detects data drift — when the statistical properties of inputs shift from what the model was trained on. "Monitor deployed model" + "drift" = Model Monitor.</div>
+  </div>
+  <div class="titem" onclick="this.classList.toggle('open')">
+    <div class="tq"><span class="tqn">Q6</span>A model needs to score 50 million customer records every Sunday night. There is no real-time requirement. Which SageMaker deployment type?</div>
+    <div class="thint">Click to reveal →</div>
+    <div class="ta"><strong>SageMaker Batch Transform.</strong> Bulk offline scoring, large dataset, no urgency, scheduled run → Batch Transform. Real-time Endpoint would be wrong — nobody is waiting for an instant response.</div>
+  </div>
+  <div class="titem" onclick="this.classList.toggle('open')">
+    <div class="tq"><span class="tqn">Q7</span>A startup wants a chatbot that handles "book a flight" — it needs to collect destination, date, and number of passengers before confirming. Which AWS service?</div>
+    <div class="thint">Click to reveal →</div>
+    <div class="ta"><strong>Amazon Lex.</strong> "Book a flight" is an <em>intent</em>. Destination, date, and passenger count are <em>slots</em>. Lex is exactly designed for this — it maps utterances to intents and collects required slot values through conversation.</div>
+  </div>
+  <div class="titem" onclick="this.classList.toggle('open')">
+    <div class="tq"><span class="tqn">Q8</span>What is the difference between a parameter and a hyperparameter? Give one concrete example of each.</div>
+    <div class="thint">Click to reveal →</div>
+    <div class="ta"><strong>Parameters</strong> are numbers the model learns automatically during training — e.g., the weights in a neural network. <strong>Hyperparameters</strong> are settings you choose before training begins — e.g., the learning rate. You tune hyperparameters; the optimizer adjusts parameters.</div>
+  </div>
+  <div class="titem" onclick="this.classList.toggle('open')">
+    <div class="tq"><span class="tqn">Q9</span>Which deep learning architecture powers all modern LLMs (GPT, Claude, Llama)? Why does it dominate over RNNs?</div>
+    <div class="thint">Click to reveal →</div>
+    <div class="ta"><strong>Transformers.</strong> They use an <em>attention mechanism</em> that lets every token directly attend to every other token simultaneously — solving the long-range dependency problem that RNNs had. They also train in parallel (RNNs are sequential), enabling them to scale to billions of parameters on massive datasets.</div>
+  </div>
+  <div class="titem" onclick="this.classList.toggle('open')">
+    <div class="tq"><span class="tqn">Q10</span>When would you choose Amazon Bedrock over SageMaker for a generative AI project?</div>
+    <div class="thint">Click to reveal →</div>
+    <div class="ta"><strong>Bedrock</strong> when you want a managed API for a foundation model (Claude, Llama, Titan) with zero infrastructure to manage — just call the API and get responses. <strong>SageMaker</strong> when you need to train a custom model from scratch, fine-tune a foundation model with your own data in a controlled environment, or need full ML lifecycle control.</div>
+  </div>
+
+  <div class="call key" style="margin-top:28px">🎯 <strong>8+ correct = you're in great shape for Day 1.</strong> Don't start practice MCQs yet — let this material settle overnight. Tomorrow, hit practice questions hard.</div>
+
+  <div style="text-align:center;padding:48px 0 24px;color:var(--muted);font-size:14px;border-top:1px solid var(--border);margin-top:48px">
+    <div style="font-size:32px;margin-bottom:10px">🎓</div>
+    <strong style="color:var(--text);font-size:16px">End of Day 1 Guide.</strong><br><br>
+    Re-read <strong>Part 19</strong> (Which Service? table) + <strong>Part 21</strong> (Cheat Sheet) right before sleep.<br>
+    <span style="font-size:13px">The last thing you read before sleeping is what your brain consolidates overnight.</span>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div id="tbar">
+  <span style="color:var(--muted)">⏱ Study Timer</span>
+  <span id="tdis">00:00</span>
+  <button class="tbtn" id="tbstart" onclick="toggleTimer()">Start</button>
+  <button class="tbtn" onclick="resetTimer()">Reset</button>
+  <span id="tnote">Target: 3.5 hrs for Day 1</span>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  const s=d.scrollTop,t=d.scrollHeight-d.clientHeight;
+  document.getElementById('pbar').style.width=(s/t*100)+'%';
+  document.getElementById('btt').classList.toggle('show',s>400);
+  document.querySelectorAll('.sec').forEach(sec=>{
+    const pills=document.querySelectorAll('.np');
+    if(sec.getBoundingClientRect().top<=80){
+      pills.forEach(p=>p.classList.toggle('active',p.getAttribute('href')==='#'+sec.id));
+    }
+  });
+});
+let ti=null,ts=0,tr=false;
+function toggleTimer(){
+  if(tr){clearInterval(ti);document.getElementById('tbstart').textContent='Resume';}
+  else{ti=setInterval(()=>{ts++;const m=String(Math.floor(ts/60)).padStart(2,'0'),s=String(ts%60).padStart(2,'0');document.getElementById('tdis').textContent=m+':'+s;},1000);document.getElementById('tbstart').textContent='Pause';}
+  tr=!tr;
+}
+function resetTimer(){clearInterval(ti);ts=0;tr=false;document.getElementById('tdis').textContent='00:00';document.getElementById('tbstart').textContent='Start';}
+</script>
+</body>
+</html>
