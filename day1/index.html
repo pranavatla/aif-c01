@@ -21,6 +21,8 @@ linear-gradient(180deg,#0b1020 0%,var(--bg) 55%,#0b1020 100%)}
 #pbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--cyan));width:0%;z-index:9999;transition:width .1s}
 header{position:sticky;top:0;z-index:100;background:rgba(251,250,247,.82);backdrop-filter:blur(16px);border-bottom:1px solid rgba(222,214,200,.9);padding:0 20px;display:flex;align-items:center;gap:14px;height:60px;box-shadow:0 8px 24px rgba(31,41,55,.04)}
 html[data-theme="dark"] header{background:rgba(15,17,23,.9);border-bottom:1px solid rgba(42,51,71,.9);box-shadow:0 8px 24px rgba(0,0,0,.22)}
+.menu-btn{width:40px;height:40px;border:1px solid var(--border);background:var(--bg2);border-radius:999px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);font-size:18px;line-height:1;box-shadow:0 1px 0 rgba(31,41,55,.03)}
+.menu-btn:hover{border-color:#c6bca9;transform:translateY(-1px)}
 .logo{font-weight:800;font-size:13px;letter-spacing:.06em;color:var(--accent);white-space:nowrap;text-transform:uppercase}
 .navlinks{display:flex;gap:5px;flex:1;overflow-x:auto;scrollbar-width:none}
 .navlinks::-webkit-scrollbar{display:none}
@@ -129,10 +131,19 @@ html[data-theme="dark"] .mcard{background:rgba(15,17,23,.72);box-shadow:0 4px 14
 html[data-theme="dark"] .cmh, html[data-theme="dark"] .cml{background:#1e2535;color:#9aa7bb}
 html[data-theme="dark"] .cmv{background:#161b27;color:#e2e8f0}
 .focus-mode header{box-shadow:none}
-.focus-mode .navlinks,.focus-mode .theme-toggle,.focus-mode .focus-toggle{display:none}
+.focus-mode .navlinks{display:none}
 .focus-mode .hero{margin-top:10px}
 .focus-mode .sec{margin-bottom:56px}
 .focus-mode .call,.focus-mode .quiz-wrap,.focus-mode .card,.focus-mode .mcard{box-shadow:none}
+.menu-panel{position:fixed;top:68px;left:18px;z-index:120;width:min(320px,calc(100vw - 36px));max-height:min(70vh,620px);overflow:auto;background:var(--bg2);border:1px solid var(--border);border-radius:18px;box-shadow:0 18px 50px rgba(15,23,42,.18);padding:10px;display:none}
+.menu-panel.open{display:block}
+.menu-panel h2{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:8px 10px 10px}
+.menu-item{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border-radius:12px;text-decoration:none;color:var(--text);font-size:14px;border:1px solid transparent}
+.menu-item:hover{background:rgba(31,111,235,.08);border-color:rgba(31,111,235,.18)}
+.menu-index{font-size:11px;font-weight:800;color:var(--accent);background:rgba(31,111,235,.08);border-radius:999px;padding:4px 7px;min-width:44px;text-align:center}
+.menu-title{flex:1}
+#menuBackdrop{position:fixed;inset:0;background:rgba(15,23,42,.24);z-index:110;display:none}
+#menuBackdrop.open{display:block}
 #scrollBtn{position:fixed;bottom:28px;right:28px;width:48px;height:48px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:50%;cursor:pointer;color:#fff;font-size:20px;display:none;align-items:center;justify-content:center;z-index:99;transition:all .2s;box-shadow:0 12px 30px rgba(31,111,235,.22)}
 #scrollBtn:hover{transform:scale(1.1);background:var(--accent2)}
 @media(max-width:768px){.wrap{padding:28px 16px 80px}.stat{min-width:90px}.hero h1{font-size:22px}}
@@ -141,11 +152,16 @@ html[data-theme="dark"] .cmv{background:#161b27;color:#e2e8f0}
 <body>
 <div id="pbar"></div>
 <header>
+<button class="menu-btn" id="menuToggle" type="button" aria-label="Open topic menu">☰</button>
 <div class="logo">AWS AIF-C01 Day 1</div>
 <div class="navlinks" id="nav"></div>
 <button class="theme-toggle" id="themeToggle" type="button">Dark mode</button>
 <button class="focus-toggle" id="focusToggle" type="button">Focus mode</button>
 </header>
+<div id="menuBackdrop"></div>
+<aside class="menu-panel" id="menuPanel" aria-label="Topic menu">
+  <h2>Topics</h2>
+</aside>
 <div class="wrap">
 <div class="hero">
 <div class="badge">🎯 ML Fundamentals + AWS Services</div>
@@ -1059,6 +1075,9 @@ const sections = document.querySelectorAll('.sec');
 const navlinks = document.getElementById('nav');
 const pbar = document.getElementById('pbar');
 const scrollBtn = document.getElementById('scrollBtn');
+const menuToggle = document.getElementById('menuToggle');
+const menuPanel = document.getElementById('menuPanel');
+const menuBackdrop = document.getElementById('menuBackdrop');
 const themeToggle = document.getElementById('themeToggle');
 const focusToggle = document.getElementById('focusToggle');
 const storedTheme = localStorage.getItem('day1-theme');
@@ -1084,7 +1103,28 @@ sections.forEach(sec => {
     updateNav();
   };
   navlinks.appendChild(link);
+
+  const menuLink = document.createElement('a');
+  menuLink.href = '#' + id;
+  menuLink.className = 'menu-item';
+  menuLink.innerHTML = `<span class="menu-index">${id.replace('t', 'Topic ')}</span><span class="menu-title">${h}</span>`;
+  menuLink.addEventListener('click', e => {
+    e.preventDefault();
+    document.getElementById(id).scrollIntoView({behavior:'smooth'});
+    closeMenu();
+  });
+  menuPanel.appendChild(menuLink);
 });
+
+function openMenu(){
+  menuPanel.classList.add('open');
+  menuBackdrop.classList.add('open');
+}
+
+function closeMenu(){
+  menuPanel.classList.remove('open');
+  menuBackdrop.classList.remove('open');
+}
 
 function updateNav(){
   let active = null;
@@ -1126,6 +1166,15 @@ focusToggle.addEventListener('click', () => {
   document.body.classList.toggle('focus-mode', nextFocus);
   localStorage.setItem('day1-focus', nextFocus ? 'on' : 'off');
   focusToggle.textContent = nextFocus ? 'Exit focus' : 'Focus mode';
+});
+
+menuToggle.addEventListener('click', () => {
+  if (menuPanel.classList.contains('open')) closeMenu();
+  else openMenu();
+});
+menuBackdrop.addEventListener('click', closeMenu);
+window.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeMenu();
 });
 
 updateNav();
