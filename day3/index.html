@@ -170,6 +170,19 @@ p,li,.hero-sub,.hero-note{max-width:66ch;color:var(--muted)!important}
 .topic-content p + p{margin-top:.35rem}
 .topic-content ul,.topic-content ol{margin:.55rem 0 1rem;max-width:66ch}
 .topic-content li{margin-bottom:.45rem}
+@media (min-width:1101px){
+  .wrap{
+    width:min(920px, calc(100vw - var(--sidew) - 5rem));
+    max-width:none;
+    margin-left:calc(var(--sidew) + 2.5rem);
+    margin-right:auto;
+  }
+  body.menu-collapsed .wrap{
+    width:min(980px, calc(100vw - 5rem));
+    margin-left:auto;
+    margin-right:auto;
+  }
+}
 .grid2,.grid3{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2rem}
 .grid2>*{grid-column:span 6}.grid3>*{grid-column:span 4}
 @media (max-width:768px){.grid2,.grid3{grid-template-columns:1fr}.grid2>*,.grid3>*{grid-column:span 1}}
