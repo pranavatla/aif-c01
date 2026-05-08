@@ -173,6 +173,20 @@ p,li,.hero-sub,.hero-note{max-width:72ch;color:var(--muted)!important}
 .topic-content li{margin-bottom:.45rem}
 .sec > p,.sec > ul,.sec > ol,.sec > h3,.sec > h4,.sec > .call,.sec > .tw,.sec > .viz,.sec > .grid2,.sec > .grid3,.sec > .quiz-wrap,.sec > .code{margin-left:auto;margin-right:auto}
 .sec > .tw,.sec > .viz,.sec > .grid2,.sec > .grid3,.sec > .quiz-wrap,.sec > .code{max-width:76ch;width:100%}
+@media (min-width:1101px){
+  body:not(.menu-collapsed) .wrap{
+    width:min(980px, calc(100vw - var(--sidew) - 4rem));
+    max-width:none;
+    margin-left:calc(var(--sidew) + 2rem);
+    margin-right:auto;
+  }
+  body.menu-collapsed .wrap{
+    width:min(1080px, calc(100vw - 4rem));
+    max-width:none;
+    margin-left:auto;
+    margin-right:auto;
+  }
+}
 .grid2,.grid3{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2rem}
 .grid2>*{grid-column:span 6}.grid3>*{grid-column:span 4}
 @media (max-width:768px){.grid2,.grid3{grid-template-columns:1fr}.grid2>*,.grid3>*{grid-column:span 1}}
