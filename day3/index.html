@@ -24,6 +24,9 @@ html[data-theme="dark"] header{background:rgba(15,17,23,.9);border-bottom:1px so
 .menu-btn{width:40px;height:40px;border:1px solid var(--border);background:var(--bg2);border-radius:999px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);box-shadow:0 1px 0 rgba(31,41,55,.03)}
 .menu-btn::before{content:"☰";font-size:16px;line-height:1}
 .menu-btn:hover{border-color:#c6bca9;transform:translateY(-1px)}
+.home-btn{width:40px;height:40px;border:1px solid var(--border);background:var(--bg2);border-radius:999px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);text-decoration:none;box-shadow:0 1px 0 rgba(31,41,55,.03)}
+.home-btn::before{content:"⌂";font-size:18px;line-height:1;color:var(--accent)}
+.home-btn:hover{border-color:#c6bca9;transform:translateY(-1px)}
 .logo{font-weight:900;font-size:18px;letter-spacing:.08em;color:var(--accent);white-space:nowrap;text-transform:uppercase}
 .theme-toggle{border:1px solid var(--border);background:var(--bg2);color:var(--text);border-radius:999px;padding:7px 12px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;white-space:nowrap;box-shadow:0 1px 0 rgba(31,41,55,.03)}
 .theme-toggle:hover{border-color:#c6bca9;transform:translateY(-1px)}
@@ -199,9 +202,9 @@ p,li,.hero-sub,.hero-note{max-width:72ch;color:var(--muted)!important}
 <div id="pbar"></div>
 <header>
 <button class="menu-btn" id="menuToggle" type="button" aria-label="Open topic menu"></button>
+<a class="home-btn" href="https://aif.atla.in" aria-label="Go to home page" title="Home"></a>
 <div class="logo">AWS AIF-C01 Day 3</div>
 <div style="flex:1"></div>
-<a class="menu-btn" href="https://aif.atla.in" aria-label="Go to home page" title="Home">🏠</a>
 <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle color theme" title="Toggle color theme"></button>
 </header>
 <div id="menuBackdrop"></div>
