@@ -32,8 +32,6 @@ html[data-theme="dark"] header{background:rgba(15,17,23,.9);border-bottom:1px so
 .theme-toggle,.focus-toggle{width:40px;height:40px;padding:0;font-size:16px;letter-spacing:0}
 .theme-toggle::before{content:"☀"}
 .focus-toggle::before{content:"◉"}
-.side-toggle{border:1px solid var(--border);background:var(--bg2);color:var(--text);border-radius:999px;padding:7px 12px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;white-space:nowrap;box-shadow:0 1px 0 rgba(31,41,55,.03)}
-.side-toggle:hover{border-color:#c6bca9;transform:translateY(-1px)}
 .np{font-size:11.5px;padding:6px 11px;border-radius:999px;background:#fff;color:var(--muted);cursor:pointer;white-space:nowrap;border:1px solid var(--border);transition:all .2s;text-decoration:none;box-shadow:0 1px 0 rgba(31,41,55,.03)}
 .np:hover{color:var(--text);border-color:#c6bca9;transform:translateY(-1px)}
 .np.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:transparent;box-shadow:0 8px 20px rgba(31,111,235,.20)}
@@ -156,7 +154,7 @@ body.menu-collapsed .menu-panel{display:none}
 #scrollBtn:hover{transform:scale(1.1);background:var(--accent2)}
 @media(min-width:1101px){#menuBackdrop{display:none!important}}
 @media(max-width:1100px){.menu-panel{z-index:120;transform:translateX(-100%);transition:transform .2s ease;box-shadow:0 18px 50px rgba(15,23,42,.18)}.menu-panel.open{transform:translateX(0)}.wrap{margin:0 auto;padding:28px 16px 80px}.hero h1{font-size:22px}}
-@media(max-width:1100px){.side-toggle{display:none}body.menu-collapsed .menu-panel{display:block}}
+@media(max-width:1100px){body.menu-collapsed .menu-panel{display:block}}
 </style>
 </head>
 <body>
@@ -165,7 +163,6 @@ body.menu-collapsed .menu-panel{display:none}
 <button class="menu-btn" id="menuToggle" type="button" aria-label="Open topic menu"></button>
 <div class="logo">AWS AIF-C01 Day 1</div>
 <div style="flex:1"></div>
-<button class="side-toggle" id="sideToggle" type="button">Hide menu</button>
 <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle color theme" title="Toggle color theme"></button>
 <button class="focus-toggle" id="focusToggle" type="button" aria-label="Toggle focus mode" title="Toggle focus mode"></button>
 </header>
@@ -1097,7 +1094,6 @@ const menuPanel = document.getElementById('menuPanel');
 const menuBackdrop = document.getElementById('menuBackdrop');
 const themeToggle = document.getElementById('themeToggle');
 const focusToggle = document.getElementById('focusToggle');
-const sideToggle = document.getElementById('sideToggle');
 const storedTheme = localStorage.getItem('day1-theme');
 const storedFocus = localStorage.getItem('day1-focus');
 const storedMenuCollapsed = localStorage.getItem('day1-menu-collapsed');
@@ -1112,7 +1108,8 @@ focusToggle.setAttribute('aria-label', initialFocus ? 'Exit focus mode' : 'Enter
 focusToggle.setAttribute('title', initialFocus ? 'Exit focus mode' : 'Enter focus mode');
 const initialMenuCollapsed = storedMenuCollapsed === 'on';
 document.body.classList.toggle('menu-collapsed', initialMenuCollapsed);
-sideToggle.textContent = initialMenuCollapsed ? 'Show menu' : 'Hide menu';
+menuToggle.setAttribute('aria-label', initialMenuCollapsed ? 'Show topic menu' : 'Hide topic menu');
+menuToggle.setAttribute('title', initialMenuCollapsed ? 'Show topic menu' : 'Hide topic menu');
 
 sections.forEach(sec => {
   const id = sec.id;
@@ -1189,16 +1186,18 @@ focusToggle.addEventListener('click', () => {
   focusToggle.setAttribute('title', nextFocus ? 'Exit focus mode' : 'Enter focus mode');
 });
 
-sideToggle.addEventListener('click', () => {
+menuToggle.addEventListener('click', () => {
+  const mobile = window.matchMedia('(max-width: 1100px)').matches;
+  if (mobile) {
+    if (menuPanel.classList.contains('open')) closeMenu();
+    else openMenu();
+    return;
+  }
   const nextCollapsed = !document.body.classList.contains('menu-collapsed');
   document.body.classList.toggle('menu-collapsed', nextCollapsed);
   localStorage.setItem('day1-menu-collapsed', nextCollapsed ? 'on' : 'off');
-  sideToggle.textContent = nextCollapsed ? 'Show menu' : 'Hide menu';
-});
-
-menuToggle.addEventListener('click', () => {
-  if (menuPanel.classList.contains('open')) closeMenu();
-  else openMenu();
+  menuToggle.setAttribute('aria-label', nextCollapsed ? 'Show topic menu' : 'Hide topic menu');
+  menuToggle.setAttribute('title', nextCollapsed ? 'Show topic menu' : 'Hide topic menu');
 });
 menuBackdrop.addEventListener('click', closeMenu);
 window.addEventListener('keydown', e => {
