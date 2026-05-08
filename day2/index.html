@@ -469,18 +469,37 @@ document.body.classList.toggle('menu-collapsed', initialMenuCollapsed);
 menuToggle.setAttribute('aria-label', initialMenuCollapsed ? 'Show topic menu' : 'Hide topic menu');
 menuToggle.setAttribute('title', initialMenuCollapsed ? 'Show topic menu' : 'Hide topic menu');
 
+let sectionCounter = 0;
+let topicCounterInSection = 0;
+let currentSectionIndex = 0;
+
 sections.forEach(sec => {
   const id = sec.id;
   const rawTitle = (sec.querySelector('.pt')?.textContent || 'Section').trim();
   const isSection = /^Section\b/i.test(rawTitle);
+  const pn = sec.querySelector('.pn');
+  const pt = sec.querySelector('.pt');
+
+  if (isSection) {
+    sectionCounter += 1;
+    topicCounterInSection = 0;
+    currentSectionIndex = sectionCounter;
+    if (pn) pn.textContent = `Section ${sectionCounter}`;
+  } else {
+    topicCounterInSection += 1;
+    if (pn) pn.textContent = `Topic ${topicCounterInSection}`;
+    if (pt) pt.textContent = rawTitle.replace(/^Topic\s+\d+\s*[—-]\s*/i, '');
+  }
+
   const cleanTitle = isSection ? rawTitle : rawTitle.replace(/^Topic\s+\d+\s*[—-]\s*/i, '');
-  const indexLabel = isSection ? 'Section' : 'Topic';
+  const indexLabel = isSection ? `Section ${currentSectionIndex}` : `Topic ${topicCounterInSection}`;
   const menuLink = document.createElement('a');
   menuLink.href = '#' + id;
   menuLink.className = `menu-item ${isSection ? 'menu-section' : 'menu-topic'}`;
   menuLink.dataset.target = id;
   menuLink.dataset.kind = isSection ? 'section' : 'topic';
-  menuLink.dataset.index = id.replace('t', '');
+  menuLink.dataset.section = String(currentSectionIndex);
+  menuLink.dataset.topic = isSection ? '' : String(topicCounterInSection);
   menuLink.innerHTML = `<span class="menu-index">${indexLabel}</span><span class="menu-title">${cleanTitle}</span><span class="menu-check">✓</span>`;
   menuLink.addEventListener('click', e => {
     e.preventDefault();
@@ -517,11 +536,11 @@ function updateNav(){
     if (item.dataset.kind === 'section') sectionEntries.push(item);
   });
   sectionEntries.forEach(sectionItem => {
-    const sectionNumber = Number(sectionItem.dataset.index || '0');
-    const nextSection = sectionEntries.find(s => Number(s.dataset.index || '0') > sectionNumber);
+    const sectionNumber = Number(sectionItem.dataset.section || '0');
+    const nextSection = sectionEntries.find(s => Number(s.dataset.section || '0') > sectionNumber);
     const topicItems = Array.from(document.querySelectorAll('.menu-item.menu-topic')).filter(topic => {
-      const idx = Number(topic.dataset.index || '0');
-      return idx > sectionNumber && (!nextSection || idx < Number(nextSection.dataset.index || '9999'));
+      const topicSection = Number(topic.dataset.section || '0');
+      return topicSection === sectionNumber && (!nextSection || topicSection < Number(nextSection.dataset.section || '9999'));
     });
     const allDone = topicItems.length > 0 && topicItems.every(topic => topic.classList.contains('completed'));
     sectionItem.classList.toggle('completed', allDone);
