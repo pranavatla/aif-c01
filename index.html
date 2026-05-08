@@ -1,192 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AWS AIF-C01 4-Day Journey | atla.in</title>
-  <style>
-    :root{
-      --bg:#f7f8fc;
-      --bg2:#ffffff;
-      --surface:#ffffff;
-      --text:#172033;
-      --muted:#4c5b77;
-      --green:#2f6feb;
-      --green-accent:#2f6feb;
-      --green-house:#22365f;
-      --gold:#2aa198;
-      --radius:14px;
-      --shadow:0 10px 30px rgba(23,32,51,.06);
-      --font:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>AWS AIF-C01 Study Guide</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            outline: "#6f7a72",
+            "on-background": "#181d1a",
+            "gold-light": "#dfc49d",
+            "outline-variant": "#bec9c0",
+            "on-surface": "#181d1a",
+            "gold-lightest": "#faf6ee",
+            "surface-container-high": "#e6e9e4",
+            gold: "#cba258",
+            "house-green": "#1E3932",
+            "green-accent": "#00754A",
+            "on-surface-variant": "#3f4943",
+            surface: "#f7faf5",
+            "text-black": "rgba(0, 0, 0, 0.87)",
+            "starbucks-green": "#006241",
+            "text-white-soft": "rgba(255, 255, 255, 0.70)",
+            "neutral-cool": "#f9f9f9",
+            "neutral-warm": "#f2f0eb",
+            "surface-container-lowest": "#ffffff",
+            "surface-container": "#ebefea",
+            "surface-container-low": "#f1f5ef",
+            "green-light": "#d4e9e2"
+          },
+          spacing: {
+            "gutter-desktop": "4.0rem",
+            "space-2": "0.8rem",
+            "space-6": "4.0rem",
+            "space-1": "0.4rem",
+            "gutter-tablet": "2.4rem",
+            "space-4": "2.4rem",
+            "space-5": "3.2rem",
+            "space-3": "1.6rem",
+            "space-8": "5.6rem",
+            "space-7": "4.8rem",
+            "space-9": "6.4rem",
+            "gutter-mobile": "1.6rem"
+          },
+          fontFamily: {
+            body: ["Manrope", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
+          }
+        }
+      }
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:var(--font);
-      background:linear-gradient(180deg,#f9fbff 0%,var(--bg) 40%,#f4f7fd 100%);
-      color:var(--text);
-      letter-spacing:-.01em;
-    }
-    .top{
-      background:var(--green-house);
-      color:#fff;
-      padding:18px 22px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      border-bottom:1px solid rgba(255,255,255,.16);
-    }
-    .brand{font-weight:700;letter-spacing:.1em;font-size:14px;text-transform:uppercase}
-    .badge{
-      border:1px solid #fff;
-      border-radius:999px;
-      padding:7px 16px;
-      font-size:13px;
-      text-decoration:none;
-      color:#fff;
-    }
-    .wrap{max-width:1240px;margin:0 auto;padding:44px 26px 76px}
-    .hero{
-      background:var(--surface);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:42px 38px;
-      margin-bottom:24px;
-    }
-    h1{margin:0 0 10px;font-size:42px;line-height:1.15;color:var(--green);max-width:18ch}
-    .sub{margin:0;color:var(--muted);font-size:19px;line-height:1.75;max-width:64ch}
-    .meta{
-      margin-top:16px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .pill{
-      display:inline-block;
-      border:1px solid var(--green-accent);
-      border-radius:999px;
-      color:var(--green-accent);
-      padding:7px 14px;
-      font-size:13px;
-      font-weight:600;
-      background:#fff;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(280px,1fr));
-      gap:18px;
-    }
-    .card{
-      background:var(--surface);
-      border-radius:12px;
-      box-shadow:var(--shadow);
-      padding:22px;
-      border:1px solid rgba(0,0,0,.06);
-    }
-    .card h2{margin:0 0 8px;font-size:24px;color:var(--green-house)}
-    .card p{margin:0 0 12px;color:var(--muted);line-height:1.72;max-width:58ch}
-    .topics{margin:0;padding-left:20px}
-    .topics li{margin-bottom:7px;line-height:1.66;max-width:56ch}
-    .cta{
-      margin-top:14px;
-      display:inline-block;
-      text-decoration:none;
-      background:var(--green-accent);
-      color:#fff;
-      border:1px solid var(--green-accent);
-      border-radius:10px;
-      padding:8px 16px;
-      font-weight:600;
-      font-size:14px;
-      transition:all .2s ease;
-    }
-    .cta:hover{filter:brightness(.92)}
-    .coming{background:#faf6ee;border-color:rgba(203,162,88,.36)}
-    .coming .cta{background:#fff;color:var(--green-accent)}
-    footer{
-      margin-top:26px;
-      background:var(--green-house);
-      color:rgba(255,255,255,.8);
-      border-radius:var(--radius);
-      padding:16px 20px;
-      font-size:14px;
-    }
-    @media (max-width:900px){
-      h1{font-size:34px}
-      .grid{grid-template-columns:1fr}
-    }
-  </style>
+  </script>
 </head>
-<body>
-  <header class="top">
-    <div class="brand">AWS AIF-C01 Journey</div>
-    <a class="badge" href="/day1/index.html">Start Learning</a>
-  </header>
+<body class="bg-neutral-warm text-on-background font-body min-h-screen flex flex-col relative">
+  <nav class="bg-neutral-warm text-starbucks-green shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] sticky top-0 z-50">
+    <div class="flex justify-between items-center h-[64px] lg:h-[99px] px-gutter-mobile lg:px-gutter-desktop max-w-[1440px] mx-auto w-full">
+      <div class="flex items-center gap-space-6">
+        <a class="text-[36px] leading-[1.2] font-semibold text-house-green" href="/index.html">AIF-C01 Guide</a>
+        <div class="hidden md:flex gap-space-5">
+          <a class="text-[16px] uppercase tracking-widest text-starbucks-green border-b-2 border-starbucks-green pb-1" href="/index.html">Home</a>
+          <a class="text-[16px] uppercase tracking-widest text-on-surface-variant hover:text-green-accent transition-colors" href="/day1/index.html">Study Guide</a>
+          <a class="text-[16px] uppercase tracking-widest text-on-surface-variant hover:text-green-accent transition-colors" href="/day2/index.html">Practice Exams</a>
+          <a class="text-[16px] uppercase tracking-widest text-on-surface-variant hover:text-green-accent transition-colors" href="/day3/index.html">Resources</a>
+        </div>
+      </div>
+      <div class="flex items-center gap-space-4">
+        <a class="hidden md:block bg-green-accent text-white text-[16px] font-semibold px-space-4 py-space-2 rounded-full hover:scale-[0.95] transition-transform duration-200" href="/day1/index.html">Get Started</a>
+      </div>
+    </div>
+  </nav>
 
-  <main class="wrap">
-    <section class="hero">
-      <h1>Your 4-Day AWS AI Practitioner Mastery Sprint</h1>
-      <p class="sub">From absolute beginner to exam-ready confidence. Follow one focused day at a time, lock the core mental models, and learn exactly how to pick the right AWS answer under exam pressure.</p>
-      <div class="meta">
-        <span class="pill">Day-wise Study Plan</span>
-        <span class="pill">Exam Pattern Thinking</span>
-        <span class="pill">Service Selection Mastery</span>
+  <main class="flex-grow flex flex-col">
+    <section class="bg-house-green text-surface-container-lowest w-full">
+      <div class="flex flex-col lg:flex-row items-center max-w-[1440px] mx-auto w-full">
+        <div class="w-full lg:w-[60%] px-gutter-mobile py-space-9 lg:px-gutter-desktop lg:py-space-9 flex flex-col gap-space-5 justify-center">
+          <h1 class="text-[58px] leading-[1.2] tracking-[-0.16px] font-semibold text-white">Master the AWS Certified AI Practitioner (AIF-C01)</h1>
+          <p class="text-[19px] leading-[1.75] tracking-[-0.16px] text-surface-container-highest max-w-2xl">Your complete 4-day roadmap to clear AIF-C01 with confidence. Learn fundamentals, service selection, responsible AI, and exam traps with a structure built for beginners.</p>
+          <div class="flex flex-wrap gap-space-4 pt-space-3">
+            <a class="bg-surface-container-lowest text-green-accent text-[16px] font-semibold px-space-5 py-space-3 rounded-full hover:scale-[0.95] transition-transform duration-200" href="/day1/index.html">Get Started</a>
+            <a class="bg-transparent border border-outline-variant text-surface-container-lowest text-[16px] font-semibold px-space-5 py-space-3 rounded-full hover:bg-white/10 hover:scale-[0.95] transition-transform duration-200" href="#curriculum">View Curriculum</a>
+          </div>
+        </div>
+        <div class="w-full lg:w-[40%] min-h-[400px] lg:min-h-[600px] bg-cover bg-center" style="background-image:url('/Users/pranav/Downloads/stitch_design_system_landing_page/screen.png');"></div>
       </div>
     </section>
 
-    <section class="grid">
-      <article class="card">
-        <h2>Day 1: ML Foundations + AWS Core Services</h2>
-        <p>Build your base thinking model so scenario questions become logical, not guesswork.</p>
-        <ul class="topics">
-          <li>ML types, problem types, and pipeline stages</li>
-          <li>Training vs inference, evaluation metrics</li>
-          <li>Neural network basics, CNN/RNN/Transformer</li>
-          <li>SageMaker basics and pre-built AI services map</li>
-        </ul>
-        <a class="cta" href="/day1/index.html">Open Day 1</a>
-      </article>
+    <section id="curriculum" class="py-space-9 px-gutter-mobile lg:px-gutter-desktop max-w-[1440px] mx-auto w-full">
+      <div class="text-center mb-space-8">
+        <h2 class="text-[36px] leading-[1.2] tracking-[-0.16px] font-semibold text-starbucks-green mb-space-2">Your 4-Day Certification Path</h2>
+        <p class="text-[19px] leading-[1.75] tracking-[-0.16px] text-on-surface-variant max-w-3xl mx-auto">Structured study built around the real exam domains and decision patterns.</p>
+      </div>
 
-      <article class="card">
-        <h2>Day 2: Deep Understanding + Exam Decision Fluency</h2>
-        <p>Convert foundations into practical decision fluency with clearer “why this answer” intuition.</p>
-        <ul class="topics">
-          <li>Four ML learning styles and five problem types</li>
-          <li>Data concepts, parameters vs hyperparameters</li>
-          <li>Overfitting/underfitting, bias-variance, metrics</li>
-          <li>SageMaker training/deployment and service selection</li>
-        </ul>
-        <a class="cta" href="/day2/index.html">Open Day 2</a>
-      </article>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-space-5">
+        <article class="bg-surface-container-lowest rounded-xl p-space-5 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.06),0_2px_4px_-1px_rgba(0,0,0,0.06)] border border-surface-container">
+          <h3 class="text-[28px] leading-[1.2] font-semibold text-starbucks-green mb-space-3">Day 1</h3>
+          <p class="text-[16px] leading-[1.6] text-on-surface-variant mb-space-3">ML foundations + AWS core services.</p>
+          <ul class="list-disc pl-6 text-[16px] leading-[1.6] text-on-surface-variant mb-space-4">
+            <li>ML types, problem types, and pipeline</li>
+            <li>Metrics, bias-variance, over/underfitting</li>
+            <li>CNN, RNN, Transformer basics</li>
+            <li>SageMaker and pre-built AI service map</li>
+          </ul>
+          <a class="inline-block bg-green-accent text-white text-[16px] font-semibold px-space-4 py-space-2 rounded-full hover:scale-[0.95] transition-transform duration-200" href="/day1/index.html">Open Day 1</a>
+        </article>
 
-      <article class="card">
-        <h2>Day 3: Responsible AI, Security, Governance, Cost</h2>
-        <p>Master high-impact security and governance areas that usually separate pass from near-pass.</p>
-        <ul class="topics">
-          <li>Responsible AI principles and bias mitigation</li>
-          <li>Clarify, Model Monitor, Guardrails, Model Cards</li>
-          <li>Prompt injection, IAM, PrivateLink, CloudTrail</li>
-          <li>SCP, Config, Audit Manager, Bedrock/SageMaker cost control</li>
-        </ul>
-        <a class="cta" href="/day3/index.html">Open Day 3</a>
-      </article>
+        <article class="bg-surface-container-lowest rounded-xl p-space-5 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.06),0_2px_4px_-1px_rgba(0,0,0,0.06)] border border-surface-container">
+          <h3 class="text-[28px] leading-[1.2] font-semibold text-starbucks-green mb-space-3">Day 2</h3>
+          <p class="text-[16px] leading-[1.6] text-on-surface-variant mb-space-3">Deep understanding + exam decision fluency.</p>
+          <ul class="list-disc pl-6 text-[16px] leading-[1.6] text-on-surface-variant mb-space-4">
+            <li>Data, labeling, class imbalance, augmentation</li>
+            <li>Parameters vs hyperparameters</li>
+            <li>Evaluation and deployment type decisions</li>
+            <li>SageMaker feature and service selection traps</li>
+          </ul>
+          <a class="inline-block bg-green-accent text-white text-[16px] font-semibold px-space-4 py-space-2 rounded-full hover:scale-[0.95] transition-transform duration-200" href="/day2/index.html">Open Day 2</a>
+        </article>
 
-      <article class="card coming">
-        <h2>Day 4: Final Revision + Exam Readiness</h2>
-        <p>Launches tomorrow. This will be your final revision engine and exam execution layer.</p>
-        <ul class="topics">
-          <li>High-yield rapid revision sheets</li>
-          <li>Most confused scenarios and trap eliminators</li>
-          <li>Mock-style decision drills with explanations</li>
-          <li>Last-mile exam day strategy and checklist</li>
-        </ul>
-        <a class="cta" href="/day4/">Day 4 (Coming Tomorrow)</a>
-      </article>
+        <article class="bg-surface-container-lowest rounded-xl p-space-5 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.06),0_2px_4px_-1px_rgba(0,0,0,0.06)] border border-surface-container">
+          <h3 class="text-[28px] leading-[1.2] font-semibold text-starbucks-green mb-space-3">Day 3</h3>
+          <p class="text-[16px] leading-[1.6] text-on-surface-variant mb-space-3">Responsible AI, security, governance, and cost.</p>
+          <ul class="list-disc pl-6 text-[16px] leading-[1.6] text-on-surface-variant mb-space-4">
+            <li>Fairness, explainability, model cards</li>
+            <li>Prompt injection and model threats</li>
+            <li>IAM, SCP, CloudTrail, Config, PrivateLink</li>
+            <li>Bedrock and SageMaker cost controls</li>
+          </ul>
+          <a class="inline-block bg-green-accent text-white text-[16px] font-semibold px-space-4 py-space-2 rounded-full hover:scale-[0.95] transition-transform duration-200" href="/day3/index.html">Open Day 3</a>
+        </article>
+
+        <article class="bg-surface-container-lowest rounded-xl p-space-5 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.06),0_2px_4px_-1px_rgba(0,0,0,0.06)] border border-surface-container">
+          <h3 class="text-[28px] leading-[1.2] font-semibold text-starbucks-green mb-space-3">Day 4</h3>
+          <p class="text-[16px] leading-[1.6] text-on-surface-variant mb-space-3">Final revision and exam execution.</p>
+          <ul class="list-disc pl-6 text-[16px] leading-[1.6] text-on-surface-variant mb-space-4">
+            <li>High-yield rapid revision maps</li>
+            <li>Last-mile trap eliminators</li>
+            <li>Mock-style decision drills</li>
+            <li>Final exam-day checklist</li>
+          </ul>
+          <a class="inline-block bg-green-accent text-white text-[16px] font-semibold px-space-4 py-space-2 rounded-full hover:scale-[0.95] transition-transform duration-200" href="/day4/index.html">Open Day 4</a>
+        </article>
+      </div>
     </section>
-
-    <footer>
-      Built for aif.atla.in • One journey, four outcomes: clarity, confidence, retention, and exam-day execution.
-    </footer>
   </main>
+
+  <footer class="bg-house-green text-surface-container-lowest w-full py-space-9 mt-auto">
+    <div class="flex flex-col lg:flex-row justify-between items-start gap-space-6 px-gutter-mobile lg:px-gutter-desktop max-w-[1440px] mx-auto w-full">
+      <div class="flex flex-col gap-space-4">
+        <span class="text-[36px] leading-[1.2] font-semibold text-white">AIF-C01 Guide</span>
+        <p class="text-[16px] leading-[1.6] text-text-white-soft max-w-sm">Designed for beginners preparing for the AWS Certified AI Practitioner (AIF-C01).</p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-space-6 sm:gap-space-8">
+        <div class="flex flex-col gap-space-3">
+          <a class="text-[16px] text-text-white-soft hover:text-green-light transition-colors duration-200" href="/day1/index.html">Day 1</a>
+          <a class="text-[16px] text-text-white-soft hover:text-green-light transition-colors duration-200" href="/day2/index.html">Day 2</a>
+        </div>
+        <div class="flex flex-col gap-space-3">
+          <a class="text-[16px] text-text-white-soft hover:text-green-light transition-colors duration-200" href="/day3/index.html">Day 3</a>
+          <a class="text-[16px] text-text-white-soft hover:text-green-light transition-colors duration-200" href="/day4/index.html">Day 4</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="fixed bottom-space-6 right-space-6 w-14 h-14 bg-green-accent text-white rounded-full flex items-center justify-center shadow-[0_0_6px_rgba(0,0,0,0.1),0_8px_12px_rgba(0,0,0,0.24)] hover:scale-[0.95] transition-transform duration-200 z-50" href="/day1/index.html" aria-label="Start study">
+    <span class="material-symbols-outlined">school</span>
+  </a>
 </body>
 </html>
