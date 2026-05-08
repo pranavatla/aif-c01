@@ -166,7 +166,7 @@
   <div id="contribModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-[100] px-4">
     <div class="w-full max-w-xl bg-white rounded-xl p-6">
       <div class="flex items-center justify-between mb-4">
-        <h3 id="contribTitle" class="text-[24px] font-semibold text-house-green">Send Suggestion</h3>
+        <h3 id="contribTitle" class="text-[24px] font-semibold text-house-green">Please share your feedback</h3>
         <button id="closeModal" class="text-[24px] leading-none text-on-surface-variant" type="button" aria-label="Close form">×</button>
       </div>
       <form id="contribForm" class="space-y-4">
@@ -194,6 +194,13 @@
     <span class="material-symbols-outlined">school</span>
   </a>
 
+  <div id="feedbackToast" class="fixed top-6 right-6 bg-white border border-outline-variant rounded-xl shadow-[0_8px_20px_rgba(0,0,0,0.15)] px-4 py-3 hidden z-[120]">
+    <div class="flex items-center gap-3">
+      <span class="text-[32px] leading-none">✅😊</span>
+      <span class="text-[16px] font-semibold text-house-green">Thank you for the feedback!</span>
+    </div>
+  </div>
+
   <script>
     const modal = document.getElementById('contribModal');
     const form = document.getElementById('contribForm');
@@ -201,12 +208,13 @@
     const emailInput = document.getElementById('userEmail');
     const mobileInput = document.getElementById('userMobile');
     const messageInput = document.getElementById('userMessage');
+    const feedbackToast = document.getElementById('feedbackToast');
     let formType = 'Suggestion';
 
     document.querySelectorAll('[data-form-type]').forEach(btn => {
       btn.addEventListener('click', () => {
         formType = btn.getAttribute('data-form-type') || 'Suggestion';
-        title.textContent = `Send ${formType}`;
+        title.textContent = 'Please share your feedback';
         modal.classList.remove('hidden');
         modal.classList.add('flex');
       });
@@ -231,6 +239,10 @@
       const subject = `${formType} from AIF-C01 website`;
       const bodyText = `Type: ${formType}\nEmail: ${email}\nMobile: ${mobile}\n\nContent:\n${content}`;
       window.location.href = `mailto:pranavatla@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+      feedbackToast.classList.remove('hidden');
+      setTimeout(() => {
+        feedbackToast.classList.add('hidden');
+      }, 3000);
       closeModal();
       form.reset();
     });
