@@ -134,7 +134,10 @@ body.menu-collapsed .menu-panel{display:none}
 .menu-panel h2{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:8px 10px 10px}
 .menu-item{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border-radius:12px;text-decoration:none;color:var(--text);font-size:14px;border:1px solid transparent}
 .menu-item:hover{background:rgba(31,111,235,.08);border-color:rgba(31,111,235,.18)}
+.menu-item.menu-section{margin-top:8px;font-weight:800}
+.menu-item.menu-topic{padding-left:20px}
 .menu-index{font-size:11px;font-weight:800;color:var(--accent);background:rgba(31,111,235,.08);border-radius:999px;padding:4px 7px;min-width:44px;text-align:center}
+.menu-item.menu-section .menu-index{background:rgba(2,6,23,.06);color:var(--text)}
 .menu-title{flex:1}
 .menu-check{width:18px;height:18px;border-radius:50%;border:1px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:transparent;flex-shrink:0}
 .menu-item.completed .menu-index{background:rgba(21,128,61,.14);color:#166534}
@@ -468,13 +471,17 @@ menuToggle.setAttribute('title', initialMenuCollapsed ? 'Show topic menu' : 'Hid
 
 sections.forEach(sec => {
   const id = sec.id;
-  const h = sec.querySelector('.pt')?.textContent || 'Section';
+  const rawTitle = (sec.querySelector('.pt')?.textContent || 'Section').trim();
+  const isSection = /^Section\b/i.test(rawTitle);
+  const cleanTitle = isSection ? rawTitle : rawTitle.replace(/^Topic\s+\d+\s*[—-]\s*/i, '');
+  const indexLabel = isSection ? 'Section' : 'Topic';
   const menuLink = document.createElement('a');
   menuLink.href = '#' + id;
-  menuLink.className = 'menu-item';
+  menuLink.className = `menu-item ${isSection ? 'menu-section' : 'menu-topic'}`;
   menuLink.dataset.target = id;
+  menuLink.dataset.kind = isSection ? 'section' : 'topic';
   menuLink.dataset.index = id.replace('t', '');
-  menuLink.innerHTML = `<span class="menu-index">Topic ${id.replace('t', '')}</span><span class="menu-title">${h}</span><span class="menu-check">✓</span>`;
+  menuLink.innerHTML = `<span class="menu-index">${indexLabel}</span><span class="menu-title">${cleanTitle}</span><span class="menu-check">✓</span>`;
   menuLink.addEventListener('click', e => {
     e.preventDefault();
     document.getElementById(id).scrollIntoView({behavior:'smooth'});
@@ -499,13 +506,25 @@ function updateNav(){
     const rect = sec.getBoundingClientRect();
     if(rect.top < 100) active = sec.id;
   });
+  const sectionEntries = [];
   document.querySelectorAll('.menu-item').forEach(item => {
     const target = item.dataset.target;
     const sec = document.getElementById(target);
     const rect = sec.getBoundingClientRect();
-    const completed = rect.top < 0;
+    const completed = rect.top < 0 && item.dataset.kind === 'topic';
     item.classList.toggle('completed', completed);
     item.classList.toggle('active', target === active);
+    if (item.dataset.kind === 'section') sectionEntries.push(item);
+  });
+  sectionEntries.forEach(sectionItem => {
+    const sectionNumber = Number(sectionItem.dataset.index || '0');
+    const nextSection = sectionEntries.find(s => Number(s.dataset.index || '0') > sectionNumber);
+    const topicItems = Array.from(document.querySelectorAll('.menu-item.menu-topic')).filter(topic => {
+      const idx = Number(topic.dataset.index || '0');
+      return idx > sectionNumber && (!nextSection || idx < Number(nextSection.dataset.index || '9999'));
+    });
+    const allDone = topicItems.length > 0 && topicItems.every(topic => topic.classList.contains('completed'));
+    sectionItem.classList.toggle('completed', allDone);
   });
 }
 
