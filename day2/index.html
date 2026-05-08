@@ -483,6 +483,16 @@ p,li,.hero-sub,.hero-note{max-width:66ch;color:var(--muted)!important}
 <p><strong><strong>End of Day 2 guide.</strong> The combination of yesterday's structured reference and today's deep teaching is now in your head. Read the memory sheet in Topic 24 one more time before you put this away, because the last thing you read is the thing your mind holds onto most tightly.</strong></p>
 </div>
 
+<div class="sec" id="t34">
+<div class="ph"><div class="pn">Topic 34</div><div class="pt">Day 2 Quick Tables, Examples, and Exam Tips</div></div>
+<div class="call tip">💡 <strong>How to use this:</strong> Read this section in 10 minutes before mocks. It is built for fast pattern recall.</div>
+<div class="tw"><table><tr><th>Question style</th><th>Primary metric</th><th>Reason</th></tr><tr><td>False positives are painful</td><td><strong>Precision</strong></td><td>Improves trust in positive predictions</td></tr><tr><td>False negatives are dangerous</td><td><strong>Recall</strong></td><td>Catches as many true positives as possible</td></tr><tr><td>Need balance on imbalanced data</td><td><strong>F1 Score</strong></td><td>Balances precision and recall</td></tr><tr><td>Compare models across thresholds</td><td><strong>AUC-ROC</strong></td><td>Threshold independent comparison</td></tr></table></div>
+<div class="call key">🔑 <strong>Metric clue words:</strong> <em>rare class</em>, <em>false alarm</em>, <em>missed case</em>, <em>threshold</em>, <em>imbalanced dataset</em>.</div>
+<div class="tw"><table><tr><th>Need</th><th>Best SageMaker option</th><th>Example</th></tr><tr><td>Sub-second response</td><td><strong>Real-time endpoint</strong></td><td>Checkout fraud scoring</td></tr><tr><td>Huge offline scoring run</td><td><strong>Batch Transform</strong></td><td>Weekly churn scoring</td></tr><tr><td>Large payload / long processing</td><td><strong>Async Inference</strong></td><td>Long PDF inference</td></tr><tr><td>Unpredictable low traffic</td><td><strong>Serverless Inference</strong></td><td>Internal ad-hoc prediction tool</td></tr></table></div>
+<div class="tw"><table><tr><th>Confusing pair</th><th>Choose this</th></tr><tr><td>Document OCR, forms, invoices</td><td><strong>Textract</strong></td></tr><tr><td>Object/face/scene analysis in images or video</td><td><strong>Rekognition</strong></td></tr><tr><td>Speech to text</td><td><strong>Transcribe</strong></td></tr><tr><td>Text to natural speech</td><td><strong>Polly</strong></td></tr><tr><td>Analyze sentiment/entities/key phrases</td><td><strong>Comprehend</strong></td></tr><tr><td>Search across enterprise docs</td><td><strong>Kendra</strong></td></tr></table></div>
+<div class="call exam">🧠 <strong>Exam decision rule:</strong> If a pre-built managed AWS AI service fits directly, choose that first. Choose SageMaker custom modeling when business requirements are specific and pre-built services cannot fit.</div>
+</div>
+
 <button id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>

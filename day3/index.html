@@ -476,6 +476,16 @@ p,li,.hero-sub,.hero-note{max-width:66ch;color:var(--muted)!important}
 <p><strong><strong>End of Day 3 guide.</strong> You now have three connected study sessions: Day 1 for traditional machine learning and the AWS toolkit, Day 2 for generative AI and Bedrock, and Day 3 for responsible AI, security, governance, and cost. The pieces fit together. Every exam scenario will land in one of the territories you have now mapped. Walk in tomorrow knowing that you have done the work.</strong></p>
 </div>
 
+<div class="sec" id="t34">
+<div class="ph"><div class="pn">Topic 34</div><div class="pt">Day 3 Quick Tables, Examples, and Exam Tips</div></div>
+<div class="call tip">💡 <strong>Fast revision block:</strong> Run this once before practice exams and once before the final exam day.</div>
+<div class="tw"><table><tr><th>Risk pattern</th><th>Primary control</th><th>AWS mapping</th></tr><tr><td>Biased predictions across groups</td><td>Bias detection + mitigation</td><td><strong>SageMaker Clarify</strong></td></tr><tr><td>Model quality drops after deployment</td><td>Drift monitoring</td><td><strong>SageMaker Model Monitor</strong></td></tr><tr><td>Need human review on low confidence outputs</td><td>Human-in-the-loop</td><td><strong>SageMaker A2I</strong></td></tr><tr><td>Need usage/limitation governance document</td><td>Model documentation</td><td><strong>SageMaker Model Cards</strong></td></tr></table></div>
+<div class="call key">🔑 <strong>Clue words:</strong> <em>fairness</em>, <em>protected group</em>, <em>drift</em>, <em>human review</em>, <em>auditability</em>.</div>
+<div class="tw"><table><tr><th>Security scenario</th><th>Best response</th></tr><tr><td>User says “Ignore previous instructions...”</td><td><strong>Direct prompt injection</strong> defense (guardrails + prompt hardening + validation)</td></tr><tr><td>Hidden malicious instruction in retrieved document</td><td><strong>Indirect prompt injection</strong> defense (source validation + tool restrictions + HITL)</td></tr><tr><td>Training data tampered</td><td><strong>Data poisoning</strong> controls (pipeline validation, provenance checks)</td></tr><tr><td>Repeated queries to clone model behavior</td><td><strong>Model stealing</strong> controls (rate limits, auth, anomaly monitoring)</td></tr></table></div>
+<div class="tw"><table><tr><th>Governance need</th><th>AWS service/control</th></tr><tr><td>Record API activity for forensics</td><td><strong>AWS CloudTrail</strong></td></tr><tr><td>Track resource compliance state</td><td><strong>AWS Config</strong></td></tr><tr><td>Centrally deny unapproved actions/accounts</td><td><strong>AWS Organizations SCPs</strong></td></tr><tr><td>Private Bedrock access without public internet</td><td><strong>AWS PrivateLink / VPC endpoint</strong></td></tr></table></div>
+<div class="call exam">🧠 <strong>Exam shortcut:</strong> SCPs set boundaries, IAM grants permissions. If you remember only one governance distinction, remember this one.</div>
+</div>
+
 <button id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
