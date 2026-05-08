@@ -6,24 +6,24 @@
   <title>AWS AIF-C01 4-Day Journey | atla.in</title>
   <style>
     :root{
-      --bg:#ffffff;
+      --bg:#f7f8fc;
       --bg2:#ffffff;
       --surface:#ffffff;
-      --text:#111111;
-      --muted:#555555;
-      --green:#111111;
-      --green-accent:#111111;
-      --green-house:#111111;
-      --gold:#b38b6d;
-      --radius:0px;
-      --shadow:none;
+      --text:#172033;
+      --muted:#4c5b77;
+      --green:#2f6feb;
+      --green-accent:#2f6feb;
+      --green-house:#22365f;
+      --gold:#2aa198;
+      --radius:14px;
+      --shadow:0 10px 30px rgba(23,32,51,.06);
       --font:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family:var(--font);
-      background:var(--bg);
+      background:linear-gradient(180deg,#f9fbff 0%,var(--bg) 40%,#f4f7fd 100%);
       color:var(--text);
       letter-spacing:-.01em;
     }
@@ -39,18 +39,18 @@
     .brand{font-weight:700;letter-spacing:.1em;font-size:14px;text-transform:uppercase}
     .badge{
       border:1px solid #fff;
-      border-radius:0;
+      border-radius:999px;
       padding:7px 16px;
       font-size:13px;
       text-decoration:none;
       color:#fff;
     }
-    .wrap{max-width:1180px;margin:0 auto;padding:36px 20px 70px}
+    .wrap{max-width:1240px;margin:0 auto;padding:44px 26px 76px}
     .hero{
       background:var(--surface);
       border-radius:var(--radius);
-      box-shadow:none;
-      padding:34px 26px;
+      box-shadow:var(--shadow);
+      padding:42px 38px;
       margin-bottom:24px;
     }
     h1{margin:0 0 10px;font-size:42px;line-height:1.15;color:var(--green);max-width:18ch}
@@ -64,7 +64,7 @@
     .pill{
       display:inline-block;
       border:1px solid var(--green-accent);
-      border-radius:0;
+      border-radius:999px;
       color:var(--green-accent);
       padding:7px 14px;
       font-size:13px;
@@ -78,9 +78,9 @@
     }
     .card{
       background:var(--surface);
-      border-radius:0;
-      box-shadow:none;
-      padding:18px;
+      border-radius:12px;
+      box-shadow:var(--shadow);
+      padding:22px;
       border:1px solid rgba(0,0,0,.06);
     }
     .card h2{margin:0 0 8px;font-size:24px;color:var(--green-house)}
@@ -94,7 +94,7 @@
       background:var(--green-accent);
       color:#fff;
       border:1px solid var(--green-accent);
-      border-radius:0;
+      border-radius:10px;
       padding:8px 16px;
       font-weight:600;
       font-size:14px;
