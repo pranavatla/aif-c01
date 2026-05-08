@@ -23,6 +23,11 @@ jobs:
 
       - name: Deploy to S3
         run: |
+          # Deploy root landing assets
+          aws s3 cp index.html s3://${{ secrets.S3_BUCKET }}/index.html \
+            --cache-control "public, max-age=3600" \
+            --content-type "text/html"
+
           # Deploy day 1
           aws s3 sync day1/ s3://${{ secrets.S3_BUCKET }}/day1/ \
             --delete \
