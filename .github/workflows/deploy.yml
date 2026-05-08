@@ -54,6 +54,20 @@ jobs:
               --cache-control "public, max-age=3600"
           fi
 
+          # Deploy resources page
+          if [ -d resources ]; then
+            aws s3 sync resources/ s3://${{ secrets.S3_BUCKET }}/resources/ \
+              --delete \
+              --cache-control "public, max-age=3600"
+          fi
+
+          # Deploy shared static assets
+          if [ -d assets ]; then
+            aws s3 sync assets/ s3://${{ secrets.S3_BUCKET }}/assets/ \
+              --delete \
+              --cache-control "public, max-age=3600"
+          fi
+
       - name: Invalidate CloudFront cache
         run: |
           aws cloudfront create-invalidation \
