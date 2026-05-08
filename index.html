@@ -77,8 +77,8 @@
       <div class="flex items-center gap-space-6">
         <a class="text-[36px] leading-[1.2] font-semibold text-house-green" href="/index.html">AIF-C01 Guide</a>
         <div class="hidden md:flex gap-space-5">
-          <a class="text-[16px] uppercase tracking-widest text-starbucks-green border-b-2 border-starbucks-green pb-1" href="/index.html">Home</a>
-          <a class="text-[16px] uppercase tracking-widest text-on-surface-variant hover:text-green-accent transition-colors" href="https://aif.atla.in/#curriculum">Study Guide</a>
+          <a id="navHome" class="text-[16px] uppercase tracking-widest text-starbucks-green border-b-2 border-starbucks-green pb-1" href="/index.html">Home</a>
+          <a id="navStudyGuide" class="text-[16px] uppercase tracking-widest text-on-surface-variant hover:text-green-accent transition-colors" href="#curriculum">Study Guide</a>
           <a class="text-[16px] uppercase tracking-widest text-on-surface-variant hover:text-green-accent transition-colors" href="/practice-exams/index.html">Practice Exams</a>
           <a class="text-[16px] uppercase tracking-widest text-on-surface-variant hover:text-green-accent transition-colors" href="/resources/index.html">Resources</a>
         </div>
@@ -217,6 +217,25 @@
   </div>
 
   <script>
+    const navHome = document.getElementById('navHome');
+    const navStudyGuide = document.getElementById('navStudyGuide');
+    function setNavActive() {
+      const onCurriculum = window.location.hash === '#curriculum';
+      if (onCurriculum) {
+        navHome.classList.remove('text-starbucks-green', 'border-b-2', 'border-starbucks-green', 'pb-1');
+        navHome.classList.add('text-on-surface-variant');
+        navStudyGuide.classList.remove('text-on-surface-variant');
+        navStudyGuide.classList.add('text-starbucks-green', 'border-b-2', 'border-starbucks-green', 'pb-1');
+      } else {
+        navStudyGuide.classList.remove('text-starbucks-green', 'border-b-2', 'border-starbucks-green', 'pb-1');
+        navStudyGuide.classList.add('text-on-surface-variant');
+        navHome.classList.remove('text-on-surface-variant');
+        navHome.classList.add('text-starbucks-green', 'border-b-2', 'border-starbucks-green', 'pb-1');
+      }
+    }
+    window.addEventListener('hashchange', setNavActive);
+    setNavActive();
+
     const modal = document.getElementById('contribModal');
     const form = document.getElementById('contribForm');
     const title = document.getElementById('contribTitle');
