@@ -40,25 +40,25 @@ html[data-theme="dark"] .hero{background:linear-gradient(180deg,rgba(22,27,39,.9
 .hero-sub{color:var(--muted);font-size:17px;max-width:640px;margin:0 auto 18px}
 .hero-note{display:inline-flex;align-items:center;gap:8px;background:rgba(21,128,61,.08);border:1px solid rgba(21,128,61,.18);color:#166534;font-size:12px;font-weight:700;border-radius:999px;padding:7px 14px;margin-top:4px}
 html[data-theme="dark"] .hero-note{background:rgba(21,128,61,.14);border-color:rgba(74,222,128,.22);color:#86efac}
-.sec{margin-bottom:72px}
-.sec{padding:4px 0}
-.ph{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.sec{margin-bottom:32px;padding:28px 30px;border:1px solid var(--border);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(255,255,255,.72));box-shadow:0 10px 30px rgba(31,41,55,.06)}
+html[data-theme="dark"] .sec{background:linear-gradient(180deg,rgba(22,27,39,.86),rgba(22,27,39,.72));box-shadow:0 10px 30px rgba(0,0,0,.24)}
+.ph{display:flex;align-items:center;gap:12px;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid var(--border)}
 .sec:hover .ph{border-bottom-color:#c8d4ea}
 .pn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:11px;font-weight:800;letter-spacing:.08em;padding:4px 11px;border-radius:999px;text-transform:uppercase;white-space:nowrap;box-shadow:0 8px 20px rgba(31,111,235,.14)}
 .pt{font-size:clamp(18px,3vw,24px);font-weight:800;letter-spacing:-.02em;color:#111827}
 html[data-theme="dark"] .pt{color:#f8fafc}
-h3{font-size:17px;font-weight:800;margin:32px 0 14px;color:#1d4ed8}
+h3{font-size:19px;font-weight:800;margin:28px 0 12px;color:#1d4ed8}
 html[data-theme="dark"] h3{color:#93c5fd}
 .sec > h3{color:#0f172a}
 html[data-theme="dark"] .sec > h3{color:#c7d2fe}
-h4{font-size:15px;font-weight:800;margin:22px 0 10px;color:#334155}
+h4{font-size:16px;font-weight:800;margin:20px 0 10px;color:#334155}
 html[data-theme="dark"] h4{color:#d1d5db}
-p{color:#475569;margin-bottom:14px}
+p{color:#475569;margin-bottom:14px;max-width:74ch;line-height:1.9}
 html[data-theme="dark"] p, html[data-theme="dark"] li{color:#cbd5e1}
 strong{color:var(--text);font-weight:600}
 em{color:#64748b}
-ul,ol{padding-left:22px;margin-bottom:14px}
-li{color:#475569;margin-bottom:6px;line-height:1.7}
+ul,ol{padding-left:24px;margin-bottom:14px;max-width:74ch}
+li{color:#475569;margin-bottom:8px;line-height:1.85}
 li strong{color:var(--text)}
 code{font-family:var(--mono);font-size:12.5px;background:#eef2ff;padding:2px 6px;border-radius:5px;color:#155e75}
 html[data-theme="dark"] code{background:#20283a;color:#93c5fd}
@@ -148,7 +148,7 @@ body.menu-collapsed .menu-panel{display:none}
 #scrollBtn{position:fixed;bottom:28px;right:28px;width:48px;height:48px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:50%;cursor:pointer;color:#fff;font-size:20px;display:none;align-items:center;justify-content:center;z-index:99;transition:all .2s;box-shadow:0 12px 30px rgba(31,111,235,.22)}
 #scrollBtn:hover{transform:scale(1.1);background:var(--accent2)}
 @media(min-width:1101px){#menuBackdrop{display:none!important}}
-@media(max-width:1100px){.menu-panel{z-index:120;transform:translateX(-100%);transition:transform .2s ease;box-shadow:0 18px 50px rgba(15,23,42,.18)}.menu-panel.open{transform:translateX(0)}.wrap{margin:0 auto;padding:28px 16px 80px}.hero h1{font-size:22px}}
+@media(max-width:1100px){.menu-panel{z-index:120;transform:translateX(-100%);transition:transform .2s ease;box-shadow:0 18px 50px rgba(15,23,42,.18)}.menu-panel.open{transform:translateX(0)}.wrap{margin:0 auto;padding:28px 16px 80px}.hero h1{font-size:22px}.sec{padding:20px 18px;border-radius:16px}}
 @media(max-width:1100px){body.menu-collapsed .menu-panel{display:block}}
 </style>
 </head>
@@ -542,8 +542,9 @@ function updateNav(){
       const topicSection = Number(topic.dataset.section || '0');
       return topicSection === sectionNumber && (!nextSection || topicSection < Number(nextSection.dataset.section || '9999'));
     });
-    const allDone = topicItems.length > 0 && topicItems.every(topic => topic.classList.contains('completed'));
-    sectionItem.classList.toggle('completed', allDone);
+    const lastTopic = topicItems[topicItems.length - 1];
+    const sectionDone = Boolean(lastTopic) && lastTopic.classList.contains('completed');
+    sectionItem.classList.toggle('completed', sectionDone);
   });
 }
 
