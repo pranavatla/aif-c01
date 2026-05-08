@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>AIF-C01 Resources</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            outline: "#6f7a72",
+            "outline-variant": "#bec9c0",
+            "on-surface": "#181d1a",
+            "on-surface-variant": "#3f4943",
+            "house-green": "#1E3932",
+            "green-accent": "#00754A",
+            "starbucks-green": "#006241",
+            "neutral-warm": "#f2f0eb",
+            "surface-container-lowest": "#ffffff",
+            "surface-container": "#ebefea"
+          },
+          spacing: {
+            "gutter-desktop": "4.0rem",
+            "gutter-mobile": "1.6rem",
+            "space-2": "0.8rem",
+            "space-3": "1.6rem",
+            "space-4": "2.4rem",
+            "space-5": "3.2rem",
+            "space-6": "4rem"
+          },
+          fontFamily: {
+            body: ["Manrope", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-neutral-warm text-on-surface font-body min-h-screen">
+  <nav class="bg-neutral-warm text-starbucks-green shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] sticky top-0 z-50">
+    <div class="flex justify-between items-center h-[64px] lg:h-[99px] px-gutter-mobile lg:px-gutter-desktop max-w-[1440px] mx-auto w-full">
+      <div class="flex items-center gap-space-6">
+        <a class="text-[36px] leading-[1.2] font-semibold text-house-green" href="/index.html">AIF-C01 Guide</a>
+        <div class="hidden md:flex gap-space-5">
+          <a class="text-[16px] uppercase tracking-widest text-on-surface-variant hover:text-green-accent transition-colors" href="/index.html">Home</a>
+          <a class="text-[16px] uppercase tracking-widest text-on-surface-variant hover:text-green-accent transition-colors" href="/day1/index.html">Study Guide</a>
+          <a class="text-[16px] uppercase tracking-widest text-on-surface-variant hover:text-green-accent transition-colors" href="/day2/index.html">Practice Exams</a>
+          <a class="text-[16px] uppercase tracking-widest text-starbucks-green border-b-2 border-starbucks-green pb-1" href="/resources/index.html">Resources</a>
+        </div>
+      </div>
+      <a class="hidden md:block bg-green-accent text-white text-[16px] font-semibold px-space-4 py-space-2 rounded-full hover:scale-[0.95] transition-transform duration-200" href="/day1/index.html">Get Started</a>
+    </div>
+  </nav>
+
+  <main class="max-w-[1200px] mx-auto px-gutter-mobile lg:px-gutter-desktop py-space-6">
+    <section id="resources" class="bg-surface-container-lowest border border-surface-container rounded-xl p-space-5">
+      <h1 class="text-[42px] leading-[1.2] font-semibold text-house-green mb-space-4">Resources Used</h1>
+
+      <h2 class="text-[28px] leading-[1.2] font-semibold text-starbucks-green mt-space-5 mb-space-2">Official AWS Certification</h2>
+      <ul class="list-disc pl-6 space-y-2 text-[17px]">
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/pdfs/aws-certification/latest/ai-practitioner-01/ai-practitioner-01.pdf" target="_blank">AWS Certified AI Practitioner AIF-C01 Exam Guide</a></li>
+      </ul>
+
+      <h2 class="text-[28px] leading-[1.2] font-semibold text-starbucks-green mt-space-5 mb-space-2">Amazon SageMaker / SageMaker AI</h2>
+      <ul class="list-disc pl-6 space-y-2 text-[17px]">
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/sagemaker/latest/dg/whatis-features.html" target="_blank">Amazon SageMaker AI Features</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/sagemaker/latest/dg/studio-jumpstart.html" target="_blank">Amazon SageMaker JumpStart</a></li>
+        <li><a class="text-green-accent underline" href="https://aws.amazon.com/sagemaker/ai/feature-store/" target="_blank">Amazon SageMaker Feature Store</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-cards.html" target="_blank">Amazon SageMaker Model Cards</a></li>
+        <li><a class="text-green-accent underline" href="https://aws.amazon.com/sagemaker/ai/clarify/" target="_blank">Amazon SageMaker Clarify</a></li>
+        <li><a class="text-green-accent underline" href="https://sagemaker-examples.readthedocs.io/en/latest/sagemaker_model_monitor/fairness_and_explainability/SageMaker-Model-Monitor-Fairness-and-Explainability.html" target="_blank">SageMaker Model Monitor Fairness and Explainability Example</a></li>
+      </ul>
+
+      <h2 class="text-[28px] leading-[1.2] font-semibold text-starbucks-green mt-space-5 mb-space-2">Amazon Bedrock</h2>
+      <ul class="list-disc pl-6 space-y-2 text-[17px]">
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html" target="_blank">What is Amazon Bedrock?</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html" target="_blank">Amazon Bedrock Supported Foundation Models</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/foundation-models-reference.html" target="_blank">Amazon Bedrock Foundation Model Reference</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/custom-models.html" target="_blank">Amazon Bedrock Model Customization</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/custom-model-fine-tuning.html" target="_blank">Amazon Bedrock Fine-Tuning</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/prov-throughput.html" target="_blank">Amazon Bedrock Provisioned Throughput</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/prov-thru-purchase.html" target="_blank">Purchase Provisioned Throughput in Amazon Bedrock</a></li>
+        <li><a class="text-green-accent underline" href="https://aws.amazon.com/bedrock/pricing/" target="_blank">Amazon Bedrock Pricing</a></li>
+      </ul>
+
+      <h2 class="text-[28px] leading-[1.2] font-semibold text-starbucks-green mt-space-5 mb-space-2">Bedrock Knowledge Bases / RAG</h2>
+      <ul class="list-disc pl-6 space-y-2 text-[17px]">
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base-setup.html" target="_blank">Set Up a Knowledge Base in Amazon Bedrock</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/s3-data-source-connector.html" target="_blank">Amazon S3 Data Source Connector for Bedrock Knowledge Bases</a></li>
+      </ul>
+
+      <h2 class="text-[28px] leading-[1.2] font-semibold text-starbucks-green mt-space-5 mb-space-2">Bedrock Agents</h2>
+      <ul class="list-disc pl-6 space-y-2 text-[17px]">
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html" target="_blank">Amazon Bedrock Agents</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents-how.html" target="_blank">How Amazon Bedrock Agents Work</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_agent_CreateAgentActionGroup.html" target="_blank">CreateAgentActionGroup API Reference</a></li>
+      </ul>
+
+      <h2 class="text-[28px] leading-[1.2] font-semibold text-starbucks-green mt-space-5 mb-space-2">Bedrock Guardrails / Responsible AI</h2>
+      <ul class="list-disc pl-6 space-y-2 text-[17px]">
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html" target="_blank">Amazon Bedrock Guardrails</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-denied-topics.html" target="_blank">Denied Topics in Amazon Bedrock Guardrails</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html" target="_blank">Amazon Bedrock Model Invocation Logging</a></li>
+      </ul>
+
+      <h2 class="text-[28px] leading-[1.2] font-semibold text-starbucks-green mt-space-5 mb-space-2">Security, IAM, Networking, and Governance</h2>
+      <ul class="list-disc pl-6 space-y-2 text-[17px]">
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/security_iam_id-based-policy-examples.html" target="_blank">Amazon Bedrock IAM Policy Examples</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html" target="_blank">Manage Access to Amazon Bedrock Foundation Models</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/bedrock/latest/userguide/usingVPC.html" target="_blank">Use VPC Endpoints with Amazon Bedrock</a></li>
+        <li><a class="text-green-accent underline" href="https://aws.amazon.com/blogs/security/simplified-amazon-bedrock-model-access/" target="_blank">Simplified Amazon Bedrock Model Access – AWS Security Blog</a></li>
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html" target="_blank">AWS Organizations Service Control Policies</a></li>
+      </ul>
+
+      <h2 class="text-[28px] leading-[1.2] font-semibold text-starbucks-green mt-space-5 mb-space-2">Other AWS AI Service References</h2>
+      <ul class="list-disc pl-6 space-y-2 text-[17px]">
+        <li><a class="text-green-accent underline" href="https://docs.aws.amazon.com/frauddetector/latest/ug/frauddetector-availability-change.html" target="_blank">Amazon Fraud Detector Availability Change</a></li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
