@@ -153,6 +153,21 @@ body.menu-collapsed .menu-panel{display:none}
 @media(min-width:1101px){#menuBackdrop{display:none!important}}
 @media(max-width:1100px){.menu-panel{z-index:120;transform:translateX(-100%);transition:transform .2s ease;box-shadow:0 18px 50px rgba(15,23,42,.18)}.menu-panel.open{transform:translateX(0)}.wrap{margin:0 auto;padding:28px 16px 80px}.hero h1{font-size:22px}.sec{padding:20px 18px;border-radius:16px}}
 @media(max-width:1100px){body.menu-collapsed .menu-panel{display:block}}
+
+/* Swiss Minimalism strict override */
+:root{--bg:#ffffff;--bg2:#ffffff;--bg3:#f5f1e8;--border:#808080;--text:#111111;--muted:#555555;--accent:#111111;--accent2:#111111;--r:0px;--font:Inter,Arial,sans-serif;--shadow:none}
+html[data-theme="dark"]{--bg:#111111;--bg2:#111111;--bg3:#1a1a1a;--border:#808080;--text:#f5f5f5;--muted:#d0d0d0;--accent:#ffffff;--accent2:#ffffff}
+body{background:var(--bg)!important;letter-spacing:0}
+header,.hero,.sec,.call,.card,.quiz-wrap,.mcard,table,.menu-panel{box-shadow:none!important;background:var(--bg2)!important;border-radius:0!important}
+.hero,.sec,.menu-panel,table,.call,.card,.quiz-wrap,.mcard{border:1px solid var(--border)!important}
+.pn,.badge,.np.active,.menu-index,.menu-item.active .menu-check,#scrollBtn{background:var(--accent)!important;color:var(--bg)!important;border-radius:0!important}
+.theme-toggle,.menu-btn,.np,.pill,.tag,.menu-item,.cta{border-radius:0!important}
+h1,h2,h3,h4,.pt,.logo{font-family:Inter,Arial,sans-serif!important;color:var(--text)!important;letter-spacing:0}
+p,li,.hero-sub,.hero-note{max-width:72ch;color:var(--muted)!important}
+.wrap{max-width:1280px;padding:2rem 1.5rem 6rem}
+.grid2,.grid3{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2rem}
+.grid2>*{grid-column:span 6}.grid3>*{grid-column:span 4}
+@media (max-width:768px){.grid2,.grid3{grid-template-columns:1fr}.grid2>*,.grid3>*{grid-column:span 1}}
 </style>
 </head>
 <body>

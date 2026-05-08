@@ -6,24 +6,24 @@
   <title>AWS AIF-C01 4-Day Journey | atla.in</title>
   <style>
     :root{
-      --bg:#f2f0eb;
-      --bg2:#edebe9;
+      --bg:#ffffff;
+      --bg2:#ffffff;
       --surface:#ffffff;
-      --text:rgba(0,0,0,.87);
-      --muted:rgba(0,0,0,.58);
-      --green:#006241;
-      --green-accent:#00754A;
-      --green-house:#1E3932;
-      --gold:#cba258;
-      --radius:12px;
-      --shadow:0 0 .5px rgba(0,0,0,.14),0 1px 1px rgba(0,0,0,.24);
+      --text:#111111;
+      --muted:#555555;
+      --green:#111111;
+      --green-accent:#111111;
+      --green-house:#111111;
+      --gold:#b38b6d;
+      --radius:0px;
+      --shadow:none;
       --font:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family:var(--font);
-      background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+      background:var(--bg);
       color:var(--text);
       letter-spacing:-.01em;
     }
@@ -39,7 +39,7 @@
     .brand{font-weight:700;letter-spacing:.1em;font-size:14px;text-transform:uppercase}
     .badge{
       border:1px solid #fff;
-      border-radius:50px;
+      border-radius:0;
       padding:7px 16px;
       font-size:13px;
       text-decoration:none;
@@ -49,7 +49,7 @@
     .hero{
       background:var(--surface);
       border-radius:var(--radius);
-      box-shadow:var(--shadow);
+      box-shadow:none;
       padding:34px 26px;
       margin-bottom:24px;
     }
@@ -64,7 +64,7 @@
     .pill{
       display:inline-block;
       border:1px solid var(--green-accent);
-      border-radius:50px;
+      border-radius:0;
       color:var(--green-accent);
       padding:7px 14px;
       font-size:13px;
@@ -78,8 +78,8 @@
     }
     .card{
       background:var(--surface);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
+      border-radius:0;
+      box-shadow:none;
       padding:18px;
       border:1px solid rgba(0,0,0,.06);
     }
@@ -94,13 +94,13 @@
       background:var(--green-accent);
       color:#fff;
       border:1px solid var(--green-accent);
-      border-radius:50px;
+      border-radius:0;
       padding:8px 16px;
       font-weight:600;
       font-size:14px;
       transition:all .2s ease;
     }
-    .cta:hover{transform:translateY(-1px)}
+    .cta:hover{filter:brightness(.92)}
     .coming{background:#faf6ee;border-color:rgba(203,162,88,.36)}
     .coming .cta{background:#fff;color:var(--green-accent)}
     footer{
