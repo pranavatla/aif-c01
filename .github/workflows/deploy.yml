@@ -61,6 +61,13 @@ jobs:
               --cache-control "public, max-age=3600"
           fi
 
+          # Deploy practice exams page
+          if [ -d practice-exams ]; then
+            aws s3 sync practice-exams/ s3://${{ secrets.S3_BUCKET }}/practice-exams/ \
+              --delete \
+              --cache-control "public, max-age=3600"
+          fi
+
           # Deploy shared static assets
           if [ -d assets ]; then
             aws s3 sync assets/ s3://${{ secrets.S3_BUCKET }}/assets/ \
