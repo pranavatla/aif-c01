@@ -1,10 +1,192 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>AWS AIF-C01 Study Guide</title>
-    <meta http-equiv="refresh" content="0; url=/day1/index.html" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWS AIF-C01 4-Day Journey | atla.in</title>
+  <style>
+    :root{
+      --bg:#f2f0eb;
+      --bg2:#edebe9;
+      --surface:#ffffff;
+      --text:rgba(0,0,0,.87);
+      --muted:rgba(0,0,0,.58);
+      --green:#006241;
+      --green-accent:#00754A;
+      --green-house:#1E3932;
+      --gold:#cba258;
+      --radius:12px;
+      --shadow:0 0 .5px rgba(0,0,0,.14),0 1px 1px rgba(0,0,0,.24);
+      --font:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--font);
+      background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+      color:var(--text);
+      letter-spacing:-.01em;
+    }
+    .top{
+      background:var(--green-house);
+      color:#fff;
+      padding:18px 22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid rgba(255,255,255,.16);
+    }
+    .brand{font-weight:700;letter-spacing:.1em;font-size:14px;text-transform:uppercase}
+    .badge{
+      border:1px solid #fff;
+      border-radius:50px;
+      padding:7px 16px;
+      font-size:13px;
+      text-decoration:none;
+      color:#fff;
+    }
+    .wrap{max-width:1180px;margin:0 auto;padding:36px 20px 70px}
+    .hero{
+      background:var(--surface);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:34px 26px;
+      margin-bottom:24px;
+    }
+    h1{margin:0 0 10px;font-size:42px;line-height:1.2;color:var(--green)}
+    .sub{margin:0;color:var(--muted);font-size:19px;line-height:1.7;max-width:78ch}
+    .meta{
+      margin-top:16px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .pill{
+      display:inline-block;
+      border:1px solid var(--green-accent);
+      border-radius:50px;
+      color:var(--green-accent);
+      padding:7px 14px;
+      font-size:13px;
+      font-weight:600;
+      background:#fff;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(280px,1fr));
+      gap:18px;
+    }
+    .card{
+      background:var(--surface);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+      border:1px solid rgba(0,0,0,.06);
+    }
+    .card h2{margin:0 0 8px;font-size:24px;color:var(--green-house)}
+    .card p{margin:0 0 10px;color:var(--muted);line-height:1.65}
+    .topics{margin:0;padding-left:20px}
+    .topics li{margin-bottom:6px;line-height:1.6}
+    .cta{
+      margin-top:14px;
+      display:inline-block;
+      text-decoration:none;
+      background:var(--green-accent);
+      color:#fff;
+      border:1px solid var(--green-accent);
+      border-radius:50px;
+      padding:8px 16px;
+      font-weight:600;
+      font-size:14px;
+      transition:all .2s ease;
+    }
+    .cta:hover{transform:translateY(-1px)}
+    .coming{background:#faf6ee;border-color:rgba(203,162,88,.36)}
+    .coming .cta{background:#fff;color:var(--green-accent)}
+    footer{
+      margin-top:26px;
+      background:var(--green-house);
+      color:rgba(255,255,255,.8);
+      border-radius:var(--radius);
+      padding:16px 20px;
+      font-size:14px;
+    }
+    @media (max-width:900px){
+      h1{font-size:34px}
+      .grid{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
-    <p><a href="/day1/index.html">Redirecting to Day 1 Study Guide...</a></p>
+  <header class="top">
+    <div class="brand">AWS AIF-C01 Journey</div>
+    <a class="badge" href="/day1/index.html">Start Learning</a>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Become AWS AI Practitioner in 4 Focused Days</h1>
+      <p class="sub">A complete beginner-friendly path to clear AIF-C01. Study day-by-day, revise using visuals, and map each scenario to the right AWS service and decision pattern.</p>
+      <div class="meta">
+        <span class="pill">Day-wise Study Plan</span>
+        <span class="pill">Exam Pattern Thinking</span>
+        <span class="pill">Service Selection Mastery</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Day 1: ML Foundations + AWS Core Services</h2>
+        <p>Build the fundamentals and mental model for solving scenario questions.</p>
+        <ul class="topics">
+          <li>ML types, problem types, and pipeline stages</li>
+          <li>Training vs inference, evaluation metrics</li>
+          <li>Neural network basics, CNN/RNN/Transformer</li>
+          <li>SageMaker basics and pre-built AI services map</li>
+        </ul>
+        <a class="cta" href="/day1/index.html">Open Day 1</a>
+      </article>
+
+      <article class="card">
+        <h2>Day 2: Deep Understanding + Exam Decision Fluency</h2>
+        <p>Strengthen core understanding with deeper examples and deployment choices.</p>
+        <ul class="topics">
+          <li>Four ML learning styles and five problem types</li>
+          <li>Data concepts, parameters vs hyperparameters</li>
+          <li>Overfitting/underfitting, bias-variance, metrics</li>
+          <li>SageMaker training/deployment and service selection</li>
+        </ul>
+        <a class="cta" href="/day2/index.html">Open Day 2</a>
+      </article>
+
+      <article class="card">
+        <h2>Day 3: Responsible AI, Security, Governance, Cost</h2>
+        <p>Master Domain 4 and 5 topics that often decide pass vs fail.</p>
+        <ul class="topics">
+          <li>Responsible AI principles and bias mitigation</li>
+          <li>Clarify, Model Monitor, Guardrails, Model Cards</li>
+          <li>Prompt injection, IAM, PrivateLink, CloudTrail</li>
+          <li>SCP, Config, Audit Manager, Bedrock/SageMaker cost control</li>
+        </ul>
+        <a class="cta" href="/day3/index.html">Open Day 3</a>
+      </article>
+
+      <article class="card coming">
+        <h2>Day 4: Final Revision + Exam Readiness</h2>
+        <p>Launches tomorrow. This day will be your final confidence and scoring booster.</p>
+        <ul class="topics">
+          <li>High-yield rapid revision sheets</li>
+          <li>Most confused scenarios and trap eliminators</li>
+          <li>Mock-style decision drills with explanations</li>
+          <li>Last-mile exam day strategy and checklist</li>
+        </ul>
+        <a class="cta" href="/day4/">Day 4 (Coming Tomorrow)</a>
+      </article>
+    </section>
+
+    <footer>
+      Built for aif.atla.in • Structured as one journey, four outcomes: clarity, confidence, recall, and exam execution.
+    </footer>
+  </main>
 </body>
 </html>
