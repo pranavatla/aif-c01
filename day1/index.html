@@ -139,7 +139,9 @@ body.menu-collapsed .menu-panel{display:none}
 .menu-check{width:18px;height:18px;border-radius:50%;border:1px solid var(--border);display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:transparent;flex-shrink:0}
 .menu-item.completed .menu-index{background:rgba(21,128,61,.14);color:#166534}
 .menu-item.completed .menu-check{background:rgba(21,128,61,.12);border-color:rgba(21,128,61,.3);color:#166534}
-.menu-item.active .menu-check{background:var(--accent);border-color:var(--accent);color:#fff}
+.menu-item.completed .menu-check::before{content:"✓"}
+.menu-item.active .menu-check{background:transparent;border-color:var(--border);color:transparent}
+.menu-item.active .menu-check::before{content:""}
 .viz{margin:16px 0 20px;padding:14px;border:1px solid var(--border);border-radius:14px;background:var(--bg2)}
 .viz svg{width:100%;height:auto;display:block}
 .viz-title{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
@@ -167,6 +169,8 @@ p,li,.hero-sub,.hero-note{max-width:66ch;color:var(--muted)!important}
 .topic-content p + p{margin-top:.35rem}
 .topic-content ul,.topic-content ol{margin:.55rem 0 1rem;max-width:66ch}
 .topic-content li{margin-bottom:.45rem}
+.sec > p,.sec > ul,.sec > ol,.sec > h3,.sec > h4,.sec > .call,.sec > .tw,.sec > .viz,.sec > .grid2,.sec > .grid3,.sec > .quiz-wrap,.sec > .code{margin-left:auto;margin-right:auto}
+.sec > .tw,.sec > .viz,.sec > .grid2,.sec > .grid3,.sec > .quiz-wrap,.sec > .code{max-width:76ch;width:100%}
 .grid2,.grid3{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2rem}
 .grid2>*{grid-column:span 6}.grid3>*{grid-column:span 4}
 @media (max-width:768px){.grid2,.grid3{grid-template-columns:1fr}.grid2>*,.grid3>*{grid-column:span 1}}
@@ -1127,7 +1131,7 @@ sections.forEach(sec => {
   menuLink.className = 'menu-item';
   menuLink.dataset.target = id;
   menuLink.dataset.index = id.replace('t', '');
-  menuLink.innerHTML = `<span class="menu-index">Topic ${id.replace('t', '')}</span><span class="menu-title">${h}</span><span class="menu-check">✓</span>`;
+  menuLink.innerHTML = `<span class="menu-index">Topic ${id.replace('t', '')}</span><span class="menu-title">${h}</span><span class="menu-check"></span>`;
   menuLink.addEventListener('click', e => {
     e.preventDefault();
     document.getElementById(id).scrollIntoView({behavior:'smooth'});
@@ -1156,9 +1160,10 @@ function updateNav(){
     const target = item.dataset.target;
     const sec = document.getElementById(target);
     const rect = sec.getBoundingClientRect();
-    const completed = rect.top < 0;
+    const isActive = target === active;
+    const completed = rect.bottom < 110 && !isActive;
     item.classList.toggle('completed', completed);
-    item.classList.toggle('active', target === active);
+    item.classList.toggle('active', isActive);
   });
 }
 
