@@ -38,6 +38,16 @@
       }
     }
   </script>
+  <!-- CloudWatch RUM: page-load timing, web vitals and browser errors from real visitors, shown on
+       obs.atla.in. The app monitor ID is public by design: the monitor accepts events only from aif.atla.in. -->
+  <script>
+    (function () {
+      if (location.hostname !== "aif.atla.in") return;
+      (function (n, i, v, r, s, c, x, z) { x = window.AwsRumClient = { q: [], n: n, i: i, v: v, r: r, c: c }; window[n] = function (c, p) { x.q.push({ c: c, p: p }); }; z = document.createElement("script"); z.async = true; z.src = s; document.head.insertBefore(z, document.head.getElementsByTagName("script")[0]); })(
+        "cwr", "2ebe3cb7-105a-4192-995e-17af0032bead", "1.0.0", "us-east-1", "https://client.rum.us-east-1.amazonaws.com/1.x/cwr.js",
+        { sessionSampleRate: 1, endpoint: "https://dataplane.rum.us-east-1.amazonaws.com", telemetries: ["performance", "errors", "http"], allowCookies: false, enableXRay: false, signing: false });
+    })();
+  </script>
 </head>
 <body class="bg-neutral-warm text-on-surface font-body min-h-screen">
   <nav class="bg-neutral-warm text-starbucks-green shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] sticky top-0 z-50">
